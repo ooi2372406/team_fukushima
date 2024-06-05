@@ -1,26 +1,19 @@
-<!doctype html>
-<html lang="ja">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../css/stylesheet.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<html>
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
+	<%@ include file="../head.html" %>
 
-  <header>
-  	<div class="container w-75 headerstyle" style="background-color:lightskyblue">
-  		<h2>得点管理システム</h2>
-  	</div>
-  </header>
-
-  <main class="mt-xl-5">
+<body>
+	<% String errorMessage =(String)request.getAttribute("errorMessage"); %>
+	<%@ include file="../header.html" %>
+	 <main class="mt-xl-5">
   	<div class="container original-border loginstyle" style="width:40%;padding:0; margin-bottom:30px;">
+  	<% if (errorMessage != null){%>
+  		<div style="color:red"> ${ errorMessage } </div>
+  	<% } %>
   		<div class="mx-auto my-auto" >
     		<h3 class="mb-auto text-center" style="background-color:whitesmoke;">ログイン</h3>
     		<form action="LoginExecute.action" class="login-form">
@@ -46,17 +39,13 @@
 	</div>
 	</main>
 
-	<footer>
-		<div class="container w-75" style="background-color:lightgray; padding:5px 0;">
-			<div class="footerstyle"><small>© 2024 ???</small></div>
-			<div class="footerstyle"><small>大原学園</small></div>
-		</div>
-	</footer>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../javascript/login.js"></script>
+	<%@ include file="../footer.html" %>
+
+ 	<script src="../javascript/login.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-  </body>
+
+
+</body>
 </html>
