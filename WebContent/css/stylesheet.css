@@ -31,7 +31,39 @@ h2 {
 .login-form{
 	padding: 0 10%;
 }
+
+.form-group{
+	border:3px solid whitesmoke;
+	border-radius:10px;
+	margin:10px 0;
+}
+
 .footerstyle{
 	text-align:center;
+}
 
+.highlight {
+    background-color: lightskyblue;
+}
+.exampleInputEmail1 {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+}
+
+.exampleInputEmail1:focus {
+	border:none;
+	outline: none;
+	background-color:lightskyblue;
 }
