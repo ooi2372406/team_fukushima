@@ -20,12 +20,12 @@
 
   				<div class="form-group formGroup1">
     				<label for="exampleInputEmail1" style="margin-bottom:0;">　ID</label>
-    				<input type="text" class="exampleInputEmail1" name="id" aria-describedby="emailHelp" placeholder="admin" style="border:none;">
+    				<input type="text" class="exampleInputEmail1" name="id" aria-describedby="emailHelp" placeholder="admin" style="border:none;" required>
   				</div>
 
   				<div class="form-group formGroup1">
     				<label for="exampleInputEmail1" style="margin-bottom:0;">　パスワード</label>
-    				<input type="password" class="exampleInputEmail1" name="password" id="password" placeholder="	password" style="border:none">
+    				<input type="password" class="exampleInputEmail1" name="password" id="password" placeholder="	password" style="border:none"required>
   				</div>
   				<div class="form-check text-center" style="margin:10px 0;">
     				<input type="checkbox" class="form-check-input" id="show-password">
