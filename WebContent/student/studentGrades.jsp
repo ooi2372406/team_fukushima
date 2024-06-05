@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="ToSubjectGrades.action">科目別成績一覧へ</a>
-<a href="ToStudentGrades.action">学生別成績一覧へ</a>
+
 </body>
 </html>
