@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import tool.Action;
 
-public class ToSubjectGradesAction extends Action {
+public class TestListStudentExecuteAction extends Action {
 	public String execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 
-		return "subjectGrades.jsp";
+		return "test_list_student.jsp";
 	}
 }
