@@ -14,8 +14,15 @@
     	<title>学生管理システム</title>
     </head>
     <body>
-  		<header>
-  			<div class="container w-75 headerstyle" style="background-color:lightskyblue">
-  				<h2>得点管理システム</h2>
-  			</div>
-  		</header>
+    <header>
+
+  		<div class="container w-75 headerstyle" style="background-color:lightskyblue">
+  			<ul class="logout-ul">
+  				<li class="logout-li"><h2>得点管理システム</h2></li>
+       			<% if (session.getAttribute("user") != null){%>
+       			<li class="logout-li"><span>${user.name } 様</span></li>
+       			<li class="logout-li"><a href="Logout.action">ログアウト</a></li>
+       			<% } %>
+			</ul>
+  		</div>
+  	</header>

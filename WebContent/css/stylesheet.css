@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+.logout-ul{
+	list-style:none;
+	}
+
 .headerstyle {
     display: flex;
     align-items: center; /* 垂直方向の中央揃え */

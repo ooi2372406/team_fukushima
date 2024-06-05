@@ -24,7 +24,8 @@ public class LoginExecuteAction extends Action {
         List<Loginbean> customer = dao.search(id, password); // ログインIDとパスワードを使って検証する
 
         if (customer != null && customer.size() > 0) {
-            session.setAttribute("customer", customer);
+        	Loginbean user = customer.get(0);
+            session.setAttribute("user", user);
             return "menu.jsp"; // ログイン成功時のリダイレクト先
         }
 
