@@ -5,11 +5,11 @@
 <Context reloadable="true">
 <!-- bookデータベースへの接続情報を記述する -->
 	<Resource
-		name="jdbc/book"  
+		name="jdbc/TEAM_FUKUSHIMA"  
 		auth="Container"
 		type="javax.sql.DataSource"
 		driverClassName="org.h2.Driver"
-		url="jdbc:h2:tcp://localhost/~/book"
+		url="jdbc:h2:tcp://localhost/~/TEAM_FUKUSHIMA"
 		username="sa"
 		password=""
 	/>
