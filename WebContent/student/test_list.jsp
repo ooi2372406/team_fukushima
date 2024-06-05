@@ -7,6 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<h2>成績参照</h2>
+<div>科目情報</div>
+
+<table border="1">
+<tr>
+<th>入学年度</th>
+<th>クラス</th>
+<th>科目</th>
+</tr>
+</table>
 <a href="TestListSubjectExcute.action">学生別成績一覧へ</a>
 <a href="TestListStudentExcute.action">科目別成績一覧へ</a>
 </body>
