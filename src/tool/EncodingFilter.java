@@ -17,8 +17,8 @@ public class EncodingFilter implements Filter {  //インターフェースの�
 		ServletRequest request, ServletResponse response,
 		FilterChain chain
 	) throws IOException, ServletException {
-		//request.setCharacterEncoding("UTF-8");
-		//response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 
 	}
