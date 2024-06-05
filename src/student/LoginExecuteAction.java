@@ -30,7 +30,7 @@ public class LoginExecuteAction extends Action {
 
         // ログイン失敗時の処理
         // 例: エラーメッセージをセットしてログインページにリダイレクト
-        request.setAttribute("errorMessage", "ログインに失敗しました。IDとパスワードを確認してください。");
+        request.setAttribute("errorMessage", "IDまたは、パスワードが確認できませんでした。");
         return "login.jsp";
     }
 }

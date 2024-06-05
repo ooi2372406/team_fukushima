@@ -1,14 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<html>
+<%@ include file="../header.jsp" %>
 
-	<%@ include file="../head.html" %>
-
-<body>
 	<% String errorMessage =(String)request.getAttribute("errorMessage"); %>
-	<%@ include file="../header.html" %>
 	 <main class="mt-xl-5">
   	<div class="container original-border loginstyle" style="width:40%;padding:0; margin-bottom:30px;">
   	<% if (errorMessage != null){%>
@@ -39,7 +34,7 @@
 	</div>
 	</main>
 
-	<%@ include file="../footer.html" %>
+	<%@ include file="../footer.jsp" %>
 
  	<script src="../javascript/login.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
