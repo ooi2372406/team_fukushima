@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.Loginbean;
+import bean.Login;
 import dao.LoginDAO;
 import tool.Action;
 
@@ -21,10 +21,10 @@ public class LoginExecuteAction extends Action {
         String password = request.getParameter("password");
 
         LoginDAO dao = new LoginDAO();
-        List<Loginbean> customer = dao.search(id, password); // ログインIDとパスワードを使って検証する
+        List<Login> customer = dao.search(id, password); // ログインIDとパスワードを使って検証する
 
         if (customer != null && customer.size() > 0) {
-        	Loginbean user = customer.get(0);
+        	Login user = customer.get(0);
             session.setAttribute("user", user);
             return "menu.jsp"; // ログイン成功時のリダイレクト先
         }

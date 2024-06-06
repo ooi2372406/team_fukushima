@@ -17,11 +17,11 @@
     <header>
 
   		<div class="container w-75 headerstyle" style="background-color:lightskyblue">
-  			<ul class="logout-ul">
-  				<li class="logout-li"><h2>得点管理システム</h2></li>
+  			<ul style="display:flex">
+  				<li style="list-style:none; flex-grow:2"><h2>得点管理システム</h2></li>
        			<% if (session.getAttribute("user") != null){%>
-       			<li class="logout-li"><span>${user.name } 様</span></li>
-       			<li class="logout-li"><a href="Logout.action">ログアウト</a></li>
+       			<li style="list-style:none"><span>${user.name } 様</span></li>
+       			<li style="list-style:none"><a href="Logout.action">ログアウト</a></li>
        			<% } %>
 			</ul>
   		</div>

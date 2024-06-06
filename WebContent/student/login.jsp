@@ -16,7 +16,7 @@
   				<div class="form-group formGroup1">
     				<label for="exampleInputEmail1" style="margin-bottom:0;">　ID</label>
     				<input type="text" class="exampleInputEmail1" name="id"  placeholder="admin" style="border:none;"required/>
-    				
+
   				</div>
 
   				<div class="form-group formGroup1">
