@@ -4,9 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <title>成績管理一覧</title>
-</head>
+<!-- Required meta tags -->
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    	<!-- Bootstrap CSS -->
+    	<link rel="stylesheet" href="../css/stylesheet.css">
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    	<title>学生管理システム</title>
+    </head>
+    <body>
+
 <body>
-    <h2>成績管理一覧</h2>
+<!--見出し(h2)  -->
+    <h2>成績管理</h2>
     <div id="subjectInfo">
         <table>
             <thead>
@@ -14,6 +27,7 @@
                     <th>入学年度</th>
                     <th>クラス</th>
                     <th>科目</th>
+                    <th>回数</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +48,11 @@
                         </select>
                     </td>
                     <td>
+                     <select name="f3">
+                            <!-- Options for 回数 -->
+                        </select>
+                          </td>
+                    		<td>
                         <button type="button" onclick="searchSubject()">検索</button>
                     </td>
                 </tr>
@@ -41,25 +60,7 @@
         </table>
     </div>
 
-    <div id="studentInfo">
-        <table>
-            <thead>
-                <tr>
-                    <th>学生番号</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="text" name="f4" value="${f4}" placeholder="学生番号を入力してください" maxlength="10" required>
-                    </td>
-                    <td>
-                        <button type="button" onclick="searchStudent()">検索</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+
 
     <p id="usageInfo">
         <!-- 科目情報の科目名と科目番号が表示される -->
@@ -79,3 +80,10 @@
     </script>
 </body>
 </html>
+
+<footer>
+		<div class="container w-75" style="background-color:lightgray; padding:5px 0;">
+			<div class="footerstyle"><p>© 2023 TIC</p></div>
+			<div class="footerstyle"><p>大原学園</p></div>
+		</div>
+</footer>
