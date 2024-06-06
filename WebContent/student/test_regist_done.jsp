@@ -9,5 +9,6 @@
     <h2>成績登録完了</h2>
     <p>成績の登録が完了しました。</p>
     <a href="test_regist.jsp">戻る</a>
+    <a href="test_regist_search.jsp">成績参照一覧へ</a>
 </body>
 </html>
