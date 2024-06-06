@@ -1,5 +1,5 @@
 document.getElementById('show-password').addEventListener('change', function() {
-    var passwordInput = document.getElementById('password');
+    let passwordInput = document.getElementById('password');
     if (this.checked) {
         passwordInput.type = 'text';
     } else {
@@ -8,8 +8,8 @@ document.getElementById('show-password').addEventListener('change', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-	var input = document.querySelector('.exampleInputEmail1');
-    var formGroup = document.querySelector('.form-group');
+	let input = document.querySelector('.exampleInputEmail1');
+    let formGroup = document.querySelector('.form-group');
 
     input.addEventListener('focus', function() {
         formGroup.classList.add('highlight');
@@ -19,3 +19,5 @@ document.addEventListener('DOMContentLoaded', function() {
         formGroup.classList.remove('highlight');
     });
 });
+
+

@@ -25,8 +25,8 @@
 	                         <!--<td>${student.getCourse().getCourse_name()}</td>-->
 	                     <!--</tr>-->
 	                 <!--</c:forEach>-->
-	                <!-- <a href="SubjectUpdate.action">変更</a>-->
-	                 <!--<a href="SubjectDelete.action">削除</a> -->
+	                <!--<a href="SubjectUpdate.action">変更</a>-->
+	                <!--<a href="SubjectDelete.action">削除</a>-->
 
 	            </tbody>
 </table>
