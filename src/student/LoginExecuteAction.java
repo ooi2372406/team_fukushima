@@ -24,13 +24,14 @@ public class LoginExecuteAction extends Action {
         List<Loginbean> customer = dao.search(id, password); // ログインIDとパスワードを使って検証する
 
         if (customer != null && customer.size() > 0) {
-            session.setAttribute("customer", customer);
+        	Loginbean user = customer.get(0);
+            session.setAttribute("user", user);
             return "menu.jsp"; // ログイン成功時のリダイレクト先
         }
 
         // ログイン失敗時の処理
         // 例: エラーメッセージをセットしてログインページにリダイレクト
-        request.setAttribute("errorMessage", "ログインに失敗しました。IDとパスワードを確認してください。");
+        request.setAttribute("errorMessage", "IDまたは、パスワードが確認できませんでした。");
         return "login.jsp";
     }
 }

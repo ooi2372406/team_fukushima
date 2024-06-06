@@ -17,7 +17,7 @@ public class LoginAction extends HttpServlet {
 	) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
 		try {
-			// login.htmlへフォワードするだけ
+			// login.jspへフォワードするだけ
 			request.getRequestDispatcher("/student/login.jsp")
 				.forward(request, response);
 		} catch (Exception e) {
