@@ -1,17 +1,18 @@
 package dao;
 
 import java.sql.Connection;
-//import なにかくる１
-//import なにかくる２
-//import なにかくる３
 
+import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class DAO {
 	static DataSource ds;
 
 	public Connection getConnection() throws Exception {
-		// データベースへのコネクションを返却
+		if (ds==null) {
+			InitialContext ic=new InitialContext();
+			ds=(DataSource)ic.lookup("java:/comp/env/jdbc/TEAM_FUKUSHIMA");
+		}
 		return ds.getConnection();
 	}
 }

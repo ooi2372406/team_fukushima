@@ -7,6 +7,10 @@
     justify-content: left; /* 水平方向の中央揃え */
     height: 75px;
     background-color: lightskyblue;
+    padding:20px;
+}
+.headerstyle > :first-child {
+	flex-grow:2;}
 
 }
 
@@ -68,3 +72,6 @@ h2 {
 	outline: none;
 	background-color:lightskyblue;
 }
+
+
+
