@@ -1,6 +1,6 @@
 package bean;
 
-public class Loginbean implements java.io.Serializable{
+public class Login implements java.io.Serializable{
 
 	private String id;
 	private String password;
