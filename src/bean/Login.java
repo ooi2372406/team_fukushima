@@ -5,6 +5,7 @@ public class Login implements java.io.Serializable{
 	private String id;
 	private String password;
 	private String name;
+	private String schoolcd;
 
 	public String getId(){
 		return id;
@@ -18,6 +19,10 @@ public class Login implements java.io.Serializable{
 		return name;
 	}
 
+	public String getSchoolCd(){
+		return schoolcd;
+	}
+
 	public void setId(String id){
 		this.id = id;
 	}
@@ -28,6 +33,10 @@ public class Login implements java.io.Serializable{
 
 	public void setName(String name){
 		this.name = name;
+	}
+
+	public void setSchoolCd(String schoolcd){
+		this.schoolcd = schoolcd;
 	}
 
 }

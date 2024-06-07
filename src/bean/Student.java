@@ -10,9 +10,9 @@ public class Student implements Serializable {
 	private String classNum;
 	private boolean isAttend;
 	private School school;
-	public String getNo() {
-		return no;
-	}
+
+
+
 	public String getName() {
 		return name;
 	}
@@ -25,18 +25,31 @@ public class Student implements Serializable {
 	public void setEntYear(int entYear) {
 		this.entYear = entYear;
 	}
+
 	public String getClassNum() {
 		return classNum;
 	}
-	public void setClassNum(String classNum) {
+	public void setClassNum(String classNum){
 		this.classNum = classNum;
 	}
-	public boolean isAttend() {
+
+	public String getNo(){
+		return no;
+	}
+
+	public void setNo(String no){
+		this.no = no;
+	}
+
+
+	public boolean getIsAttend() {
 		return isAttend;
 	}
-	public void setAttend(boolean isAttend) {
+	public void setIsAttend(boolean isAttend) {
 		this.isAttend = isAttend;
 	}
+
+
 	public School getSchool() {
 		return school;
 	}

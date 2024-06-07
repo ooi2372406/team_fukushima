@@ -6,41 +6,54 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.Student;
+import bean.School;
 import bean.Subject;
 
 
 public class SubjectDAO extends DAO {
 
 	// 学生を全件取得するstudentAllメソッド
-	public List<Subject> studentAll() throws Exception {
-		List<Subject> studentList=new ArrayList<>();
+	public List<Subject> get(School school , String cd) throws Exception {
+		List<Subject> subject=new ArrayList<>();
 
 		Connection con=getConnection();
 
 		// コース情報も必要なのでcourseテーブルからも取得する
 		PreparedStatement st=con.prepareStatement(
-			"SELECT * FROM subject WHERE ");
+			"SELECT CD , NAME FROM SUBJECT");
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
 			//学生ビーンをインスタンス化して情報をセット
-			Student student=new Student();
-			student.setStudent_id(rs.getInt("student_id"));
-			student.setStudent_name(rs.getString("student_name"));
-			student.setCourse_id(rs.getInt("course_id"));
-			// コースビーンをインスタンス化して情報をセット
-			Course course=new Course();
-			course.setCourse_id(rs.getInt("course_id"));
-			course.setCourse_name(rs.getString("course_name"));
-			// コースビーンを学生ビーンにセット
-			student.setCourse(course);
-			studentList.add(student);
+			Subject subjectList=new Subject();
+			subjectList.setCd(rs.getString("CD"));
+			subjectList.setName(rs.getString("NAME"));
+
+
+			subject.add(subjectList);
 		}
 
 		st.close();
 		con.close();
 
-		return studentList;
+		return subject;
 	}
+
+	public boolean save(Subject subject) throws Exception {
+		Connection con=getConnection();
+
+		PreparedStatement st=con.prepareStatement(
+			"INSERT INTO SUBJECT VALUES(?,?,?)");
+		st.setString(1, subject.getSchoolCd());
+		st.setString(2, subject.getCd());
+		st.setString(3, subject.getName());
+		// insertしたレコード件数が返ってくる
+		int line = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return line > 0;
+	}
+
 }

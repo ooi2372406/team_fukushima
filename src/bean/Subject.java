@@ -5,6 +5,7 @@ public class Subject implements java.io.Serializable{
 	private School school;
 	private String cd;
 	private String name;
+	private String schoolcd;
 
 
 	//Subjectbean
@@ -21,6 +22,10 @@ public class Subject implements java.io.Serializable{
 		return name;
 	}
 
+	public String getSchoolCd(){
+		return schoolcd;
+	}
+
 
 	 //セッター
 	public void setId(School school){
@@ -33,6 +38,10 @@ public class Subject implements java.io.Serializable{
 
 	public void setName(String name){
 		this.name = name;
+	}
+
+	public void setSchoolCd(String schoolcd){
+		this.schoolcd = schoolcd;
 	}
 
 }

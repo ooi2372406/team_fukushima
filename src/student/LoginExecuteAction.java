@@ -26,6 +26,7 @@ public class LoginExecuteAction extends Action {
         if (customer != null && customer.size() > 0) {
         	Login user = customer.get(0);
             session.setAttribute("user", user);
+            System.out.println(user);
             return "menu.jsp"; // ログイン成功時のリダイレクト先
         }
 

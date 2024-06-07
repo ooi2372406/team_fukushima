@@ -40,6 +40,11 @@ h2 {
 .form-group{
 	border:3px solid whitesmoke;
 	border-radius:10px;
+	margin:20px 0;
+}
+
+.form-group-create{
+	border-radius:10px;
 	margin:10px 0;
 }
 
@@ -73,49 +78,32 @@ h2 {
 	background-color:lightskyblue;
 }
 
-<<<<<<< HEAD
-.container {
-    display: flex;
-    justify-content: space-between; /* ボックス間に均等なスペースを挿入 */
-    margin: 0 auto;
-    max-width: 1200px; /* コンテナの最大幅を設定 */
-}
 
-.cl {
-    flex: 1; /* 各ボックスが同じ幅になるように設定 */
-    margin: 0 10px; /* ボックス間に適度なスペースを設定 */
-    text-align: center;
-}
 
-a {
-    display: block;
-    width: 100%;
+.kamokucontainer{
+	display:flex;
+	width:70%;
+	height:100vh;
+	margin-left:20px;
+	margin-top:30px;
+}
+.kamokucontainer  > :first-child { flex-grow: 2 }
+tr{height:50px;}
+td{height:50px;}
+
+html, body {
     height: 100%;
-    line-height: 10rem; /* ボックスの高さに合わせてリンクの位置を中央に */
-    text-decoration: none;
-    color: black; /* リンクの色を設定 */
-}
-
-.d-flex {
+    margin: 0;
     display: flex;
+    flex-direction: column;
 }
 
-.align-items-center {
-    align-items: center;
+.kamokucontainer-create{
+	display:flex;
+	width:90%;
+	height:100vh;
+	margin-left:20px;
+	margin-top:30px;
 }
 
-.justify-content-center {
-    justify-content: center;
-}
 
-.rounded {
-    border-radius: 0.25rem;
-}
-
-.shadow {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-=======
-
-
->>>>>>> 8124210433ca626e045f682106d13662117130b7
