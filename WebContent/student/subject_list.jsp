@@ -2,18 +2,39 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="../header.jsp" %>
-
+<%  %>
 <main>
-	<div class="container" style="display:flex;">
+	<div class="kamokucontainer" >
 
 	<%@ include file="sidebar.jsp" %>
 
-<nav class="navbar navbar-light bg-light" style="width:100%">
-  <h2 class="navbar-brand mb-0 h1" style="padding: 40px;width: 100%;text-align: left;">成績管理</h2>
-  <h2 style="padding: 40px;width: 75%;text-align: center;">test</h2>
 
-</nav>
-	</div>
+
+ <table style="flex:0 0 85%; padding-left:20px; margin-left:20px; height:150px;" >
+<tr>
+<td colspan="4"><h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目管理</h2></td>
+</tr>
+<tr>
+<td colspan="4"  style="text-align:right; padding-right:20px;"><a href="SubjectCreate.action">新規登録</a></td>
+</tr>
+<tr style="border-bottom: solid 1px gainsboro;">
+<td style="width:20%;">科目コード</td>
+<td style="width:60%;">科目名</td>
+<td></td>
+<td></td>
+</tr>
+<c:forEach var="subject" items="${subject}">
+<tr style="border-bottom: solid 1px gainsboro;">
+<td>${subject.cd}</td>
+<td>${subject.name}</td>
+<td><a href="#">変更</a></td>
+<td><a href="#">削除</a></td>
+</tr>
+</c:forEach>
+</table>
+
+
+</div>
 </main>
 
 
