@@ -112,9 +112,9 @@
                     <td>
                         <select size="1" name="f3">
                             <option value="----">--------</option>
-                            <option value="Math">国語</option>
-                            <option value="Science">数学</option>
-                            <option value="History">英語</option>
+                            <option value="国語">国語</option>
+                            <option value="数学">数学</option>
+                            <option value="英語">英語</option>
                         </select>
                     </td>
                 </tr>
