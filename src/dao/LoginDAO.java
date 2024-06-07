@@ -10,30 +10,32 @@ import bean.Login;
 
 public class LoginDAO extends DAO{
 		public List<Login> search(String id , String password) throws Exception {
-			List<Login> list=new ArrayList<>();
+			List<Login> teacher=new ArrayList<>();
 
 			Connection con=getConnection();
 
 			PreparedStatement st=con.prepareStatement(
-			"SELECT id , password , name FROM TEACHER WHERE id = ? AND password = ?");
+			"SELECT *  FROM TEACHER WHERE id = ? AND password = ?");
 			st.setString(1, id);
 			st.setString(2, password);
 			ResultSet rs=st.executeQuery();
 
 			while (rs.next()) {
 				Login p=new Login();
-				p.setId(rs.getString("id"));
-				p.setPassword(rs.getString("password"));
-				p.setName(rs.getString("name"));
+				// getのなかの引数はｓｑｌのカラム名をとってきている
+				p.setId(rs.getString("ID"));
+				p.setPassword(rs.getString("PASSWORD"));
+				p.setName(rs.getString("NAME"));
+				p.setSchoolCd(rs.getString("SCHOOL_CD"));
 				if (password.equals(p.getPassword())) {
-				list.add(p);
+				teacher.add(p);
 				}
 			}
 
 			st.close();
 			con.close();
 
-		return list;
+		return teacher;
 	}
 
 }

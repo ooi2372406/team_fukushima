@@ -4,34 +4,25 @@
 <%@ include file="../header.jsp" %>
 <%  %>
 <main>
-	<div class="kamokucontainer" >
+	<div class="kamokucontainer-create" >
 
 	<%@ include file="base.jsp" %>
 
 
 
- <table style="flex:0 0 85%; padding-left:20px; margin-left:20px; height:150px;" >
-<tr>
-<td colspan="4"><h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目管理</h2></td>
-</tr>
-<tr>
-<td colspan="4"  style="text-align:right; padding-right:20px;"><a href="SubjectCreate.action">新規登録</a></td>
-</tr>
-<tr style="border-bottom: solid 1px gainsboro;">
-<td style="width:20%;">科目コード</td>
-<td style="width:60%;">科目名</td>
-<td></td>
-<td></td>
-</tr>
-<c:forEach var="subject" items="${subject}">
-<tr style="border-bottom: solid 1px gainsboro;">
-<td>${subject.cd}</td>
-<td>${subject.name}</td>
-<td><a href="#">変更</a></td>
-<td><a href="#">削除</a></td>
-</tr>
-</c:forEach>
-</table>
+
+
+
+
+  <div class="form-group-create" style="width:100%; margin-left:20px;">
+  <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報登録</h2>
+  <div style="width: 100%;text-align: center; background-color:seagreen; padding:10px 20px 10px 20px; margin-bottom:100px;">登録が完了しました</div>
+
+	<div class="flex">
+  		<div><a href="SubjectCreate.action" >戻る</a></div>
+  		<div><a href="SubjectList.action">科目一覧</a></div>
+  	</div>
+  </div>
 
 
 </div>

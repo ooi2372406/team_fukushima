@@ -6,13 +6,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.School;
 import bean.Subject;
 
 
 public class SubjectDAO extends DAO {
 
 	// 学生を全件取得するstudentAllメソッド
-	public List<Subject> get(/*School school , String cd*/) throws Exception {
+	public List<Subject> get(School school , String cd) throws Exception {
 		List<Subject> subject=new ArrayList<>();
 
 		Connection con=getConnection();
@@ -36,6 +37,23 @@ public class SubjectDAO extends DAO {
 		con.close();
 
 		return subject;
+	}
+
+	public boolean save(Subject subject) throws Exception {
+		Connection con=getConnection();
+
+		PreparedStatement st=con.prepareStatement(
+			"INSERT INTO SUBJECT VALUES(?,?,?)");
+		st.setString(1, subject.getSchoolCd());
+		st.setString(2, subject.getCd());
+		st.setString(3, subject.getName());
+		// insertしたレコード件数が返ってくる
+		int line = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return line > 0;
 	}
 
 }
