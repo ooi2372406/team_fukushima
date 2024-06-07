@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.Loginbean;
+import bean.Login;
 
 public class LoginDAO extends DAO{
-		public List<Loginbean> search(String id , String password) throws Exception {
-			List<Loginbean> list=new ArrayList<>();
+		public List<Login> search(String id , String password) throws Exception {
+			List<Login> list=new ArrayList<>();
 
 			Connection con=getConnection();
 
@@ -21,7 +21,7 @@ public class LoginDAO extends DAO{
 			ResultSet rs=st.executeQuery();
 
 			while (rs.next()) {
-				Loginbean p=new Loginbean();
+				Login p=new Login();
 				p.setId(rs.getString("id"));
 				p.setPassword(rs.getString("password"));
 				p.setName(rs.getString("name"));

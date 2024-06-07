@@ -1,5 +1,8 @@
 @CHARSET "UTF-8";
 
+.logout-ul{
+	list-style:none;
+	}
 
 .headerstyle {
     display: flex;
@@ -7,10 +10,6 @@
     justify-content: left; /* 水平方向の中央揃え */
     height: 75px;
     background-color: lightskyblue;
-    padding:20px;
-}
-.headerstyle > :first-child {
-	flex-grow:2;}
 
 }
 
@@ -73,7 +72,6 @@ h2 {
 	background-color:lightskyblue;
 }
 
-<<<<<<< HEAD
 .container {
     display: flex;
     justify-content: space-between; /* ボックス間に均等なスペースを挿入 */
@@ -83,18 +81,18 @@ h2 {
 
 .cl {
     flex: 1; /* 各ボックスが同じ幅になるように設定 */
-    margin: 0 10px; /* ボックス間に適度なスペースを設定 */
+    margin: 0 20px; /* ボックス間に適度なスペースを設定 */
     text-align: center;
 }
 
-a {
+/*a {
     display: block;
     width: 100%;
     height: 100%;
-    line-height: 10rem; /* ボックスの高さに合わせてリンクの位置を中央に */
+    line-height: 10rem;
     text-decoration: none;
-    color: black; /* リンクの色を設定 */
-}
+    color: black; リンクの色を設定
+}*/
 
 .d-flex {
     display: flex;
@@ -115,7 +113,3 @@ a {
 .shadow {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
-=======
-
-
->>>>>>> 8124210433ca626e045f682106d13662117130b7

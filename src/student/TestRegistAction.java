@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class TestRegistAction extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // フォームからのデータを取得
         String studentId = request.getParameter("f4");
         String subjectId = request.getParameter("sj");
@@ -22,5 +24,16 @@ public class TestRegistAction extends HttpServlet {
 
         // 登録完了ページにフォワード
         request.getRequestDispatcher("test_regist_done.jsp").forward(request, response);
+        // 検索後のページにフォワード
+        request.getRequestDispatcher("test_regist_search.jsp").forward(request, response);
+
+     // リクエスト属性にデータをセット
+        //request.setAttribute("入学年度",入学年度のデータ);
+        //request.setAttribute("クラス",クラスのデータ);
+
+        // 登録完了ページにフォワード
+       // request.getRequestDispatcher("test_regist_search.jsp").forward(request, response);
+
+
     }
 }

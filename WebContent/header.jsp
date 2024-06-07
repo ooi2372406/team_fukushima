@@ -16,13 +16,13 @@
     <body>
     <header>
 
-  		<div class="container w-75 headerstyle" style="background-color:lightskyblue">
-  			<ul class="logout-ul">
-  				<li class="logout-li"><h2>得点管理システム</h2></li>
+  		<div class="headerstyle" style="background-color:lightskyblue;">
+
+  				<div><h2>得点管理システム</h2></div>
        			<% if (session.getAttribute("user") != null){%>
-       			<li class="logout-li"><span>${user.name } 様</span></li>
-       			<li class="logout-li"><a href="Logout.action">ログアウト</a></li>
+       			<div style="padding:15px 10px 0 0;"><span>${user.name } 様</span></div>
+       			<div style="padding:15px 10px 0 0 ;"><a href="Logout.action">ログアウト</a></div>
        			<% } %>
-			</ul>
+
   		</div>
   	</header>

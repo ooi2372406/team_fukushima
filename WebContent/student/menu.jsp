@@ -4,13 +4,16 @@
 
 <%@ include file="../header.jsp" %>
 
+<link rel="stylesheet" href="./stylesheet_ono.css">
 <!-- display:flexでmenu.jspとcontentを横並びにする -->
 <div class="container" style="display:flex; height:100vh;">
 	<!-- flexアイテム左側としてbase.jspを読み込む -->
 	<%@include file="base.jsp" %>
 
+		<h2>メニュー</h2>
+
 	<!-- flexアイテム右側としてdiv class="content" -->
-		<div class="content d-flex justify-content-between" style="flex:0 0 85%; padding-left:20px ">
+		<div class="content d-flex justify-content-between" style="flex:0 0 65%; padding-left:20px ">
 
     <div class="cl d-flex align-items-center justify-content-center mx-2 rounded shadow"
          style="height:10rem; background-color:#dbb;">
