@@ -6,8 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.Login;
-import dao.LoginDAO;
+import bean.Teacher;
+import dao.TeacherDAO;
 import tool.Action;
 
 public class LoginExecuteAction extends Action {
@@ -20,13 +20,13 @@ public class LoginExecuteAction extends Action {
         String id = request.getParameter("id");
         String password = request.getParameter("password");
 
-        LoginDAO dao = new LoginDAO();
-        List<Login> customer = dao.search(id, password); // ログインIDとパスワードを使って検証する
+        TeacherDAO dao = new TeacherDAO();
+        List<Teacher> customer = dao.login(id, password); // ログインIDとパスワードを使って検証する
 
         if (customer != null && customer.size() > 0) {
-        	Login user = customer.get(0);
+        	Teacher user = customer.get(0);
             session.setAttribute("user", user);
-            System.out.println(user);
+
             return "menu.jsp"; // ログイン成功時のリダイレクト先
         }
 

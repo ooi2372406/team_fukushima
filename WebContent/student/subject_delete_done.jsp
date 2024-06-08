@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ include file="../head.jsp" %>
 <%@ include file="../header.jsp" %>
 <%  %>
 <main>
@@ -13,25 +13,17 @@
 
 
 
-<form style="width:100%; margin-left:20px;" action="SubjectCreateExecute.action" method="post">
-  <div class="form-group-create">
-  <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報登録</h2>
-    <label for="exampleInputEmail1" style="margin:20px 0 0 5px;">科目コード</label>
-    <input type="text" class="form-control" name="cd" placeholder="科目コードを入力してください" style="margin-left:20px; width:95%;" required>
 
+  <div class="form-group-create" style="width:100%; margin-left:20px;">
+  <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報登録</h2>
+  <div style="width: 100%;text-align: center; background-color:seagreen; padding:10px 20px 10px 20px; margin-bottom:100px;">削除が完了しました</div>
+
+	<div class="d-flex flex-row bd-highlight mb-3">
+
+  		<div><a href="SubjectList.action">科目一覧</a></div>
+  	</div>
   </div>
-  <div class="form-group-create">
-    <label for="exampleInputPassword1" style="margin:20px 0 0 5px;">科目名</label>
-    <input type="text" class="form-control" name="name" placeholder="科目名を入力してください" style="margin-left:20px; width:95%;" required>
-  </div>
- 	<input type="hidden"  name="schoolcd"  value="${user.schoolCd }">
-  <div style="width:100%;">
-  <button type="submit" class="btn btn-primary" style="margin-left:20px; width:15%;">登録</button>
-  </div>
-  <div  style="margin:10px 0  0 20px;">
-  <a href="SubjectList.action" >戻る</a>
-  </div>
-</form>
+
 
 </div>
 </main>

@@ -10,7 +10,7 @@ public class Subject implements java.io.Serializable{
 
 	//Subjectbean
 	//ゲッター
-	public School getSchoolcd(){
+	public School getSchool(){
 		return school;
 	}
 
@@ -28,7 +28,7 @@ public class Subject implements java.io.Serializable{
 
 
 	 //セッター
-	public void setId(School school){
+	public void setSchool(School school){
 		this.school = school;
 	}
 
