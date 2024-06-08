@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../header.jsp" %>
+<div class="container" style="display:flex; height:100vh;">
+	<%@include file="base.jsp" %>
+	<div class="content" style="flex:0 0 85%; padding-left:20px">
+        <form action="StudentUpdate.action" method="post">
+
+
 <%@ page import="java.io.*" %>
 
 <%@ page import="java.io.*, java.sql.*" %>
