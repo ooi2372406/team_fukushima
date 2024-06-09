@@ -3,10 +3,18 @@
 <%@ include file="../header.jsp" %>
 <body>
 <main>
-	<div class="container original-border loginstyle" style="width:40%;padding:0; margin-bottom:30px;">
-		<h2 class="mb-auto text-left" style="background-color:whitesmoke;">ログアウト</h2>
-		<div><p class="mb-auto text-center m-2" style="background-color:forestgreen; color="black">ログアウトしました</p></div>
+
+	<div class="kamokucontainer-logout" >
+
+	<div class="form-group-create" style="width:100%; margin-left:20px;">
+  <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">ログアウト</h2>
+  <div style="width: 100%;text-align: center; background-color:seagreen; padding:10px 20px 10px 20px; margin-bottom:100px;">ログアウトしました</div>
+
+	<div class="d-flex flex-row bd-highlight mb-3">
+
 		<div><a href="loginaction">ログイン</a></div>
+		</div>
+	</div>
 	</div>
 </main>
 <%@ include file="../footer.jsp" %>
