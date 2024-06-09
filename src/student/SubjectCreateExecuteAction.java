@@ -22,7 +22,7 @@ public class SubjectCreateExecuteAction extends Action {
         Teacher teacher = Util.getUser(request);
      // TeacherオブジェクトからSchoolオブジェクトを取得
         School school = teacher.getSchool();
-        System.out.println(school);
+
 		// Subjectビーンに設定
 		Subject subject=new Subject();
 		subject.setCd(cd);
@@ -32,6 +32,14 @@ public class SubjectCreateExecuteAction extends Action {
 
 		// SubjectDAOインスタンスを生成
 		SubjectDAO dao=new SubjectDAO();
+
+
+		  // 重複チェック
+        if (dao.get(cd, school) != null) {
+            request.setAttribute("message", "科目コードが重複しています");
+            return "subject_create.jsp"; // エラーメッセージを表示するためのJSP
+        }
+
 		// SubjectDAOのsavaメソッドを実行してデータベースに登録
 		boolean line = dao.save(subject);
 
@@ -39,10 +47,11 @@ public class SubjectCreateExecuteAction extends Action {
 		if (line) {
 			request.setAttribute("message", "登録しました");
 			return "subject_create_done.jsp";
-		} else {
-			request.setAttribute("message", "登録に失敗しました");
+
 		}
-		return "subject_list.jsp";
+
+		return "subject_create_done.jsp";
+
 	}
 
 

@@ -3,6 +3,7 @@ package student;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.School;
 import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDAO;
@@ -20,17 +21,29 @@ public class SubjectUpdateExecuteAction extends Action {
 		 // getUserメソッドを呼び出してユーザー情報を取得
         Teacher teacher = Util.getUser(request);
      // TeacherオブジェクトからSchoolオブジェクトを取得
-        //School school = teacher.getSchool();
+        School school = teacher.getSchool();
 
-		// Subjectビーンに設定
-		Subject subject=new Subject();
-		subject.setCd(cd);
-		subject.setName(name);
+
 		//subject.setSchool(school);
 
 
 		// SubjectDAOインスタンスを生成
 		SubjectDAO dao=new SubjectDAO();
+
+		Subject subject = dao.get(cd, school);
+
+	        if (subject == null) {
+	            subject = new Subject();
+	            subject.setCd(cd);
+	            subject.setName(name); // 入力された科目名を保持する
+	            request.setAttribute("subject", subject);
+	            request.setAttribute("message", "科目が存在しません");
+	            return "subject_update.jsp"; // エラーメッセージを表示するためのJSP
+	        }
+
+	        subject.setCd(cd);
+			subject.setName(name);
+
 		// SubjectDAOのsavaメソッドを実行してデータベースに登録
 		boolean line = dao.update(subject);
 
@@ -41,7 +54,8 @@ public class SubjectUpdateExecuteAction extends Action {
 		} else {
 			request.setAttribute("message", "登録に失敗しました");
 		}
-		return "subject_list.jsp";
+		request.setAttribute("message", "科目が存在しません");
+		return "subject_update.jsp";
 	}
 
 
