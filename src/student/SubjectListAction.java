@@ -17,26 +17,31 @@ public class SubjectListAction extends Action {
     public String execute(
         HttpServletRequest request, HttpServletResponse response
     ) throws Exception {
+    	try{
+    		// getUserメソッドを呼び出してユーザー情報を取得
+    		Teacher teacher = Util.getUser(request);
+    		// TeacherオブジェクトからSchoolオブジェクトを取得
+    		School school = teacher.getSchool();
 
-    	 // getUserメソッドを呼び出してユーザー情報を取得
-        Teacher teacher = Util.getUser(request);
-     // TeacherオブジェクトからSchoolオブジェクトを取得
-        School school = teacher.getSchool();
 
+    		SubjectDAO dao = new SubjectDAO();
+    		List<Subject> subject = dao.filter(school);
 
-        SubjectDAO dao = new SubjectDAO();
-        List<Subject> subject = dao.filter(school);
-
-        // HttpSessionオブジェクトを取得し、そこにユーザー情報を設定する
-        HttpSession session = request.getSession();
-     // Teacherオブジェクトをセッションに保存する
-        session.setAttribute("subject", subject);
+    		// HttpSessionオブジェクトを取得し、そこにユーザー情報を設定する
+    		HttpSession session = request.getSession();
+    		// Teacherオブジェクトをセッションに保存する
+    		session.setAttribute("subject", subject);
 
             return "subject_list.jsp"; // ログイン成功時のリダイレクト先
+    	}catch(Exception e){
+    		 // エラーメッセージを設定してエラーページに遷移
+            request.setAttribute("message", "エラーが発生しました。");
+            return "subjecterror.jsp";
+
+    	}
         }
 
-        // ログイン失敗時の処理
-        // 例: エラーメッセージをセットしてログインページにリダイレクト
+
 
     }
 

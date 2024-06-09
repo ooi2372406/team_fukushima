@@ -14,23 +14,24 @@ public class SubjectUpdateExecuteAction extends Action {
 	public String execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		// ユーザーからの入力値を受け取る
-		String cd=request.getParameter("cd");
-		String name=request.getParameter("name");
+		try{
+			// ユーザーからの入力値を受け取る
+			String cd=request.getParameter("cd");
+			String name=request.getParameter("name");
 
-		 // getUserメソッドを呼び出してユーザー情報を取得
-        Teacher teacher = Util.getUser(request);
-     // TeacherオブジェクトからSchoolオブジェクトを取得
-        School school = teacher.getSchool();
-
-
-		//subject.setSchool(school);
+			// getUserメソッドを呼び出してユーザー情報を取得
+			Teacher teacher = Util.getUser(request);
+			// TeacherオブジェクトからSchoolオブジェクトを取得
+			School school = teacher.getSchool();
 
 
-		// SubjectDAOインスタンスを生成
-		SubjectDAO dao=new SubjectDAO();
+			//subject.setSchool(school);
 
-		Subject subject = dao.get(cd, school);
+
+			// SubjectDAOインスタンスを生成
+			SubjectDAO dao=new SubjectDAO();
+
+			Subject subject = dao.get(cd, school);
 
 	        if (subject == null) {
 	            subject = new Subject();
@@ -44,18 +45,24 @@ public class SubjectUpdateExecuteAction extends Action {
 	        subject.setCd(cd);
 			subject.setName(name);
 
-		// SubjectDAOのsavaメソッドを実行してデータベースに登録
-		boolean line = dao.update(subject);
+			// SubjectDAOのsavaメソッドを実行してデータベースに登録
+			boolean line = dao.update(subject);
 
-		// lineが0でなければ登録成功
-		if (line) {
-			request.setAttribute("message", "登録しました");
-			return "subject_update_done.jsp";
-		} else {
-			request.setAttribute("message", "登録に失敗しました");
-		}
-		request.setAttribute("message", "科目が存在しません");
-		return "subject_update.jsp";
+			// lineが0でなければ登録成功
+			if (line) {
+				request.setAttribute("message", "登録しました");
+				return "subject_update_done.jsp";
+			} else {
+				request.setAttribute("message", "登録に失敗しました");
+			}
+			request.setAttribute("message", "科目が存在しません");
+			return "subject_update.jsp";
+		}catch(Exception e){
+   		 // エラーメッセージを設定してエラーページに遷移
+           request.setAttribute("message", "エラーが発生しました。");
+           return "subjecterror.jsp";
+
+   	}
 	}
 
 

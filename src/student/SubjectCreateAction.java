@@ -10,10 +10,17 @@ public class SubjectCreateAction extends Action {
     public String execute(
         HttpServletRequest request, HttpServletResponse response
     ) throws Exception {
+    	try{
 
     	HttpSession session=request.getSession();
 
 			return "subject_create.jsp";
+    	}catch(Exception e){
+   		 // エラーメッセージを設定してエラーページに遷移
+           request.setAttribute("message", "エラーが発生しました。");
+           return "subjecterror.jsp";
+
+   	}
 
 
     }

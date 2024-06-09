@@ -13,23 +13,30 @@ import util.Util;
 public class SubjectDeleteAction extends Action {
 	public String execute(
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		 // getUserメソッドを呼び出してユーザー情報を取得
-        Teacher teacher = Util.getUser(request);
-     // TeacherオブジェクトからSchoolオブジェクトを取得
-        School school = teacher.getSchool();
+		try{
+			// getUserメソッドを呼び出してユーザー情報を取得
+			Teacher teacher = Util.getUser(request);
+			// TeacherオブジェクトからSchoolオブジェクトを取得
+			School school = teacher.getSchool();
 
-		// リクエストパラメータからcdを受け取る
-		String cd = request.getParameter("cd");
+			// リクエストパラメータからcdを受け取る
+			String cd = request.getParameter("cd");
 
-		SubjectDAO dao = new SubjectDAO();
-		// 対象の学生を取得
+			SubjectDAO dao = new SubjectDAO();
+			// 対象の学生を取得
 
-		Subject subject = dao.get(cd , school);
-		System.out.println(subject);
+			Subject subject = dao.get(cd , school);
+			System.out.println(subject);
 
-		// studentとcourseListを設定してjspにフォワード
-		request.setAttribute("subject", subject);
+			// studentとcourseListを設定してjspにフォワード
+			request.setAttribute("subject", subject);
 
-		return "subject_delete.jsp";
+			return "subject_delete.jsp";
+		}catch(Exception e){
+   		 // エラーメッセージを設定してエラーページに遷移
+           request.setAttribute("message", "エラーが発生しました。");
+           return "subjecterror.jsp";
+
+   	}
 	}
 }

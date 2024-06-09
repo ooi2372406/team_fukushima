@@ -15,13 +15,18 @@ public class LoginAction extends HttpServlet {
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
+		
 		PrintWriter out=response.getWriter();
 		try {
 			// login.jspへフォワードするだけ
 			request.getRequestDispatcher("/student/login.jsp")
 				.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace(out);
-		}
+		}catch(Exception e){
+   		 // エラーメッセージを設定してエラーページに遷移
+           request.setAttribute("message", "エラーが発生しました。");
+           request.getRequestDispatcher("/student/subject_error.jsp")
+			.forward(request, response);
+
+   	}
 	}
 }

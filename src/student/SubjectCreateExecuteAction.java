@@ -14,43 +14,50 @@ public class SubjectCreateExecuteAction extends Action {
 	public String execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
-		// ユーザーからの入力値を受け取る
-		String cd=request.getParameter("cd");
-		String name=request.getParameter("name");
+		try{
+			// ユーザーからの入力値を受け取る
+			String cd=request.getParameter("cd");
+			String name=request.getParameter("name");
 
-		 // getUserメソッドを呼び出してユーザー情報を取得
-        Teacher teacher = Util.getUser(request);
-     // TeacherオブジェクトからSchoolオブジェクトを取得
-        School school = teacher.getSchool();
+			// getUserメソッドを呼び出してユーザー情報を取得
+			Teacher teacher = Util.getUser(request);
+			// TeacherオブジェクトからSchoolオブジェクトを取得
+			School school = teacher.getSchool();
 
-		// Subjectビーンに設定
-		Subject subject=new Subject();
-		subject.setCd(cd);
-		subject.setName(name);
-		subject.setSchool(school);
-
-
-		// SubjectDAOインスタンスを生成
-		SubjectDAO dao=new SubjectDAO();
+			// Subjectビーンに設定
+			Subject subject=new Subject();
+			subject.setCd(cd);
+			subject.setName(name);
+			subject.setSchool(school);
 
 
-		  // 重複チェック
-        if (dao.get(cd, school) != null) {
-            request.setAttribute("message", "科目コードが重複しています");
-            return "subject_create.jsp"; // エラーメッセージを表示するためのJSP
-        }
+			// SubjectDAOインスタンスを生成
+			SubjectDAO dao=new SubjectDAO();
 
-		// SubjectDAOのsavaメソッドを実行してデータベースに登録
-		boolean line = dao.save(subject);
 
-		// lineが0でなければ登録成功
-		if (line) {
-			request.setAttribute("message", "登録しました");
+			// 重複チェック
+			if (dao.get(cd, school) != null) {
+				request.setAttribute("message", "科目コードが重複しています");
+				return "subject_create.jsp"; // エラーメッセージを表示するためのJSP
+			}
+
+			// SubjectDAOのsavaメソッドを実行してデータベースに登録
+			boolean line = dao.save(subject);
+
+			// lineが0でなければ登録成功
+			if (line) {
+				request.setAttribute("message", "登録しました");
+				return "subject_create_done.jsp";
+
+			}
+
 			return "subject_create_done.jsp";
+		}catch(Exception e){
+   		 // エラーメッセージを設定してエラーページに遷移
+           request.setAttribute("message", "エラーが発生しました。");
+           return "subjecterror.jsp";
 
-		}
-
-		return "subject_create_done.jsp";
+   	}
 
 	}
 
