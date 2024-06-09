@@ -18,6 +18,12 @@ public class LoginAction extends HttpServlet {
 		
 		PrintWriter out=response.getWriter();
 		try {
+
+    		// 意図的に例外を発生させる処理（普段はつかわない）
+    		 //if (true) {
+    	     //       throw new RuntimeException("テスト用の予期せぬエラー");
+    	     // }
+
 			// login.jspへフォワードするだけ
 			request.getRequestDispatcher("/student/login.jsp")
 				.forward(request, response);

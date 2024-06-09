@@ -14,6 +14,12 @@ public class SubjectDeleteExecuteAction extends Action {
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 		try{
+
+    		// 意図的に例外を発生させる処理（普段はつかわない）
+    		 //if (true) {
+    	     //       throw new RuntimeException("テスト用の予期せぬエラー");
+    	     // }
+
 			// ユーザーからの入力値を受け取る
 			String cd=request.getParameter("cd");
 
@@ -44,7 +50,7 @@ public class SubjectDeleteExecuteAction extends Action {
 		}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移
            request.setAttribute("message", "エラーが発生しました。");
-           return "subjecterror.jsp";
+           return "subject_error.jsp";
 
    	}
 	}

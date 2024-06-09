@@ -14,6 +14,12 @@ public class SubjectUpdateAction extends Action {
 	public String execute(
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		 	try{
+
+	    		// 意図的に例外を発生させる処理（普段はつかわない）
+	    		 //if (true) {
+	    	     //       throw new RuntimeException("テスト用の予期せぬエラー");
+	    	     // }
+
 		 		// getUserメソッドを呼び出してユーザー情報を取得
 		 		Teacher teacher = Util.getUser(request);
 		 		// TeacherオブジェクトからSchoolオブジェクトを取得
@@ -34,7 +40,7 @@ public class SubjectUpdateAction extends Action {
 		 	}catch(Exception e){
 	    		 // エラーメッセージを設定してエラーページに遷移
 	            request.setAttribute("message", "エラーが発生しました。");
-	            return "subjecterror.jsp";
+	            return "subject_error.jsp";
 
 	    	}
 	}

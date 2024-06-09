@@ -14,7 +14,7 @@
 
 
 
-  <div> ${message } </div>
+  <div style="margin-left:30px;"> ${message } </div>
 
 
 </div>
