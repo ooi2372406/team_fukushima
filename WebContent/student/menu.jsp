@@ -12,20 +12,6 @@
 	<!-- flexアイテム右側としてdiv class="content" -->
 	<div class="content " style="flex:0 0 65%; padding-left:20px ">
 
-    <div class="cl d-flex align-items-center justify-content-center mx-2 rounded shadow"
-         style="height:10rem; background-color:#dbb;">
-        <a href="/student_management/subject/SubjectList.action">学生管理1</a>
-    </div>
-    <div class="cl d-flex align-items-center justify-content-center mx-2 rounded shadow"
-         style="height:10rem; background-color:#dbb;">
-        <a href="/student_management/student/StudentList.action">学生管理2</a>
-    </div>
-    <div class="cl d-flex align-items-center justify-content-center mx-2 rounded shadow"
-         style="height:10rem; background-color:#dbb;">
-        <a href="/student_management/student/StudentList.action">学生管理3</a>
-    </div>
-
-
 	        <div class="title" style="padding: 10px; background-color: whitesmoke;">
 	            メニュー
 	        </div>
@@ -35,7 +21,7 @@
 
 			<div class="card" style="display: flex; flex-direction: columu ;
 			align-items: center; justify-content: center; height: 8rem; background-color: #dbb; margin: 0 10px; border-radius: 0.25rem; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); width: 200px;  height: 90px;">
-				<a href="StudentList.action" style= text-decoration:none;>学生管理</a>
+				<a href="/student_management/student/StudentList.action" style= text-decoration:none;>学生管理</a>
 			</div>
 			<div class="card" style="display: flex; flex-direction: columu;
 			align-items: center; justify-content: center; height: 8rem; background-color: #C2D8B1; margin: 0 10px; border-radius: 0.25rem; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); width: 200px;      height: 90px;">
@@ -46,7 +32,7 @@
 				</div>
 			</div>
 			<div class="card" style="display: flex; align-items: center; justify-content: center; height: 8rem; background-color: #B1B2D8; margin: 0 10px; border-radius: 0.25rem; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); width: 200px;  height: 90px;">
-				<a href="SubjectList.action" style= text-decoration:none;>科目管理</a>
+				<a href="/student_management/subject/SubjectList." style= text-decoration:none;>科目管理</a>
 			</div>
 		</div>
 	</div>
