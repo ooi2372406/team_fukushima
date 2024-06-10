@@ -1,4 +1,4 @@
-package student.subject;
+package subject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,11 +36,11 @@ public class SubjectUpdateAction extends Action {
 		 		// studentとcourseListを設定してjspにフォワード
 		 		request.setAttribute("subject", subject);
 
-		 		return "subject_update.jsp";
+		 		return "/student/subject/subject_update.jsp";
 		 	}catch(Exception e){
 	    		 // エラーメッセージを設定してエラーページに遷移
 	            request.setAttribute("message", "エラーが発生しました。");
-	            return "subject_error.jsp";
+	            return "/student/subject/subject_error.jsp";
 
 	    	}
 	}

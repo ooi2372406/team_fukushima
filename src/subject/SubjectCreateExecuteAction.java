@@ -1,4 +1,4 @@
-package student.subject;
+package subject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +44,7 @@ public class SubjectCreateExecuteAction extends Action {
 			// 重複チェック
 			if (dao.get(cd, school) != null) {
 				request.setAttribute("message", "科目コードが重複しています");
-				return "subject_create.jsp"; // エラーメッセージを表示するためのJSP
+				return "/student/subject/subject_create.jsp"; // エラーメッセージを表示するためのJSP
 			}
 
 			// SubjectDAOのsavaメソッドを実行してデータベースに登録
@@ -53,15 +53,15 @@ public class SubjectCreateExecuteAction extends Action {
 			// lineが0でなければ登録成功
 			if (line) {
 				request.setAttribute("message", "登録しました");
-				return "subject_create_done.jsp";
+				return "/student/subject/subject_create_done.jsp";
 
 			}
 
-			return "subject_create_done.jsp";
+			return "/student/subject/subject_create_done.jsp";
 		}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移
            request.setAttribute("message", "エラーが発生しました。");
-           return "subject_error.jsp";
+           return "/student/subject/subject_error.jsp";
 
    	}
 

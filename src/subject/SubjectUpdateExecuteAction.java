@@ -1,4 +1,4 @@
-package student.subject;
+package subject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +44,7 @@ public class SubjectUpdateExecuteAction extends Action {
 	            subject.setName(name); // 入力された科目名を保持する
 	            request.setAttribute("subject", subject);
 	            request.setAttribute("message", "科目が存在しません");
-	            return "subject_update.jsp"; // エラーメッセージを表示するためのJSP
+	            return "/student/subject/subject_update.jsp"; // エラーメッセージを表示するためのJSP
 	        }
 
 	        subject.setCd(cd);
@@ -56,16 +56,16 @@ public class SubjectUpdateExecuteAction extends Action {
 			// lineが0でなければ登録成功
 			if (line) {
 				request.setAttribute("message", "登録しました");
-				return "subject_update_done.jsp";
+				return "/student/subject/subject_update_done.jsp";
 			} else {
 				request.setAttribute("message", "登録に失敗しました");
 			}
 			request.setAttribute("message", "科目が存在しません");
-			return "subject_update.jsp";
+			return "/student/subject/subject_update.jsp";
 		}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移
            request.setAttribute("message", "エラーが発生しました。");
-           return "subject_error.jsp";
+           return "/student/subject/subject_error.jsp";
 
    	}
 	}

@@ -1,4 +1,4 @@
-package student.login;
+package login;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class LoginExecuteAction extends Action {
     			Teacher user = customer.get(0);
     			session.setAttribute("user", user);
 
-    			return "menu.jsp"; // ログイン成功時のリダイレクト先
+    			return "/student/menu.jsp"; // ログイン成功時のリダイレクト先
     		}
 
     		// ログイン失敗時の処理

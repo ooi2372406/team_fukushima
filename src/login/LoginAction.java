@@ -1,4 +1,4 @@
-package student.login;
+package login;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // このURLパターンはhttp://localhost:8080/kouka2で実行される
-@WebServlet(urlPatterns={"/student/loginaction"})
+@WebServlet(urlPatterns={"/login/loginaction"})
 public class LoginAction extends HttpServlet {
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
@@ -25,7 +25,7 @@ public class LoginAction extends HttpServlet {
     	     // }
 
 			// login.jspへフォワードするだけ
-			request.getRequestDispatcher("/student/login.jsp")
+			request.getRequestDispatcher("/student/login/login.jsp")
 				.forward(request, response);
 		}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移

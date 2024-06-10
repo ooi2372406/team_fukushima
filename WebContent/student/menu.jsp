@@ -17,15 +17,15 @@
 
     <div class="cl d-flex align-items-center justify-content-center mx-2 rounded shadow"
          style="height:10rem; background-color:#dbb;">
-        <a href="StudentList.action">学生管理1</a>
+        <a href="/student_management/subject/SubjectList.action">学生管理1</a>
     </div>
     <div class="cl d-flex align-items-center justify-content-center mx-2 rounded shadow"
          style="height:10rem; background-color:#dbb;">
-        <a href="StudentList.action">学生管理2</a>
+        <a href="/student_management/student/StudentList.action">学生管理2</a>
     </div>
     <div class="cl d-flex align-items-center justify-content-center mx-2 rounded shadow"
          style="height:10rem; background-color:#dbb;">
-        <a href="StudentList.action">学生管理3</a>
+        <a href="/student_management/student/StudentList.action">学生管理3</a>
     </div>
 </div>
 
