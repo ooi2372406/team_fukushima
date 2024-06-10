@@ -11,6 +11,7 @@ public class Util{
 	public static Teacher getUser(HttpServletRequest request){
 		// セッションからユーザー情報を取得
 		HttpSession session = request.getSession();
+		// セッションからユーザー情報を取得してTEACHERに渡す
 		Teacher teacher = (Teacher) session.getAttribute("user");
 		//sessionから教師情報を取得して戻す
 		return teacher;

@@ -1,4 +1,4 @@
-package student;
+package student.login;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class LoginExecuteAction extends Action {
         HttpServletRequest request, HttpServletResponse response
     ) throws Exception {
     	try{
-    		
+
     		// 意図的に例外を発生させる処理（普段はつかわない）
     		 //if (true) {
     	     //       throw new RuntimeException("テスト用の予期せぬエラー");

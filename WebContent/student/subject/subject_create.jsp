@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="../head.jsp" %>
-<%@ include file="../header.jsp" %>
+<%@ include file="../../head.jsp" %>
+<%@ include file="../../header.jsp" %>
 <main>
     <div class="kamokucontainer-create">
-        <%@ include file="base.jsp" %>
+        <%@ include file="../base.jsp" %>
 
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="SubjectCreateExecute.action" method="post">
             <div class="form-group-create">
@@ -31,7 +31,7 @@
     </div>
 </main>
 
-<%@ include file="../footer.jsp" %>
+<%@ include file="../../footer.jsp" %>
 
 <script src="../javascript/subject.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

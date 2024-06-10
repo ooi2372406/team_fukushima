@@ -1,4 +1,4 @@
-package student;
+package student.subject;
 
 import java.util.List;
 

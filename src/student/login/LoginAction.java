@@ -1,4 +1,4 @@
-package student;
+package student.login;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +15,7 @@ public class LoginAction extends HttpServlet {
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
-		
+
 		PrintWriter out=response.getWriter();
 		try {
 
