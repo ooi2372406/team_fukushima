@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@ include file="../head.jsp" %>
+<%@ include file="../../head.jsp" %>
 
-<%@ include file="../header.jsp" %>
+<%@ include file="../../header.jsp" %>
 
 	<% String errorMessage =(String)request.getAttribute("errorMessage"); %>
 	 <main class="mt-xl-5">
@@ -38,7 +38,7 @@
 	</div>
 	</main>
 
-	<%@ include file="../footer.jsp" %>
+	<%@ include file="../../footer.jsp" %>
 
  	<script src="../javascript/login.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -1,4 +1,4 @@
-package student;
+package login;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class LoginExecuteAction extends Action {
         HttpServletRequest request, HttpServletResponse response
     ) throws Exception {
     	try{
-    		
+
     		// 意図的に例外を発生させる処理（普段はつかわない）
     		 //if (true) {
     	     //       throw new RuntimeException("テスト用の予期せぬエラー");
@@ -33,7 +33,7 @@ public class LoginExecuteAction extends Action {
     			Teacher user = customer.get(0);
     			session.setAttribute("user", user);
 
-    			return "menu.jsp"; // ログイン成功時のリダイレクト先
+    			return "/student/menu.jsp"; // ログイン成功時のリダイレクト先
     		}
 
     		// ログイン失敗時の処理

@@ -1,4 +1,4 @@
-package student;
+package subject;
 
 import java.util.List;
 
@@ -38,11 +38,11 @@ public class SubjectListAction extends Action {
     		// Teacherオブジェクトをセッションに保存する
     		session.setAttribute("subject", subject);
 
-            return "subject_list.jsp"; // ログイン成功時のリダイレクト先
+            return "/student/subject/subject_list.jsp"; // ログイン成功時のリダイレクト先
     	}catch(Exception e){
     		 // エラーメッセージを設定してエラーページに遷移
             request.setAttribute("message", "エラーが発生しました。");
-            return "subject_error.jsp";
+            return "/student/subject/subject_error.jsp";
 
     	}
         }

@@ -1,4 +1,4 @@
-package student;
+package subject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,11 +37,11 @@ public class SubjectDeleteAction extends Action {
 			// studentとcourseListを設定してjspにフォワード
 			request.setAttribute("subject", subject);
 
-			return "subject_delete.jsp";
+			return "/student/subject/subject_delete.jsp";
 		}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移
            request.setAttribute("message", "エラーが発生しました。");
-           return "subject_error.jsp";
+           return "/student/subject/subject_error.jsp";
 
    	}
 	}

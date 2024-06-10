@@ -1,4 +1,4 @@
-package student;
+package subject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,15 +10,16 @@ import dao.SubjectDAO;
 import tool.Action;
 import util.Util;
 
-public class SubjectUpdateExecuteAction extends Action {
+public class SubjectCreateExecuteAction extends Action {
 	public String execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 		try{
+
     		// 意図的に例外を発生させる処理（普段はつかわない）
-   		 //if (true) {
-   	     //       throw new RuntimeException("テスト用の予期せぬエラー");
-   	     // }
+    		 //if (true) {
+    	     //       throw new RuntimeException("テスト用の予期せぬエラー");
+    	     // }
 
 			// ユーザーからの入力値を受け取る
 			String cd=request.getParameter("cd");
@@ -29,45 +30,41 @@ public class SubjectUpdateExecuteAction extends Action {
 			// TeacherオブジェクトからSchoolオブジェクトを取得
 			School school = teacher.getSchool();
 
-
-			//subject.setSchool(school);
+			// Subjectビーンに設定
+			Subject subject=new Subject();
+			subject.setCd(cd);
+			subject.setName(name);
+			subject.setSchool(school);
 
 
 			// SubjectDAOインスタンスを生成
 			SubjectDAO dao=new SubjectDAO();
 
-			Subject subject = dao.get(cd, school);
 
-	        if (subject == null) {
-	            subject = new Subject();
-	            subject.setCd(cd);
-	            subject.setName(name); // 入力された科目名を保持する
-	            request.setAttribute("subject", subject);
-	            request.setAttribute("message", "科目が存在しません");
-	            return "subject_update.jsp"; // エラーメッセージを表示するためのJSP
-	        }
-
-	        subject.setCd(cd);
-			subject.setName(name);
+			// 重複チェック
+			if (dao.get(cd, school) != null) {
+				request.setAttribute("message", "科目コードが重複しています");
+				return "/student/subject/subject_create.jsp"; // エラーメッセージを表示するためのJSP
+			}
 
 			// SubjectDAOのsavaメソッドを実行してデータベースに登録
-			boolean line = dao.update(subject);
+			boolean line = dao.save(subject);
 
 			// lineが0でなければ登録成功
 			if (line) {
 				request.setAttribute("message", "登録しました");
-				return "subject_update_done.jsp";
-			} else {
-				request.setAttribute("message", "登録に失敗しました");
+				return "/student/subject/subject_create_done.jsp";
+
 			}
-			request.setAttribute("message", "科目が存在しません");
-			return "subject_update.jsp";
+
+			return "/student/subject/subject_create_done.jsp";
 		}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移
            request.setAttribute("message", "エラーが発生しました。");
-           return "subject_error.jsp";
+           return "/student/subject/subject_error.jsp";
 
    	}
+
 	}
 
 
