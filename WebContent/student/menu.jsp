@@ -32,7 +32,7 @@
 				</div>
 			</div>
 			<div class="card" style="display: flex; align-items: center; justify-content: center; height: 8rem; background-color: #B1B2D8; margin: 0 10px; border-radius: 0.25rem; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); width: 200px;  height: 90px;">
-				<a href="/student_management/subject/SubjectList." style= text-decoration:none;>科目管理</a>
+				<a href="/student_management/subject/SubjectList.action" style= text-decoration:none;>科目管理</a>
 			</div>
 		</div>
 	</div>
