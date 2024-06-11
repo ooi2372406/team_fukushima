@@ -9,7 +9,6 @@ import java.util.List;
 
 import bean.School;
 import bean.Student;
-import dao.SchoolDao;
 
 public class StudentDao extends DAO {
 
@@ -46,7 +45,7 @@ public class StudentDao extends DAO {
 				student.setIsAttend(rs.getBoolean("is_attend"));
 				// 学校フィールドには学校コードで検索した学校インスタンスをセット
 
-				student.setSchool(schoolDao.get(rs.getString("school_cd")));
+				student.setSchool(schooldao.get(rs.getString("school_cd")));
 
 			} else {
 				// リザルトセットが存在しない場合
