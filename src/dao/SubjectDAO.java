@@ -3,6 +3,7 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,42 +19,92 @@ public class SubjectDAO extends DAO {
 
 		Connection con=getConnection();
 
+		ResultSet rs = null;
 
-		PreparedStatement st=con.prepareStatement(
-			"SELECT CD , NAME FROM SUBJECT");
-		ResultSet rs=st.executeQuery();
+		PreparedStatement st = null;
 
-		while (rs.next()) {
+		String all = "SELECT CD , NAME FROM SUBJECT";
 
-			Subject subjectList=new Subject();
-			subjectList.setCd(rs.getString("CD"));
-			subjectList.setName(rs.getString("NAME"));
+		try{
 
-			subjectList.setSchool(school);
-			subject.add(subjectList);
+			st=con.prepareStatement(all);
+			rs=st.executeQuery();
+
+			while (rs.next()) {
+
+				Subject subjectList=new Subject();
+				subjectList.setCd(rs.getString("CD"));
+				subjectList.setName(rs.getString("NAME"));
+				subjectList.setSchool(school);
+				subject.add(subjectList);
+			}
+
+		}catch (Exception e){
+			throw e;
+		}finally{
+			// プリペアードステートメントを閉じる
+			if (st != null){
+				try{
+					st.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+
+			// コネクションを閉じる
+			if (con != null){
+				try {
+					con.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
 		}
-
-		st.close();
-		con.close();
 
 		return subject;
 	}
 
 
+
 	public Subject get(String cd , School school) throws Exception {
 		Subject subject = null;
 		Connection con=getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		String select = "SELECT * FROM SUBJECT WHERE CD = ? ";
 
-		PreparedStatement st=con.prepareStatement(
-			"SELECT * FROM SUBJECT WHERE CD = ? ");
-		st.setString(1, cd);
-		ResultSet rs=st.executeQuery();
 
-		if (rs.next()) {
-			subject=new Subject();
-			subject.setCd(rs.getString("CD"));
-			subject.setName(rs.getString("NAME"));
-			subject.setSchool(school);
+		try{
+			st=con.prepareStatement(select);
+			st.setString(1, cd);
+			rs=st.executeQuery();
+
+			if (rs.next()) {
+				subject=new Subject();
+				subject.setCd(rs.getString("CD"));
+				subject.setName(rs.getString("NAME"));
+				subject.setSchool(school);
+			}
+		}catch (Exception e){
+			throw e;
+		}finally{
+			// プリペアードステートメントを閉じる
+			if (st != null){
+				try{
+					st.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+
+			// コネクションを閉じる
+			if (con != null){
+				try {
+					con.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
 		}
 		return subject;
 	}
@@ -62,16 +113,41 @@ public class SubjectDAO extends DAO {
 	public boolean save(Subject subject) throws Exception {
 		Connection con=getConnection();
 
-		PreparedStatement st=con.prepareStatement(
-			"INSERT INTO SUBJECT VALUES(?,?,?)");
-		st.setString(1, subject.getSchool().getCd());
-		st.setString(2, subject.getCd());
-		st.setString(3, subject.getName());
-		// insertしたレコード件数が返ってくる
-		int line = st.executeUpdate();
+		PreparedStatement st = null;
 
-		st.close();
-		con.close();
+		String insert = "INSERT INTO SUBJECT VALUES(? , ? , ?)";
+
+		int line;
+
+		try{
+			st=con.prepareStatement(insert);
+			st.setString(1, subject.getSchool().getCd());
+			st.setString(2, subject.getCd());
+			st.setString(3, subject.getName());
+			// insertしたレコード件数が返ってくる
+			line = st.executeUpdate();
+
+		}catch (Exception e){
+			throw e;
+		}finally{
+			// プリペアードステートメントを閉じる
+			if (st != null){
+				try{
+					st.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+
+			// コネクションを閉じる
+			if (con != null){
+				try {
+					con.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+		}
 
 		return line > 0;
 	}
@@ -81,29 +157,81 @@ public class SubjectDAO extends DAO {
 
 		Connection con=getConnection();
 
+		PreparedStatement st = null;
 
-		PreparedStatement st=con.prepareStatement(
-			"UPDATE SUBJECT SET NAME = ? WHERE CD = ?");
-		st.setString(1, subject.getName());
-		st.setString(2, subject.getCd());
+		int line;
+
+		String update = "UPDATE SUBJECT SET NAME = ? WHERE CD = ?";
+
+		try{
+
+			st=con.prepareStatement(update);
+			st.setString(1, subject.getName());
+			st.setString(2, subject.getCd());
 
 
-		int line = st.executeUpdate();
+			line = st.executeUpdate();
 
+		}catch (Exception e){
+			throw e;
+		}finally{
+			// プリペアードステートメントを閉じる
+			if (st != null){
+				try{
+					st.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
 
+			// コネクションを閉じる
+			if (con != null){
+				try {
+					con.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+		}
 		return line > 0;
 	}
 
 	public boolean delete(Subject subject) throws Exception {
 		Connection con=getConnection();
 
-		PreparedStatement st=con.prepareStatement(
-			"DELETE FROM SUBJECT WHERE CD = ?");
-		st.setString(1, subject.getCd());
-		int line = st.executeUpdate();
+		PreparedStatement st = null;
 
-		st.close();
-		con.close();
+		String delete = "DELETE FROM SUBJECT WHERE CD = ?";
+
+		int line;
+
+		try{
+
+		st=con.prepareStatement(delete);
+		st.setString(1, subject.getCd());
+		line = st.executeUpdate();
+
+		}catch (Exception e){
+			throw e;
+		}finally{
+			// プリペアードステートメントを閉じる
+			if (st != null){
+				try{
+					st.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+
+			// コネクションを閉じる
+			if (con != null){
+				try {
+					con.close();
+				}catch (SQLException sqle){
+					throw sqle;
+				}
+			}
+		}
 
 		return line > 0;
 	}
