@@ -1,116 +1,125 @@
-<%-- 学生一覧JSP --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:import url = "/common/base.jsp">
-	<c:param name = "title">
-		得点システム
-	</c:param>
-
-	</c:param name ="scripts"></c:param>
-
-	<c:param name ="content">
-		<section class = "me-4">
-			<h2 class ="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生管理</h2>
-			<div class ="my-2 text-end px-4">
-				<a href = "StudentCreate.action">新規作成</a>
-			</div>
-			<form method = "get">
-				<div class = "row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-					<div class="col-4">
-						<label class="form-label" for="student-f1-select">入学年度</label>
-						<select class="form-select" id="student-f1-select" name="f1">
-							<option value="0">--------</option>
-							<c:forEach var="year" items="${ent_year_set}">
-								<%-- 現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
-								<option value="${year}" <c:if test="${year==f1}">selected</c:if>>${year}</option>
-							</c:forEach>
-						</select>
-					</div>
-					<div class="col-4">
-						<label class="form-label" for="student-f2-select">クラス</label>
-						<select class="form-select" id="student-f2-select" name="f2">
-							<option value="0">--------</option>
-							<c:forEach var="num" items="${class_num_set}">
-								<%-- 現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-								<option value="${num}" <c:if test="${num==f2}">selected</c:if>>${num}</option>
-							</c:forEach>
-						</select>>
-					</div>
-					<div class="col-2 form-check text-center">
-						<label class="form-check-label" for="student-f3-check">在学中
-							<%-- パラメーターf3が存在している場合checkedを追記 --%>
-							<imput class="form-check-input" type="checkbox"
-							id="student-f3-check" name="f3" value="t"
-							<c:if test="${!empty f3}">checked</c:if> />
-						</label>
-					</div>
-					<div class="col-2 text-center">
-						<button class="btn btn-secondary" id="filter-button">絞り込み</button>
-					</div>
-					<div class="mt-2 text-warning">${errors.get("f1")}</div>
-				</div>
-			</form>
-			<c:choose>
-				<c:when test="${students.size()>0}">
-					<div>検査結果:${students.size()}件</div>
-					<table class="table table-hover">
-						<tr>
-							<th>入学年度</th>
-							<th>学生番号</th>
-							<th>氏名</th>
-							<th>クラス</th>
-							<th class="text-center">在学中</th>
-							<th></th>
-							<th></th>
-						</tr>
-						<c:forEach var="student" items="${students}">
-							<tr>
-								<td>${student.entYear}</td>
-								<td>${student.no}</td>
-								<td>${student.name}</td>
-								<td>${student.classNum}</td>
-								<td class="text-center">
-									<%-- 在学フラグがたっている場合「〇」それ以外は「☓」を表示 --%>
-									<c:choose>
-
-										<c:when test="${student.isAttend()}">
-											〇
-										</c:when>
-										<c:otherwise>
-											☓
-										</c:otherwise>
-									</c:choose>
-								</td>
-								<td><a href="StudentUpdate.action?no=${student.no}">変更</a></td>
-								<td><a href="StudentUpdate.action?no=${student.no}">削除</a></td>
-							</tr>
-						</c:forEach>
-					</table>
-				</c:when>
-				<c:otherwise>
-					<div>学生情報が存在しませんでした</div>
-				</c:otherwise>
-			</c:choose>
-		</section>
-	</c:param>
-</c:import>
-
-
-		</section>
-
-
-
-
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>学生管理システム</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        .filter-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .filter-container label {
+            margin-right: 5px;
+        }
+        .filter-container select, .filter-container input[type="checkbox"], .filter-container button {
+            margin-right: 10px;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
 </head>
 <body>
+    <h1>学生管理システム</h1>
+    <nav>
+        <ul>
+            <li><a href="index.jsp">ホーム</a></li>
+            <li><a href="students.jsp">学生管理</a></li>
+            <!-- 必要に応じて他のナビゲーション項目を追加 -->
+        </ul>
+    </nav>
 
+    <div class="filter-container">
+        <form method="get" action="students.jsp">
+            <label for="year">入学年度:</label>
+            <select id="year" name="year">
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <!-- 必要に応じて他の年度を追加 -->
+            </select>
+
+            <label for="studentClass">クラス:</label>
+            <select id="studentClass" name="studentClass">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <!-- 必要に応じて他のクラスを追加 -->
+            </select>
+
+            <label for="enrolled">在学中:</label>
+            <input type="checkbox" id="enrolled" name="enrolled">
+
+            <button type="submit">絞込み</button>
+        </form>
+    </div>
+
+    <div>
+        <c:choose>
+            <c:when test="${not empty param.year and not empty param.studentClass}">
+                <sql:query var="students" dataSource="${dataSource}">
+                    SELECT * FROM students
+                    WHERE year = ?
+                    AND class = ?
+                    <c:if test="${param.enrolled == 'on'}">
+                        AND enrolled = true
+                    </c:if>
+                </sql:query>
+
+                <c:if test="${empty students.rows}">
+                    <p class="error-message">学生情報が存在しませんでした</p>
+                </c:if>
+
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>学籍番号</th>
+                            <th>学生名</th>
+                            <th>性別</th>
+                            <th>生年月日</th>
+                            <th>学部</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="student" items="${students.rows}">
+                            <tr>
+                                <td><c:out value="${student.id}"/></td>
+                                <td><c:out value="${student.name}"/></td>
+                                <td><c:out value="${student.gender}"/></td>
+                                <td><c:out value="${student.birth_date}"/></td>
+                                <td><c:out value="${student.department}"/></td>
+                                <td>
+                                    <button onclick="editStudent(${student.id})">編集</button>
+                                    <button onclick="deleteStudent(${student.id})">削除</button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:when>
+            <c:otherwise>
+                <p>学生情報を検索してください。</p>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <script type="text/javascript">
+        function editStudent(studentId) {
+            // 編集処理を行うJavaScriptコード
+            alert("編集: " + studentId);
+        }
+
+        function deleteStudent(studentId) {
+            // 削除処理を行うJavaScriptコード
+            alert("削除: " + studentId);
+        }
+    </script>
 </body>
 </html>
