@@ -21,5 +21,10 @@ public class School implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getSchoolCd() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+
+	}
 }
 
