@@ -30,8 +30,9 @@ public class SubjectListAction extends Action {
     		School school = teacher.getSchool();
 
 
+
     		SubjectDAO dao = new SubjectDAO();
-    		List<Subject> subject = dao.filter(school);
+    		List<Subject> subject = dao.get(school);
 
     		// HttpSessionオブジェクトを取得し、そこにユーザー情報を設定する
     		HttpSession session = request.getSession();
