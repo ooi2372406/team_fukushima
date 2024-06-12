@@ -31,7 +31,7 @@ public class SubjectUpdateAction extends Action {
 		 		SubjectDAO dao = new SubjectDAO();
 		 		// 対象の学生を取得
 
-		 		Subject subject = dao.get(cd , school);
+		 		Subject subject = dao.filter(cd , school);
 
 		 		// studentとcourseListを設定してjspにフォワード
 		 		request.setAttribute("subject", subject);

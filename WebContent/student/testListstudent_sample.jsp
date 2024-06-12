@@ -6,7 +6,7 @@
     <div class="kamokucontainer-create">
         <%@ include file="base.jsp" %>
 
-        <form id="subjectForm" style="width:100%; margin-left:20px;" action="SubjectCreateExecute.action" method="post">
+        <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestListSubjectExecute.action" method="post">
             <div class="form-group-create">
                 <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">科目情報登録</h2>
                 <div style="border:1px solid whitesmoke; height:120px;">
@@ -23,16 +23,24 @@
                 	<td>
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
                 	<option selected>--------</option>
+					<c:forEach var="seireki" begin="2010" end="2024">
+
+                	<option>${seireki }</option>
+                	</c:forEach>
                 	</select>
                 	</td>
                 	<td>
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
+
                 	<option selected>--------</option>
+
                 	</select>
                 	</td>
                 	<td>
                 	<select style="width:70%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f3">
+
                 	<option selected>--------</option>
+
                 	</select>
                 	<input type="hidden" name="f" value="sj">
                 	</td>
@@ -41,11 +49,13 @@
                 	<div><button class="btn btn-primary" type="submit" value="検索">検索</button></div>
 					</div>
                 </div>
+                </form>
+                <form action="TestListStudentExecute.action" method="post">
                 <div style="border:1px solid whitesmoke; height:120px;">
                 <div style="display:flex;  display: -webkit-flex; align-items: center;">
 
                 	<p style="width:20%; padding-left:60px;">学生情報</p>
-                	<table style="width:30%;  class="responsive-table-gakusei"">
+                	<table style="width:30%;"  class="responsive-table-gakusei">
                 	<tr>
                 	<th>学生番号</th>
 					<th></th>
