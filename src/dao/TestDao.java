@@ -1,17 +1,19 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.School;
+import bean.Student;
+import bean.Subject;
 import bean.Test;
 
 public class TestDao extends DAO {
-    private String basesql = "select * from test where school_cd=?;";
+    private String basesql = "SELECT * FROM TEST WHERE SCHOOL_CD=?;";
 
     // 学生を全件取得する studentAll メソッド
     /*public List<Subject> get(School school, String cd) throws Exception {
@@ -39,27 +41,27 @@ public class TestDao extends DAO {
         return subjects;
     }*/
 
-    public Test get(String student, String subject, String school, int no) throws SQLException {
+    public Test get(Student student, Subject subject, School school, int no) throws Exception {
         Test test = null;
         Connection con = getConnection();
         PreparedStatement st = con.prepareStatement(
-            "SELECT * FROM TEST WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND SCHOOL_CD = ? AND NO = ?"
+            "SELECT STUDENT_NO , SCHOOL_CD , SUBJECT.NAME , NO FROM TEST JOIN SUBJECT ON TEST.SUBJECT_CD = SUBJECT.CD WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND SCHOOL_CD = ? AND NO = ?"
         );
-        st.setString(1, student);
-        st.setString(2, subject);
-        st.setString(3, school);
+        st.setString(1, student.getNo());
+        st.setString(2, subject.getName());
+        st.setString(3, school.getCd());
         st.setInt(4, no);
         ResultSet rs = st.executeQuery();
 
         if (rs.next()) {
-            test = new Test(
-                rs.getString("STUDENT_NO"),
-                rs.getString("SUBJECT_CD"),
-                rs.getString("SCHOOL_CD"),
-                rs.getString("CLASS_NUM"),
-                rs.getObject("POINT", Integer.class),
-                rs.getInt("NO")
-            );
+            test = new Test();
+                rs.getString("STUDENT_NO");
+                rs.getString("SUBJECT_CD");
+                rs.getString("SCHOOL_CD");
+                rs.getString("CLASS_NUM");
+                rs.getInt("POINT");
+                rs.getInt("NO");
+            
         }
 
         rs.close();
@@ -70,16 +72,15 @@ public class TestDao extends DAO {
     }
 
     // postFilterメソッド
-    private List<Test> postFilter(ResultSet set, String school) throws SQLException {
+    private List<Test> postFilter(ResultSet set, School school) throws SQLException {
         List<Test> tests = new ArrayList<>();
         try {
             while (set.next()) {
                 Test test = new Test();
-                test.setStudentNo(set.getString("STUDENT_NO"));
-                test.setSubjectCd(set.getString("SUBJECT_CD"));
-                test.setSchoolCd(set.getString("SCHOOL_CD"));
+                test.setNo(set.getInt("STUDENT_NO"));
                 test.setPoint(set.getInt("POINT"));
                 test.setClassNum(set.getString("CLASS_NUM"));
+                test.setSchool(school);
                 tests.add(test);
             }
         } catch (SQLException | NullPointerException e) {
@@ -89,7 +90,7 @@ public class TestDao extends DAO {
     }
 
     // 修正されたfilterメソッド
-    public List<Test> filter(Test test, int entYear, String classNum, String subject, int num, String school, boolean isAttend) throws SQLException {
+    public List<Test> filter(Test test, int entYear, String classNum, String subject, int num, String school, boolean isAttend) throws Exception {
         List<Test> tests = new ArrayList<>();
         Connection con = getConnection();
         PreparedStatement statement = null;
@@ -127,7 +128,7 @@ public class TestDao extends DAO {
         }
         return tests;
     }
-
+/*
     // パブリックのsaveメソッド
     public boolean save(Test test) throws Exception {
         Connection connection = getConnection();
@@ -226,5 +227,5 @@ public class TestDao extends DAO {
     public Connection getConnection() throws SQLException {
         // 以下にあなたのデータベース接続情報を入力してください
         return DriverManager.getConnection("jdbc:h2:tcp://localhost/~/db_TEAM_FUKUSHIMA", "sa", "");
-    }
+    } */
 }

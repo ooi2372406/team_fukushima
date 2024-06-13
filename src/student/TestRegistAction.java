@@ -1,41 +1,100 @@
 package student;
 
 import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import bean.ClassNum;
+import bean.School;
+import bean.Student;
+import bean.Subject;
+import bean.Teacher;
+import dao.StudentDao;
+import dao.SubjectDAO;
+import tool.Action;
+import util.Util;
+
+public class TestRegistAction extends Action {
 
 
-public class TestRegistAction extends HttpServlet {
+
+    public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
 
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // フォームからのデータを取得
-        String studentId = request.getParameter("f4");
-        String subjectId = request.getParameter("sj");
+        try {
+        	HttpSession session = req.getSession();
+        	boolean isAttend = true;//在学フラグ
+        	Teacher teacher=Util.getUser(req);
+        	School school=teacher.getSchool();
+        	//Subject subject = (Subject) session.getAttribute("subject");
+        	ClassNum classnum = (ClassNum) session.getAttribute("classNum");
 
-        // データベースへの登録処理（省略）
-        // 登録処理が成功したと仮定
 
-        // リクエスト属性にデータをセット
-        request.setAttribute("studentId", studentId);
-        request.setAttribute("subjectId", subjectId);
 
-        // 登録完了ページにフォワード
-        request.getRequestDispatcher("test_regist_done.jsp").forward(request, response);
-        // 検索後のページにフォワード
-        request.getRequestDispatcher("test_regist_search.jsp").forward(request, response);
 
-     // リクエスト属性にデータをセット
-        //request.setAttribute("入学年度",入学年度のデータ);
-        //request.setAttribute("クラス",クラスのデータ);
 
-        // 登録完了ページにフォワード
-       // request.getRequestDispatcher("test_regist_search.jsp").forward(request, response);
 
+
+
+
+        	SubjectDAO subject_dao = new SubjectDAO();
+        	List<Subject>subjectList=subject_dao.filter(school);
+        	System.out.println(subjectList);
+        	StudentDao student_dao = new StudentDao();
+
+        	List<Student> studentList = student_dao.filter(school , isAttend);
+        	System.out.println(studentList);
+        	session.setAttribute("subject", subjectList);
+        	session.setAttribute("student", studentList);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
+        }
+        return "test_regist.jsp";
 
     }
-
 }
+/*
+private void setTestListStudent(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        // リクエストパラメータの取得
+        String cd = req.getParameter("cd");
+        String subject = req.getParameter("subject");
+
+        // 学生情報の取得
+        TestListStudent filterStudent = new TestListStudent();
+        filterStudent.setSubjectCd(cd);
+        filterStudent.setSubjectName(subject);
+
+
+
+        // 結果をリクエスト属性に設定して、JSPに転送
+        req.setAttribute("studentList", filterStudent);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/test_list.jsp");
+        dispatcher.forward(req, res);
+    }
+
+public void setTestListSubject(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        // リクエストパラメータの取得
+        int entYear = Integer.parseInt(req.getParameter("entYear"));
+        String classNum = req.getParameter("classNum");
+        String subjectCd = req.getParameter("subjectCd");
+        String schoolCd = req.getParameter("schoolCd");
+
+        // 科目情報の取得
+        Subject subject = new Subject();
+        subject.setCd(subjectCd);
+        School school = new School();
+        school.setCd(schoolCd);
+
+        List<TestListSubject> subjectList = subjectDao.filter(entYear, classNum, subjectCd, school);
+
+        // 結果をリクエスト属性に設定して、JSPに転送
+        req.setAttribute("subjectList", subjectList);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/test_list.jsp");
+        dispatcher.forward(req, res);
+    }
+}*/

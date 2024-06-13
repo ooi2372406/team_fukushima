@@ -8,7 +8,7 @@
 
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestListSubjectExecute.action" method="post">
             <div class="form-group-create">
-                <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">科目情報登録</h2>
+                <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">学生管理</h2>
                 <div style="text-align:right; padding-right:20px;"><a  href="SubjectCreate.action">新規登録</a></div>
                 <div style="border:1px solid whitesmoke; height:120px;">
                 <div  style="display:flex;  display: -webkit-flex; align-items: center; height:90px; margin-top:10px;">
@@ -47,7 +47,7 @@
                 </div>
                 </form>
 
-
+				<form action="StudentUpdate.action" method="post">
 				<div style="width:100%;">
                 <table style="width:100%;">
                 	<tr style="border-bottom:1px solid #cecfca;">
@@ -62,18 +62,25 @@
                 	<c:forEach var="student" items="${studentList}">
                 	<tr style="border-bottom:1px solid #cecfca;">
                 		<td>${student.entYear }</td>
-                		<td>${student.no }</td>
+						<td>${student.no}</td>
                 		<td>${student.name }</td>
                 		<td>${student.classNum }</td>
                 		<c:choose>
                 		<c:when test="${student.isAttend == true}"><td>〇</td></c:when>
                 		<c:when test="${student.isAttend == false}"><td>×</td></c:when>
                 		</c:choose>
+
+
                 		<td><a href="#">変更</a></td>
+                		<input type="hidden" name="f1" value="${student.no}">
+
                 		</tr>
                 	</c:forEach>
+
                 </table>
                 </div>
+
+                </form>
 
 
 

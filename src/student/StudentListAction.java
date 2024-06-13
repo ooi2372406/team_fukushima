@@ -50,7 +50,7 @@ public class StudentListAction extends Action {
 
 		//DBからデータ取得３
 		//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
-		List<String> list = cNumDao.Filter(teacher.getSchool());
+		List<String> list = cNumDao.filter(teacher.getSchool());
 
 		if (entYear != 0 && !classNum.equals("0")) {
 			//入学年度とクラス番号を指定

@@ -177,17 +177,18 @@ public class StudentDao extends DAO {
 		// 条件指定
 		String condition = "AND ENT_YEAR = ?";
 		// 昇順ソート
-		String order = "ORDER BY NO ASC";
+		String order = " ORDER BY NO ASC ";
 		// SQL分の在学フラグ
 		String conditionIsAttend = "";
 		// 在学フラグがtrueだった場合
 		if (isAttend) {
-			conditionIsAttend = "AND IS_ATTEND = TRUE";
+			conditionIsAttend = " AND IS_ATTEND = TRUE";
 		}
 
 		try{
 			// プリペアードステートメントにSQL分をセット
-			st = con.prepareStatement(baseSql + condition + conditionIsAttend + order);
+			 String sql = baseSql + condition + conditionIsAttend + order;
+			 st = con.prepareStatement("SELECT * FROM STUDENT WHERE SCHOOL_CD=? AND ENT_YEAR = ? AND IS_ATTEND = TRUE ORDER BY NO ASC");
 			// プリペアードステートメントに学校コードをバインド
 			st.setString(1, school.getCd());
 			// プリペアードステートメントに入学年度をバインド
@@ -236,12 +237,12 @@ public class StudentDao extends DAO {
 			// リザルトセット
 			ResultSet rs = null;
 
-			String order = "ORDER BY NO ASC";
+			String order = " ORDER BY NO ASC";
 
 			String conditionIsAttend = "";
 			// 在学フラグがtrueだった場合
 			if (isAttend) {
-				conditionIsAttend = "AND IS_ATTEND = TRUE";
+				conditionIsAttend = " AND IS_ATTEND = TRUE";
 			}
 
 			try{

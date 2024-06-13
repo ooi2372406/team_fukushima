@@ -12,22 +12,16 @@ import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
 import dao.SubjectDAO;
-import dao.TestListStudentDAO;
-import dao.TestListSubjectDAO;
 import tool.Action;
 import util.Util;
 
 public class TestListAction extends Action {
 
-    // DAOインスタンスの作成
-    private TestListStudentDAO studentDao = new TestListStudentDAO();
-    private TestListSubjectDAO subjectDao = new TestListSubjectDAO();
+
 
     public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        // リクエストパラメータの取得
-        String action = req.getParameter("action");
 
-        // actionに応じた処理の実行
+
         try {
         	HttpSession session = req.getSession();
         	Teacher teacher=Util.getUser(req);
@@ -37,7 +31,7 @@ public class TestListAction extends Action {
         	List<Subject>subject = subject_dao.filter(school);
 
         	ClassNumDao class_dao = new ClassNumDao();
-        	List<String>classnum=class_dao.Filter(school);
+        	List<String>classnum=class_dao.filter(school);
         	System.out.println(classnum);
         	session.setAttribute("subject", subject);
         	session.setAttribute("classnum", classnum);

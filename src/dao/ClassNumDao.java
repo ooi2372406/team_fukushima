@@ -9,7 +9,7 @@ import java.util.List;
 import bean.School;
 
 public class ClassNumDao  extends DAO {
-	public List<String>Filter (School school) throws Exception {
+	public List<String>filter (School school) throws Exception {
 		List<String> list = new ArrayList<>();
 		Connection con=getConnection();
 
