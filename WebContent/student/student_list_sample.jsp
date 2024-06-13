@@ -69,7 +69,7 @@
                 		<c:when test="${student.isAttend == true}"><td>〇</td></c:when>
                 		<c:when test="${student.isAttend == false}"><td>×</td></c:when>
                 		</c:choose>
-                		<td><a href="#">変更</a></td>
+                		<td><a href="StudentUpdate.action">変更</a></td>
                 		</tr>
                 	</c:forEach>
                 </table>
