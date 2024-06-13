@@ -36,7 +36,7 @@ public class SubjectUpdateExecuteAction extends Action {
 			// SubjectDAOインスタンスを生成
 			SubjectDAO dao=new SubjectDAO();
 
-			Subject subject = dao.filter(cd, school);
+			Subject subject = dao.get(cd, school);
 
 	        if (subject == null) {
 	            subject = new Subject();

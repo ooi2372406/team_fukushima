@@ -14,7 +14,7 @@ import bean.Subject;
 public class SubjectDAO extends DAO {
 
 	// 学生を全件取得するgetメソッド
-	public List<Subject> get(School school) throws Exception {
+	public List<Subject> filter(School school) throws Exception {
 		List<Subject> subject=new ArrayList<>();
 
 		Connection con=getConnection();
@@ -23,7 +23,7 @@ public class SubjectDAO extends DAO {
 
 		PreparedStatement st = null;
 
-		String all = "SELECT CD , NAME FROM SUBJECT WHERE CD = ?";
+		String all = "SELECT CD , NAME FROM SUBJECT WHERE SCHOOL_CD = ?";
 
 		try{
 
@@ -67,7 +67,7 @@ public class SubjectDAO extends DAO {
 
 
 
-	public Subject filter(String cd , School school) throws Exception {
+	public Subject get(String cd , School school) throws Exception {
 		Subject subject = null;
 		Connection con=getConnection();
 		PreparedStatement st = null;
@@ -77,7 +77,7 @@ public class SubjectDAO extends DAO {
 
 		try{
 			st=con.prepareStatement(select);
-			st.setString(1, school.getCd());
+			st.setString(1, cd);
 			rs=st.executeQuery();
 
 			if (rs.next()) {
@@ -238,3 +238,4 @@ public class SubjectDAO extends DAO {
 	}
 
 }
+

@@ -42,7 +42,7 @@ public class SubjectCreateExecuteAction extends Action {
 
 
 			// 重複チェック
-			if (dao.filter(cd, school) != null) {
+			if (dao.get(cd, school) != null) {
 				request.setAttribute("message", "科目コードが重複しています");
 				return "/student/subject/subject_create.jsp"; // エラーメッセージを表示するためのJSP
 			}

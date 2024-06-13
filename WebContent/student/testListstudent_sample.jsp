@@ -33,14 +33,18 @@
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
 
                 	<option selected>--------</option>
-
+					<c:forEach var="i" items="${ classnum}">
+						<option>${i}</option>
+					</c:forEach>
                 	</select>
                 	</td>
                 	<td>
                 	<select style="width:70%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f3">
 
                 	<option selected>--------</option>
-
+					<c:forEach var="i" items="${subject}">
+						<option>${i.name}</option>
+					</c:forEach>
                 	</select>
                 	<input type="hidden" name="f" value="sj">
                 	</td>
