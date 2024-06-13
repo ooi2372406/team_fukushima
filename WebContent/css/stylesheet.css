@@ -24,11 +24,11 @@ h2 {
 .original-border {
   border-radius: 3px;
 
-  border: 3px solid whitesmoke;
+  border: 3px solid #cecfca;
 }
 
 .loginstyle{
-	border:1px solid whitesmoke;
+	border:1px solid #cecfca;
 	padding-left:0;
 	padding-right:0;
 }
@@ -38,7 +38,7 @@ h2 {
 }
 
 .form-group{
-	border:3px solid whitesmoke;
+	border:3px solid #cecfca;
 	border-radius:10px;
 	margin:20px 0;
 }
@@ -135,3 +135,24 @@ html, body {
     background-color: red;
     border-color: red;
 }
+
+.responsive-table-kamoku th:nth-child(1), .responsive-table td:nth-child(1) {
+            width: 25%;
+        }
+.responsive-table-kamoku th:nth-child(2), .responsive-table td:nth-child(2) {
+            width: 25%;
+        }
+.responsive-table-kamoku th:nth-child(3), .responsive-table td:nth-child(3) {
+            width: 50%;
+        }
+
+
+.responsive-table-gakusei th:nth-child(1), .responsive-table td:nth-child(1) {
+            width: 50%;
+        }
+.responsive-table-gakusei th:nth-child(2), .responsive-table td:nth-child(2) {
+            width: 0%;
+        }
+.responsive-table-gakusei th:nth-child(3), .responsive-table td:nth-child(3) {
+            width: 0%;
+        }

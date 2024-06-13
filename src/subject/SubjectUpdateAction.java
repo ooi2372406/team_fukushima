@@ -31,10 +31,10 @@ public class SubjectUpdateAction extends Action {
 		 		SubjectDAO dao = new SubjectDAO();
 		 		// 対象の学生を取得
 
-		 		Subject subject = dao.get(cd , school);
-
+		 		Subject subjects = dao.get(cd , school);
+		 		System.out.println(subjects);
 		 		// studentとcourseListを設定してjspにフォワード
-		 		request.setAttribute("subject", subject);
+		 		request.setAttribute("subject", subjects);
 
 		 		return "/student/subject/subject_update.jsp";
 		 	}catch(Exception e){

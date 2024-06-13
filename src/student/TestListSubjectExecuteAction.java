@@ -27,6 +27,9 @@ public class TestListSubjectExecuteAction extends Action {
 						"java:/comp/env/jdbc/team\fukushima");
 					Connection con=ds.getConnection();
 
+					TestListAction action = new TestListAction();
+					action.setTestListSubject(request,response);
+
 					PreparedStatement st = con.prepareStatement(
 						    "SELECT test.student_no, test.subject_cd, test.school_cd, test.no, test.point, test.class_num ,subject.name AS subject_name" +
                        "FROM test " +
