@@ -69,11 +69,15 @@
                 		<c:when test="${student.isAttend == true}"><td>〇</td></c:when>
                 		<c:when test="${student.isAttend == false}"><td>×</td></c:when>
                 		</c:choose>
+<<<<<<< HEAD
 
 
                 		<td><a href="#">変更</a></td>
                 		<input type="hidden" name="f1" value="${student.no}">
 
+=======
+                		<td><a href="StudentUpdate.action">変更</a></td>
+>>>>>>> 01d94b0e1d538a44f6f1ae8728a03dd685aa8104
                 		</tr>
                 	</c:forEach>
 

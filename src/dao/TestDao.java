@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
+<<<<<<< HEAD
 import bean.Student;
 import bean.Subject;
+=======
+>>>>>>> 01d94b0e1d538a44f6f1ae8728a03dd685aa8104
 import bean.Test;
 
 public class TestDao extends DAO {
@@ -181,7 +184,7 @@ public class TestDao extends DAO {
     }
 
     // プライベートのsaveメソッド
-    private boolean save(Test test) throws SQLException {
+    private boolean save(Test test, Connection connection) throws SQLException {
         Connection con = getConnection();
         PreparedStatement st = con.prepareStatement(
             "INSERT INTO TEST (STUDENT_NO, SUBJECT_CD, SCHOOL_CD, NO, POINT, CLASS_NUM) VALUES (?, ?, ?, ?, ?, ?)"
@@ -200,7 +203,7 @@ public class TestDao extends DAO {
         return true;
     }
 
-    private boolean delete(List<Test> list) throws SQLException {
+    private boolean delete(Test test, Connection connection) throws SQLException {
         for (Test test : list) {
             delete(test);
         }
@@ -227,5 +230,14 @@ public class TestDao extends DAO {
     public Connection getConnection() throws SQLException {
         // 以下にあなたのデータベース接続情報を入力してください
         return DriverManager.getConnection("jdbc:h2:tcp://localhost/~/db_TEAM_FUKUSHIMA", "sa", "");
+<<<<<<< HEAD
     } */
+=======
+    }
+
+	public List<Test> filter(School school) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+>>>>>>> 01d94b0e1d538a44f6f1ae8728a03dd685aa8104
 }

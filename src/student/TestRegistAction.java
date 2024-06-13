@@ -1,12 +1,16 @@
 package student;
 
+<<<<<<< HEAD
 import java.io.IOException;
+=======
+>>>>>>> 01d94b0e1d538a44f6f1ae8728a03dd685aa8104
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+<<<<<<< HEAD
 import bean.ClassNum;
 import bean.School;
 import bean.Student;
@@ -14,16 +18,51 @@ import bean.Subject;
 import bean.Teacher;
 import dao.StudentDao;
 import dao.SubjectDAO;
+=======
+import bean.School;
+import bean.Teacher;
+import bean.Test;
+import dao.TestDao;
+>>>>>>> 01d94b0e1d538a44f6f1ae8728a03dd685aa8104
 import tool.Action;
 import util.Util;
 
 public class TestRegistAction extends Action {
+<<<<<<< HEAD
 
 
 
     public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
+=======
+    public String execute(
+        HttpServletRequest request, HttpServletResponse response
+    ) throws Exception {
+    	try{
+
+    		// 意図的に例外を発生させる処理（普段はつかわない）
+    		 //if (true) {
+    	     //       throw new RuntimeException("テスト用の予期せぬエラー");
+    	     // }
+
+    		// getUserメソッドを呼び出してユーザー情報を取得
+    		Teacher teacher = Util.getUser(request);
+    		// TeacherオブジェクトからSchoolオブジェクトを取得
+    		School school = teacher.getSchool();
 
 
+>>>>>>> 01d94b0e1d538a44f6f1ae8728a03dd685aa8104
+
+    		TestDao dao = new TestDao();
+    		List<Test> tests = dao.filter(school);
+    		for (Test test : tests) {
+                System.out.println("Subject CD: " + test.getClass() + ", Name: " + test.getName());
+            }
+    		// HttpSessionオブジェクトを取得し、そこにユーザー情報を設定する
+    		HttpSession session = request.getSession();
+    		// Teacherオブジェクトをセッションに保存する
+    		session.setAttribute("subject", tests);
+
+<<<<<<< HEAD
         try {
         	HttpSession session = req.getSession();
         	boolean isAttend = true;//在学フラグ
@@ -36,6 +75,17 @@ public class TestRegistAction extends Action {
 
 
 
+=======
+            return "/student/test_regist.jsp"; // ログイン成功時のリダイレクト先
+    	}catch(Exception e){
+    		 // エラーメッセージを設定してエラーページに遷移
+            request.setAttribute("message", "エラーが発生しました。");
+            return "/student/subject/test_error.jsp";
+
+    	}
+        }
+
+>>>>>>> 01d94b0e1d538a44f6f1ae8728a03dd685aa8104
 
 
 
@@ -57,6 +107,7 @@ public class TestRegistAction extends Action {
         return "test_regist.jsp";
 
     }
+<<<<<<< HEAD
 }
 /*
 private void setTestListStudent(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -98,3 +149,6 @@ public void setTestListSubject(HttpServletRequest req, HttpServletResponse res) 
         dispatcher.forward(req, res);
     }
 }*/
+=======
+
+>>>>>>> 01d94b0e1d538a44f6f1ae8728a03dd685aa8104
