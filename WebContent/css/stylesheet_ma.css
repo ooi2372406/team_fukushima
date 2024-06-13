@@ -1,0 +1,161 @@
+@CHARSET "UTF-8";
+
+
+.headerstyle {
+    display: flex;
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: left; /* 水平方向の中央揃え */
+    height: 75px;
+    background-color: lightskyblue;
+    padding:20px;
+}
+.headerstyle > :first-child {
+	flex-grow:2;}
+
+
+
+/* 見出しのスタイル */
+h2 {
+    margin: 0; /* 不要なマージンを取り除く */
+    line-height: 1; /* 行の高さを調整 */
+    padding-left:30px;
+}
+
+.original-border {
+  border-radius: 3px;
+
+  border: 3px solid #cecfca;
+}
+
+.loginstyle{
+	border:1px solid #cecfca;
+	padding-left:0;
+	padding-right:0;
+}
+
+.login-form{
+	padding: 0 10%;
+}
+
+.form-group{
+	border:3px solid #cecfca;
+	border-radius:10px;
+	margin:20px 0;
+}
+
+.form-group-create{
+	border-radius:10px;
+	margin:10px 0;
+}
+
+.footerstyle{
+	text-align:center;
+}
+
+.highlight {
+    background-color: lightskyblue;
+}
+.exampleInputEmail1 {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+}
+
+.exampleInputEmail1:focus {
+	border:none;
+	outline: none;
+	background-color:lightskyblue;
+}
+
+
+
+.kamokucontainer{
+	display:flex;
+	width:70%;
+	height:100vh;
+	margin-left:20px;
+	margin-top:30px;
+}
+.kamokucontainer  > :first-child { flex-grow: 2 }
+tr{height:50px;}
+td{height:50px;}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.kamokucontainer-create{
+	display:flex;
+	width:90%;
+	height:100vh;
+	margin-left:20px;
+	margin-top:30px;
+}
+.kamokucontainer-logout{
+
+	width:90%;
+	height:100vh;
+	margin-left:20px;
+	margin-top:30px;
+}
+.btn2 {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.btn-primary-red {
+    color: white;
+    background-color: red;
+    border-color: red;
+}
+
+.responsive-table-seiseki th:nth-child(1), .responsive-table td:nth-child(1) {
+            width: 25%;
+        }
+.responsive-table-seiseki th:nth-child(2), .responsive-table td:nth-child(2) {
+            width: 25%;
+        }
+.responsive-table-seiseki th:nth-child(3), .responsive-table td:nth-child(3) {
+            width: 25%;
+        }
+.responsive-table-seiseki th:nth-child(4), .responsive-table td:nth-child(4) {
+            width: 25%;
+        }
+
+
+.responsive-table-gakusei th:nth-child(1), .responsive-table td:nth-child(1) {
+            width: 50%;
+        }
+.responsive-table-gakusei th:nth-child(2), .responsive-table td:nth-child(2) {
+            width: 0%;
+        }
+.responsive-table-gakusei th:nth-child(3), .responsive-table td:nth-child(3) {
+            width: 0%;
+        }

@@ -1,41 +1,56 @@
 package student;
 
-import java.io.IOException;
+import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import bean.School;
+import bean.Teacher;
+import bean.Test;
+import dao.TestDao;
+import tool.Action;
+import util.Util;
+
+public class TestRegistAction extends Action {
+    public String execute(
+        HttpServletRequest request, HttpServletResponse response
+    ) throws Exception {
+    	try{
+
+    		// 意図的に例外を発生させる処理（普段はつかわない）
+    		 //if (true) {
+    	     //       throw new RuntimeException("テスト用の予期せぬエラー");
+    	     // }
+
+    		// getUserメソッドを呼び出してユーザー情報を取得
+    		Teacher teacher = Util.getUser(request);
+    		// TeacherオブジェクトからSchoolオブジェクトを取得
+    		School school = teacher.getSchool();
 
 
-public class TestRegistAction extends HttpServlet {
 
+    		TestDao dao = new TestDao();
+    		List<Test> tests = dao.filter(school);
+    		for (Test test : tests) {
+                System.out.println("Subject CD: " + test.getClass() + ", Name: " + test.getName());
+            }
+    		// HttpSessionオブジェクトを取得し、そこにユーザー情報を設定する
+    		HttpSession session = request.getSession();
+    		// Teacherオブジェクトをセッションに保存する
+    		session.setAttribute("subject", tests);
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // フォームからのデータを取得
-        String studentId = request.getParameter("f4");
-        String subjectId = request.getParameter("sj");
+            return "/student/test_regist.jsp"; // ログイン成功時のリダイレクト先
+    	}catch(Exception e){
+    		 // エラーメッセージを設定してエラーページに遷移
+            request.setAttribute("message", "エラーが発生しました。");
+            return "/student/subject/test_error.jsp";
 
-        // データベースへの登録処理（省略）
-        // 登録処理が成功したと仮定
+    	}
+        }
 
-        // リクエスト属性にデータをセット
-        request.setAttribute("studentId", studentId);
-        request.setAttribute("subjectId", subjectId);
-
-        // 登録完了ページにフォワード
-        request.getRequestDispatcher("test_regist_done.jsp").forward(request, response);
-        // 検索後のページにフォワード
-        request.getRequestDispatcher("test_regist_search.jsp").forward(request, response);
-
-     // リクエスト属性にデータをセット
-        //request.setAttribute("入学年度",入学年度のデータ);
-        //request.setAttribute("クラス",クラスのデータ);
-
-        // 登録完了ページにフォワード
-       // request.getRequestDispatcher("test_regist_search.jsp").forward(request, response);
 
 
     }
 
-}
