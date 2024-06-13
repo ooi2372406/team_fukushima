@@ -109,4 +109,9 @@ public class Test {
 		// TODO 自動生成されたメソッド・スタブ
 
 	}
+
+	public void setPoint(String string) {
+		// TODO 自動生成されたメソッド・スタブ
+
+	}
 }
