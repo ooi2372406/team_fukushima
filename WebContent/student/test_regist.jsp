@@ -58,54 +58,53 @@
                 </form>
             </div>
 
-           <!-- 検索結果の表示 -->
-<div>
-    <%
-        String year = request.getParameter("year");
-        String className = request.getParameter("class");
-        String subject = request.getParameter("subject");
-        String times = request.getParameter("times");
+            <!-- 検索結果の表示 -->
+            <div>
+                <%
+                    String year = request.getParameter("year");
+                    String className = request.getParameter("class");
+                    String subject = request.getParameter("subject");
+                    String times = request.getParameter("times");
 
-        List<Map<String, String>> searchResults = new ArrayList<>();
+                    List<Map<String, String>> searchResults = new ArrayList<>();
 
-        if (year != null && className != null && subject != null && times != null) {
-            TestDao testDao = new TestDao();
-            try {
-                searchResults = testDao.searchTests(year, className, subject, times);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+                    if (year != null && className != null && subject != null && times != null) {
+                        Connection conn = null;
+                        PreparedStatement stmt = null;
+                        ResultSet rs = null;
 
-        request.setAttribute("searchResults", searchResults);
-    %>
+                        try {
+                            //conn = database.TABLE_ALL();
+                            String sql = "SELECT year, class, studentNumber, name, score FROM grades WHERE year = ? AND class = ? AND subject = ? AND times = ?";
+                            stmt = conn.prepareStatement(sql);
+                            stmt.setString(1, year);
+                            stmt.setString(2, className);
+                            stmt.setString(3, subject);
+                            stmt.setString(4, times);
 
-    <!-- 検索結果を表示する部分 -->
-    <c:if test="${!empty searchResults}">
-        <table>
-            <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Class</th>
-                    <th>Student Number</th>
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="result" items="${searchResults}">
-                    <tr>
-                        <td>${result.year}</td>
-                        <td>${result.class}</td>
-                        <td>${result.studentNumber}</td>
-                        <td>${result.name}</td>
-                        <td>${result.score}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </c:if>
-</div>
+                            rs = stmt.executeQuery();
+
+                            while (rs.next()) {
+                                Map<String, String> result = new HashMap<>();
+                                result.put("year", rs.getString("year"));
+                                result.put("class", rs.getString("class"));
+                                result.put("studentNumber", rs.getString("studentNumber"));
+                                result.put("name", rs.getString("name"));
+                                result.put("score", rs.getString("score"));
+                                searchResults.add(result);
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } finally {
+                            if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+                            if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+                            if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+                        }
+                    }
+
+                    request.setAttribute("searchResults", searchResults);
+                %>
+
                 <c:if test="${not empty searchResults}">
                     <p>検索結果</p>
                     <table>
