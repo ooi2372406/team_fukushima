@@ -12,8 +12,8 @@
 	<!-- flexアイテム右側としてdiv class="content" -->
 	<div class="content " style="flex:0 0 65%; padding-left:20px ">
 
-	        <div class="title" style="padding: 10px; background-color: whitesmoke;">
-	            メニュー
+	        <div class="title" style="padding: 10px;  background-color: whitesmoke; margin-top:10px">
+	              　メニュー
 	        </div>
 <br>
 
