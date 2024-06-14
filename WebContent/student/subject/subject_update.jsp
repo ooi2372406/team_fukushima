@@ -9,7 +9,7 @@
 
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="SubjectUpdateExecute.action" method="post">
             <div class="form-group-create">
-                <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報登録</h2>
+                <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報変更</h2>
                 <label for="subjectCode" style="margin:20px 0 0 5px;">科目コード</label>
                 <div style="margin:20px 0 0 20px;">${subject.cd}</div>
                 <c:if test="${ not empty message }">
