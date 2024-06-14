@@ -61,5 +61,6 @@ public class TestListSubject {
 
 	public void putPoint(int key,int value){
 		//ここがよくわからない
+		
 	}
 }
