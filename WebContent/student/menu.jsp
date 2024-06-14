@@ -27,8 +27,8 @@
 			align-items: center; justify-content: center; height: 8rem; background-color: #C2D8B1; margin: 0 10px; border-radius: 0.25rem; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); width: 200px;      height: 90px;">
 
 				<div class="text">成績管理<br>
-				<a href="TestRegist.action" style= text-decoration:none;>成績登録</a><br>
-				<a href="TestList.action" style= text-decoration:none;>成績参照</a>
+				<a href="/student_management/student/TestRegist.action" style= text-decoration:none;>成績登録</a><br>
+				<a href="/student_management/student/TestList.action" style= text-decoration:none;>成績参照</a>
 				</div>
 			</div>
 			<div class="card" style="display: flex; align-items: center; justify-content: center; height: 8rem; background-color: #B1B2D8; margin: 0 10px; border-radius: 0.25rem; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); width: 200px;  height: 90px;">

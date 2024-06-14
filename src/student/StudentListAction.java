@@ -30,18 +30,27 @@ public class StudentListAction extends Action {
 		String entYearStr=req.getParameter("f1");//入力された入学年度
 		String classNum =req.getParameter("f2");//入力されたクラス番号
 		String isAttendStr=req.getParameter("f3");//入力された在学フラグ
+
+
 		int entYear = 0;//入学年度
+
 		boolean isAttend = false;//在学フラグ
+
 		List<Student> students = null;//学生リスト
+
 		LocalDate todaysDate = LocalDate.now();//LcalDateインスタンスを取得
+
 		int year = todaysDate.getYear();//現在の年を取得
+
 		StudentDao sDao = new StudentDao();//学生Dao
+
 		ClassNumDao cNumDao = new ClassNumDao();//クラス番号Daoを初期化
+
 		HashMap<String, String> errors = new HashMap<>();//エラーメッセージ
 
 		//DBからデータ取得３
 		//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
-		List<String> list = cNumDao.Filter(teacher.getSchool());
+		List<String> list = cNumDao.filter(teacher.getSchool());
 
 		if (entYear != 0 && !classNum.equals("0")) {
 			//入学年度とクラス番号を指定
@@ -54,6 +63,11 @@ public class StudentListAction extends Action {
 			//全学生情報を取得
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
+		req.setAttribute("studentList", students);
+		for (Student subject : students) {
+           System.out.println("入学年度: " + subject.getEntYear() + ", 学生番号 " + subject.getNo()
+            + "氏名" + subject.getName() + "在学フラグ" + subject.getIsAttend());
+        }
 		//ビジネスロジック４
 		if (entYearStr != null) {
 			//数値に変換
@@ -80,11 +94,12 @@ public class StudentListAction extends Action {
 		//リクエストに学生リストをセット
 		req.setAttribute("f3",isAttendStr);
 		//リクエストにデータをセット
-		req.setAttribute("class_num_set", list);
-		req.setAttribute("ent_year_set", entYearSet);
+		req.setAttribute("class_num_set", list);  //クラス
+		System.out.println(list);
+		req.setAttribute("ent_year_set", entYearSet); // 入学年度リスト
 
 		//JSPへフォワード7
-		return "student_list.jsp";
+		return "student_list_sample.jsp";
 
 
 	}

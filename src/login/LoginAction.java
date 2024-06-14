@@ -1,7 +1,6 @@
 package login;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +15,7 @@ public class LoginAction extends HttpServlet {
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
 
-		PrintWriter out=response.getWriter();
+
 		try {
 
     		// 意図的に例外を発生させる処理（普段はつかわない）

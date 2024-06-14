@@ -30,13 +30,16 @@ public class SubjectListAction extends Action {
     		School school = teacher.getSchool();
 
 
-    		SubjectDAO dao = new SubjectDAO();
-    		List<Subject> subject = dao.filter(school);
 
+    		SubjectDAO dao = new SubjectDAO();
+    		List<Subject> subjects = dao.filter(school);
+    		for (Subject subject : subjects) {
+                System.out.println("Subject CD: " + subject.getCd() + ", Name: " + subject.getName());
+            }
     		// HttpSessionオブジェクトを取得し、そこにユーザー情報を設定する
     		HttpSession session = request.getSession();
     		// Teacherオブジェクトをセッションに保存する
-    		session.setAttribute("subject", subject);
+    		session.setAttribute("subject", subjects);
 
             return "/student/subject/subject_list.jsp"; // ログイン成功時のリダイレクト先
     	}catch(Exception e){

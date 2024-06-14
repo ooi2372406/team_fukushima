@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <%@ include file="../../head.jsp" %>
-
 <%@ include file="../../header.jsp" %>
 <main>
     <div class="kamokucontainer-create">
@@ -10,28 +8,25 @@
 
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestListSubjectExecute.action" method="post">
             <div class="form-group-create">
-
                 <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">学生管理</h2>
                 <div style="text-align:right; padding-right:20px;"><a  href="SubjectCreate.action">新規登録</a></div>
                 <div style="border:1px solid whitesmoke; height:120px;">
                 <div  style="display:flex;  display: -webkit-flex; align-items: center; height:90px; margin-top:10px;">
 
 
-                	<table class="responsive-table-seiseki" style="width:60%;">
+                	<table class="responsive-table-kamoku" style="width:60%;">
                 	<tr>
                 	<th><label>入学年度</label></th>
                 	<th><label>クラス</label></th>
-                	<th><label>科目</label></th>
-                	<th><label>回数</label>
 
                 	</tr>
                 	<tr>
                 	<td>
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
                 	<option selected>--------</option>
-					<c:forEach var="i" items="${student}">
-						<option>${i.entYear}</option>
-					</c:forEach>
+					<c:forEach var="seireki" items="${ent_year_set}">
+                	<option>${seireki }</option>
+                	</c:forEach>
                 	</select>
                 	</td>
 
@@ -39,40 +34,59 @@
                 	<td>
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
                 	<option selected>--------</option>
-					<c:forEach var="i" items="${student}">
-						<option>${i.classNum}</option>
+					<c:forEach var="i" items="${class_num_set}">
+					<option>${i}</option>
 					</c:forEach>
-                	</select>
-                	</td>
-                	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
-                	<option selected>--------</option>
-					<c:forEach var="i" items="${subject}">
-						<option>${i.name}</option>
-					</c:forEach>
-                	</select>
-                	</td>
-
-                	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
-                	<option selected>--------</option>
-					<c:forEach var="i" begin="1" end="3">
-						<option>${i}</option>
-					</c:forEach>
-
-
                 	</select>
                 	</td>
                 	</tr>
                 	</table>
-
+					<div><input type="checkbox"  name="f3"  style="margin-right:10px;"><label>在学中</label></div>
                 	<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" value="検索">絞込み</button></div>
 					</div>
                 </div>
                 </form>
 
+				<form action="StudentUpdate.action" method="post">
+				<div style="width:100%;">
+                <table style="width:100%;">
+                	<tr style="border-bottom:1px solid #cecfca;">
+                		<th>入学年度</th>
+                		<th>学生番号</th>
+                		<th>氏名</th>
+                		<th>クラス</th>
+                		<th>在学中</th>
+                		<th></th>
+                	</tr>
+
+                	<c:forEach var="student" items="${studentList}">
+                	<tr style="border-bottom:1px solid #cecfca;">
+                		<td>${student.entYear }</td>
+						<td>${student.no}</td>
+                		<td>${student.name }</td>
+                		<td>${student.classNum }</td>
+                		<c:choose>
+                		<c:when test="${student.isAttend == true}"><td>〇</td></c:when>
+                		<c:when test="${student.isAttend == false}"><td>×</td></c:when>
+                		</c:choose>
 
 
+
+                		<input type="hidden" name="f1" value="${student.no}">
+
+        				<td><a href="StudentUpdate.action">変更</a></td>
+
+                		</tr>
+                	</c:forEach>
+
+                </table>
+                </div>
+
+                </form>
+
+
+
+    </div>
 </main>
 
 <%@ include file="../../footer.jsp" %>

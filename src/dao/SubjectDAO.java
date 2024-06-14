@@ -23,11 +23,12 @@ public class SubjectDAO extends DAO {
 
 		PreparedStatement st = null;
 
-		String all = "SELECT CD , NAME FROM SUBJECT";
+		String all = "SELECT CD , NAME FROM SUBJECT WHERE SCHOOL_CD = ?";
 
 		try{
 
 			st=con.prepareStatement(all);
+			st.setString(1, school.getCd());
 			rs=st.executeQuery();
 
 			while (rs.next()) {
@@ -237,3 +238,4 @@ public class SubjectDAO extends DAO {
 	}
 
 }
+
