@@ -9,7 +9,7 @@
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestListSubjectExecute.action" method="post">
             <div class="form-group-create">
                 <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">学生管理</h2>
-                <div style="text-align:right; padding-right:20px;"><a  href="SubjectCreate.action">新規登録</a></div>
+                <div style="text-align:right; padding-right:20px;"><a  href="StudentCreate.action">新規登録</a></div>
                 <div style="border:1px solid whitesmoke; height:120px;">
                 <div  style="display:flex;  display: -webkit-flex; align-items: center; height:90px; margin-top:10px;">
 

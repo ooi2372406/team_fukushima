@@ -20,7 +20,7 @@
 
 	<div class="d-flex flex-row bd-highlight mb-3">
 
-  		<div><a href="SubjectList.action">学生一覧</a></div>
+  		<div><a href="StudentList.action">学生一覧</a></div>
   	</div>
   </div>
 

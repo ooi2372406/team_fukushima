@@ -307,6 +307,7 @@ public class StudentDao extends DAO {
 				st.setBoolean(5 , student.getIsAttend());
 				st.setString(6 ,  student.getSchool().getCd());
 			}else {
+				System.out.println("存在している");
 				// 学生が存在した場合
 				// プリペアードステートメントにUPDATE分をセット
 				st = con.prepareStatement(

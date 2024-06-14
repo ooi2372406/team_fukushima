@@ -22,25 +22,25 @@ public class StudentUpdateExecuteAction extends Action {
    	     // }
 			HttpSession session = request.getSession();//セッション
 			// ユーザーからの入力値を受け取る
-			String classnum=request.getParameter("class_num");
-			String name=request.getParameter("name");
 
 			String attendance = request.getParameter("si_attend");
 			boolean isAttend = "true".equals(attendance);
-
 			// getUserメソッドを呼び出してユーザー情報を取得
 			Teacher teacher = Util.getUser(request);
 			// TeacherオブジェクトからSchoolオブジェクトを取得
 			School school = teacher.getSchool();
 
-			Student student = new Student();
-			student.setName(name);
-			student.setClassNum(classnum);
-			student.setIsAttend(isAttend);
 
 			StudentDao dao = new StudentDao();
+			Student student = dao.get(request.getParameter("no"));
+			student.setName(request.getParameter("name"));
+			student.setClassNum(request.getParameter("class_num"));
+			student.setIsAttend(isAttend);
+
 
 			boolean attend = dao.save(student);
+			System.out.println(attend);
+
 
 
 

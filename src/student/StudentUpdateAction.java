@@ -44,7 +44,7 @@ public class StudentUpdateAction extends Action {
             e.printStackTrace();
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
         }
-        return "student_update.jsp";
+        return "student_update_sample.jsp";
 
     }
 }

@@ -7,7 +7,7 @@
     <div class="kamokucontainer-create">
         <%@ include file="./base.jsp" %>
 
-        <form id="subjectForm" style="width:100%; margin-left:20px;" action="SubjectUpdateExecute.action" method="post">
+        <form id="subjectForm" style="width:100%; margin-left:20px;" action="StudentUpdateExecute.action" method="post">
             <div class="form-group-create">
                 <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">学生情報変更</h2>
                 <label for="subjectCode" style="margin:20px 0 0 5px;">入学年度</label>
@@ -32,19 +32,21 @@
 
             <div class="form-group-create">
                 <label for="subjectName" style="margin:20px 0 0 5px;">クラス</label>
-                <select name="class_num" class="form-control"  style=" width:95%;">
+                <select name="class_num" class="form-control"  style=" width:95%;" >
                 <c:forEach var="num" items="${ classnum }">
-                <option >${ num }</option>
+                <option value="${ num }">${ num }</option>
                 </c:forEach>
                 </select>
             </div>
-			<div><label>在学中</label><input type="checkbox"  name="si_attend"  style="margin-right:10px;"></div>
+			<div><label>在学中</label><input type="checkbox"  name="si_attend"  style="margin-right:10px;" value="true"></div>
             <div style="width:100%;">
                 <button type="submit" class="btn btn-primary" style="width:15%;">変更</button>
             </div>
             <div style="margin:10px 0 0 0px;">
                 <a href="SubjectList.action">戻る</a>
             </div>
+            <input type="hidden" name="no" value="${ student.no }">
+
         </form>
     </div>
 </main>
