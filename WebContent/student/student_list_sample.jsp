@@ -47,7 +47,7 @@
                 </div>
                 </form>
 
-				<form action="StudentUpdate.action" method="post">
+
 				<div style="width:100%;">
                 <table style="width:100%;">
                 	<tr style="border-bottom:1px solid #cecfca;">
@@ -63,6 +63,7 @@
                 	<tr style="border-bottom:1px solid #cecfca;">
                 		<td>${student.entYear }</td>
 						<td>${student.no}</td>
+
                 		<td>${student.name }</td>
                 		<td>${student.classNum }</td>
                 		<c:choose>
@@ -70,11 +71,12 @@
                 		<c:when test="${student.isAttend == false}"><td>×</td></c:when>
                 		</c:choose>
 
-
-
-                		<input type="hidden" name="f1" value="${student.no}">
-
-        				<td><a href="StudentUpdate.action">変更</a></td>
+                		<td>
+						<form action="StudentUpdate.action" method="post">
+        				<button type="submit" class="btn btn-link" >変更</button>
+        				<input type="hidden" name="f1" value="${student.no}">
+						</form>
+						</td>
 
                 		</tr>
                 	</c:forEach>
@@ -82,7 +84,7 @@
                 </table>
                 </div>
 
-                </form>
+
 
 
 

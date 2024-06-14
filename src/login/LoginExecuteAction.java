@@ -43,7 +43,7 @@ public class LoginExecuteAction extends Action {
     	}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移
            request.setAttribute("message", "エラーが発生しました。");
-           return "subject_error.jsp";
+           return "/student/subject/subject_error.jsp";
 
    	}
     }
