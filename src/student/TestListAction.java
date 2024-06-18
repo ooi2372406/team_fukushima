@@ -41,7 +41,7 @@ public class TestListAction extends Action {
 
 
 
-        	boolean isAttend = true;
+        	boolean isAttend = true;  // 在籍中の学生だけを取得
         	StudentDao studao = new StudentDao();
         	List<Student>studentList = studao.filter(school, isAttend);
         	 // 重複を排除した学生の入学年度リストを取得
@@ -50,7 +50,7 @@ public class TestListAction extends Action {
                                                          .distinct()
                                                          .collect(Collectors.toList());
 
-            System.out.println(uniqueEnrollYears);
+
 
         	session.setAttribute("student", uniqueEnrollYears);
 
