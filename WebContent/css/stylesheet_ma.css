@@ -98,7 +98,7 @@ html, body {
     flex-direction: column;
 }
 
-.kamokucontainer-create{
+.kamokucontainer-seiseki{
 	display:flex;
 	width:90%;
 	height:100vh;
@@ -137,16 +137,16 @@ html, body {
 }
 
 .responsive-table-seiseki th:nth-child(1), .responsive-table td:nth-child(1) {
-            width: 25%;
+            width: 20%;
         }
 .responsive-table-seiseki th:nth-child(2), .responsive-table td:nth-child(2) {
-            width: 25%;
+            width: 20%;
         }
 .responsive-table-seiseki th:nth-child(3), .responsive-table td:nth-child(3) {
-            width: 25%;
+            width: 20%;
         }
 .responsive-table-seiseki th:nth-child(4), .responsive-table td:nth-child(4) {
-            width: 25%;
+            width: 20%;
         }
 
 

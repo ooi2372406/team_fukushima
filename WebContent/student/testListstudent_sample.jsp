@@ -23,9 +23,9 @@
                 	<td>
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
                 	<option selected>--------</option>
-					<c:forEach var="seireki" begin="2010" end="2024">
+					<c:forEach var="seireki" items="${student}">
 
-                	<option>${seireki }</option>
+                	<option>${seireki}</option>
                 	</c:forEach>
                 	</select>
                 	</td>

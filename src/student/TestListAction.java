@@ -2,15 +2,18 @@ package student;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.School;
+import bean.Student;
 import bean.Subject;
 import bean.Teacher;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import dao.SubjectDAO;
 import tool.Action;
 import util.Util;
@@ -35,6 +38,22 @@ public class TestListAction extends Action {
         	System.out.println(classnum);
         	session.setAttribute("subject", subject);
         	session.setAttribute("classnum", classnum);
+
+
+
+        	boolean isAttend = true;
+        	StudentDao studao = new StudentDao();
+        	List<Student>studentList = studao.filter(school, isAttend);
+        	 // 重複を排除した学生の入学年度リストを取得
+            List<Integer> uniqueEnrollYears = studentList.stream()
+                                                         .map(Student::getEntYear)
+                                                         .distinct()
+                                                         .collect(Collectors.toList());
+
+            System.out.println(uniqueEnrollYears);
+
+        	session.setAttribute("student", uniqueEnrollYears);
+
 
 
 

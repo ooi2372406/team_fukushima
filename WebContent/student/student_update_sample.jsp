@@ -43,7 +43,7 @@
                 <button type="submit" class="btn btn-primary" style="width:15%;">変更</button>
             </div>
             <div style="margin:10px 0 0 0px;">
-                <a href="SubjectList.action">戻る</a>
+                <a href="StudentList.action">戻る</a>
             </div>
             <input type="hidden" name="no" value="${ student.no }">
 

@@ -7,7 +7,7 @@
     <div class="kamokucontainer-create">
         <%@ include file="./base.jsp" %>
 
-        <form id="subjectForm" style="width:100%; margin-left:20px;" action="SubjectCreateExecute.action" method="post">
+        <form id="subjectForm" style="width:100%; margin-left:20px;" action="StudentCreateExecute.action" method="post">
             <div class="form-group-create">
                 <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;">学生情報登録</h2>
                 <label for="subjectCode" style="margin: 20px 0 0 5px;">入学年度</label>
@@ -15,11 +15,12 @@
 					<option value="">--------</option>
 
             		<!-- 動的に選択肢を生成する場合は以下にJavaコードを記述 -->
-           			 <% for (int i = 2014; i <= 2034; i++) { %>
-              		  <option value="<%= i %>"><%= i %></option>
-            			<% } %>
+           			 <c:forEach var="i" items="${year}">
+              		  <option value="${i}">${i}</option>
+              		  </c:forEach>
+
             	</select><br>
-                <div id="lengthError" style="color: gold; display: none;"</div>
+                <div id="lengthError" style="color: gold; display: none;"></div>
                     <c:if test="${not empty message}">
                    		 <div id="serverError" style="color: gold;">${message}</div>
                		</c:if>
@@ -32,14 +33,19 @@
                 <input type="text" class="form-control" name="name" value="${name}" placeholder="氏名を入力してください" style="margin-left: 20px; width: 95%;" required>
 
         	<label for="class_num"style="margin: 20px 0 0 5px;">クラス</label>
-        	<select id="class_num" name="class_num"></select>
+        	<select id="class_num" name="class_num">
+        	<option value="">--------</option>
+        	<c:forEach var="i" items="${classList}">
+        		<option value="${i}">${i}</option>
+        	</c:forEach>
+        	</select>
 
 
             <input type="hidden" name="schoolcd" value="${user.school}">
             <div style="width: 100%;"></div>
                 <button type="submit" class="btn btn-primary" style="margin-left: 20px; width: 15%;">登録</button>
             <div style="margin: 10px 0 0 20px;">
-                <a href="SubjectList.action">戻る</a>
+                <a href="StudentList.action">戻る</a>
             </div>
         </form>
     </div>
