@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import bean.School;
+import bean.Subject;
 import bean.TestListSubject;
 
 public class TestListSubjectDAO extends DAO {
@@ -17,13 +18,45 @@ public class TestListSubjectDAO extends DAO {
         List<TestListSubject> subjectList = new ArrayList<>();
         try {
             while (set.next()) {
-                TestListSubject subject = new TestListSubject();
-                subject.setEntYear(set.getInt("entYear"));
-                subject.setStudentName(set.getString("studentName"));
-                subject.setPoints(new HashMap<>());
-                // Assuming points are stored as key-value pairs
-                // Iterate and populate pointsMap
-                subjectList.add(subject);
+                int entYear = set.getInt("STUDENT.ENT_YEAR");
+                String studentName = set.getString("STUDENT.NAME");
+                String studentNo = set.getString("STUDENT.NO");
+                String classNum = set.getString("STUDENT.CLASS_NUM");
+                int testNo = set.getInt("TEST.NO");
+                int testPoint = set.getInt("TEST.POINT");
+                String subjectName = set.getString("SUBJECT.NAME");
+
+                // 同じ学生をリストから探す
+                TestListSubject subject = null;
+                for (TestListSubject s : subjectList) {
+                    if (s.getStudentNo().equals(studentNo)) {
+                        subject = s;
+                        break;
+                    }
+                }
+
+                // 見つからなければ新しいオブジェクトを作成してリストに追加
+                if (subject == null) {
+                    subject = new TestListSubject();
+                    subject.setEntYear(entYear);
+                    subject.setStudentName(studentName);
+                    subject.setStudentNo(studentNo);
+                    subject.setClassNum(classNum);
+                    subject.setPoints(new HashMap<>()); // 初期化
+
+                    subjectList.add(subject);
+
+                }
+
+                // ポイントを追加
+                subject.putPoint(testNo, testPoint);
+
+                // 2回目の値がなければデフォルト値 -1 を格納
+                if (!subject.getPoints().containsKey(2)) {
+                    subject.putPoint(2, -1);
+                }
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -31,18 +64,31 @@ public class TestListSubjectDAO extends DAO {
         return subjectList;
     }
 
-    public List<TestListSubject> filter(int entYear, String classNum, String subject, School school) {
+    public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) {
         // 年度、クラス番号、科目、学校に基づいてリストを取得する
         List<TestListSubject> subjectList = new ArrayList<>();
         try (
-        	Connection conn = getConnection();
-            PreparedStatement stmt = conn.prepareStatement(baseSql + "")) {
-            stmt.setInt(1, entYear);
-            stmt.setString(2, classNum);
-            stmt.setString(3, subject);
-            stmt.setString(4, school.getCd());
+            Connection conn = getConnection();
+            PreparedStatement stmt = conn.prepareStatement(
+                "SELECT STUDENT.* ,SUBJECT.* ,TEST.* FROM TEST JOIN SUBJECT ON TEST.SUBJECT_CD = SUBJECT.CD JOIN STUDENT ON STUDENT.NO = TEST.STUDENT_NO WHERE SUBJECT.NAME = ? AND STUDENT.ENT_YEAR = ? AND STUDENT.CLASS_NUM = ?"
+            )) {
+            stmt.setString(1, subject.getName());
+
+            stmt.setInt(2, entYear);
+
+            stmt.setString(3, classNum);
+
             ResultSet rs = stmt.executeQuery();
             subjectList = postFilter(rs);
+
+            // デバッグ用に取得したリストを出力
+            for (TestListSubject subjects : subjectList) {
+                System.out.println("EntYear: " + subjects.getEntYear());
+                System.out.println("StudentName: " + subjects.getStudentName());
+                System.out.println("StudentNo: " + subjects.getStudentNo());
+                System.out.println("ClassNum: " + subjects.getClassNum());
+                System.out.println("Points: " + subjects.getPoints());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

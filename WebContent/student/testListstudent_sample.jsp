@@ -6,9 +6,21 @@
     <div class="kamokucontainer-create">
         <%@ include file="base.jsp" %>
 
-        <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestListSubjectExecute.action" method="post">
+        <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestList.action" method="post">
             <div class="form-group-create">
-                <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">成績参照</h2>
+			<c:choose>
+				<c:when test="${empty testList && empty studentList}">
+				 	<h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">成績参照</h2>
+				</c:when>
+				<c:when test="${not empty testList }">
+				 	<h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">成績一覧（科目）</h2>
+				</c:when>
+				<c:when test="${not empty studentList }">
+				 	<h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">成績一覧（学生）</h2>
+				</c:when>
+			</c:choose>
+
+
                 <div style="border:1px solid whitesmoke; height:120px;">
                 <div  style="display:flex;  display: -webkit-flex; align-items: center; height:90px; margin-top:10px;">
 
@@ -33,20 +45,18 @@
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
 
                 	<option selected>--------</option>
-					<option value="---">--------</option>
-                            <option value="131">131</option>
-                            <option value="132">132</option>
-                            <option value="133">133</option>
+					<c:forEach var="classnum" items="${classnum}">
+						<option>${classnum }</option>
+                     </c:forEach>
                 	</select>
                 	</td>
                 	<td>
                 	<select style="width:70%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f3">
 
                 	<option selected>--------</option>
-					<option value="----">--------</option>
-                            <option value="国語">国語</option>
-                            <option value="数学">数学</option>
-                            <option value="英語">英語</option>
+					<c:forEach var="i" items="${subject }">
+					<option>${i.name}</option>
+					</c:forEach>
                 	</select>
                 	<input type="hidden" name="f" value="sj">
                 	</td>
@@ -56,7 +66,8 @@
 					</div>
                 </div>
                 </form>
-                <form action="TestListStudentExecute.action" method="post">
+
+                <form action="TestList.action" method="post">
                 <div style="border:1px solid whitesmoke; height:120px;">
                 <div style="display:flex;  display: -webkit-flex; align-items: center;">
 
@@ -86,10 +97,84 @@
                 	<div><button style="margin-left:50px;" class="btn btn-primary" type="submit" value="検索">検索</button></div>
 				</div>
                 </div>
-            <div style="margin: 10px 0 0 20px;">
-               <label><p style="color:#03fcf8">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</label>
-            </div>
+
         </form>
+        <c:choose>
+        	<c:when test="${not empty testList}">
+        	<table style="width:100%; margin-top:auto;">
+        			<tr>
+               					 <td><div style="display:block"><p class="mt-3">科目 : ${subjectname}</p></div></td>
+                			</tr>
+
+                			<tr style="border-bottom: 1px solid  #cecfca;">
+                    			<th>入学年度</th>
+                    			<th>クラス</th>
+                    			<th>学生番号</th>
+                    			<th>氏名</th>
+                    			<th>1回目</th>
+                    			<th>2回目</th>
+                			</tr>
+
+
+                     			<c:forEach var="test" items="${testList }">
+                     			<tr style="border-bottom: 1px solid  #cecfca;">
+                     				<td>${test.entYear }</td>
+                        			<td>${test.classNum}</td>
+                        			<td>${test.studentNo}</td>
+                        			<td>${test.studentName}</td>
+									<c:forEach var="i" items="${test.points}">
+        							<td>${i.value != -1 ? i.value : '-'}</td>
+
+        							</c:forEach>
+
+
+
+                					<c:if test="${not empty message}">
+                    				<div id="pointError" style="color: gold;">${message}</div>
+                					</c:if>
+
+                        			</tr>
+
+                        		</c:forEach>
+							</table>
+        					</c:when>
+        					<c:when test="${not empty studentList }">
+        					<table style="width:100%; margin-top:auto;">
+        						<tr>
+               					 <td><div style="display:block"><p class="mt-3">学生氏名 : ${studentname.name}(${ studentname.no })</p></div></td>
+                				</tr>
+
+                				<tr style="border-bottom: 1px solid  #cecfca;">
+                    				<th>科目名</th>
+                    				<th>科目コード</th>
+                    				<th>回数</th>
+                    				<th>点数</th>
+                				</tr>
+
+
+                     			<c:forEach var="student" items="${studentList}">
+                     			<tr style="border-bottom: 1px solid  #cecfca;">
+                     				<td>${student.subjectName}</td>
+                        			<td>${student.subjectCd}</td>
+                        			<td>${student.num}</td>
+                        			<td>${student.point}</td>
+
+                					<c:if test="${not empty message}">
+                    				<div id="pointError" style="color: gold;">${message}</div>
+                					</c:if>
+
+                        			</tr>
+
+                        		</c:forEach>
+							</table>
+        					</c:when>
+        					<c:when test="${empty testList}">
+        					 	<div style="margin: 10px 0 0 20px;">
+               						<label><p style="color:#03fcf8">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</label>
+            					</div>
+        					</c:when>
+        				</c:choose>
+
     </div>
 </main>
 

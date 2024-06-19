@@ -34,10 +34,9 @@ public class TestListSubject {
 		return points;
 	}
 
-	public String getPoint(int key){
-		//とりあえずnull
-		 return null;
-	}
+	public int getPoint(int key) {
+        return points.getOrDefault(key, 0);
+    }
 
 	public void setEntYear(int entYear){
 		this.entYear=entYear;
@@ -60,7 +59,7 @@ public class TestListSubject {
 	}
 
 	public void putPoint(int key,int value){
-		//ここがよくわからない
-		
+		this.points.put(key, value);
+
 	}
 }

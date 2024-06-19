@@ -5,8 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.School;
-import bean.Subject;
+import bean.Student;
 import bean.TestListStudent;
 
 public class TestListStudentDAO extends DAO {
@@ -18,10 +17,10 @@ public class TestListStudentDAO extends DAO {
         try {
             while (set.next()) {
                 TestListStudent student = new TestListStudent();
-                student.setSubjectName(set.getString("subjectName"));
-                student.setSubjectCd(set.getString("subjectCd"));
-                student.setNum(set.getInt("num"));
-                student.setPoint(set.getInt("point"));
+                student.setSubjectName(set.getString("SUBJECT.NAME"));
+                student.setSubjectCd(set.getString("SUBJECT.CD"));
+                student.setNum(set.getInt("TEST.NO"));
+                student.setPoint(set.getInt("TEST.POINT"));
                 studentList.add(student);
             }
         } catch (Exception e) {
@@ -30,15 +29,14 @@ public class TestListStudentDAO extends DAO {
         return studentList;
     }
 
-    public List<TestListStudent> filter(int entYear, String classNum, Subject subject, School school) {
+    public List<TestListStudent> filter(Student student) {
         // 学生のフィルタ条件に基づいてリストを取得する
         List<TestListStudent> studentList = new ArrayList<>();
         try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(baseSql + "entYear = ? AND class_Num = ? AND subject_cd = ? AND school_cd = ?")) {
-            stmt.setInt(1, entYear);
-            stmt.setString(2, classNum);
-            stmt.setString(3, subject.getCd());
-            stmt.setString(4, school.getCd());
+             PreparedStatement stmt = conn.prepareStatement(
+            		 "SELECT SUBJECT.NAME , SUBJECT.CD , TEST.NO , TEST.POINT FROM TEST JOIN SUBJECT ON TEST.SUBJECT_CD = SUBJECT.CD WHERE TEST.STUDENT_NO = ?;"
+            		 )) {
+            stmt.setString(1, student.getNo());
             ResultSet rs = stmt.executeQuery();
             studentList = postFilter(rs);
         } catch (Exception e) {
