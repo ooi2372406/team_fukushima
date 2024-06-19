@@ -12,7 +12,7 @@ import bean.Student;
 
 public class StudentDao extends DAO {
 
-	private String baseSql = "SELECT * FROM STUDENT WHERE SCHOOL_CD=?";
+	private String baseSql = "SELECT DISTINCT * FROM STUDENT WHERE SCHOOL_CD=?";
 
 	public Student get(String no) throws Exception {
 
@@ -100,7 +100,7 @@ public class StudentDao extends DAO {
 		}
 		return list;
 	}
-
+// 入学年度　クラス　在学フラグを指定したフィルターメソッド
 	public List<Student> filter(School school, int entYear, String classNum, boolean isAttend) throws Exception {
 		//リストの初期化
 		List<Student> list = new ArrayList<>();
@@ -126,7 +126,7 @@ public class StudentDao extends DAO {
 
 		try {
 			// プリペアードステートメントにSQL分をセット
-			st = con.prepareStatement(baseSql + condition + conditionIsAttend + order);
+			st = con.prepareStatement("SELECT * FROM STUDENT WHERE SCHOOL_CD=? AND IS_ATTEND = TRUE AND ENT_YEAR=? AND CLASS_NUM = ?  ORDER BY NO ASC");
 			//プリペアードステートメントに学校コードをバインド
 			st.setString(1 ,  school.getCd());
 			// プリペアードステートメントに入学年度をバインド
@@ -162,7 +162,7 @@ public class StudentDao extends DAO {
 		 return list;
 
 	}
-
+	// 入学年度のみの指定のフィルターメソッド
 	public List<Student> filter(School school, int entYear, boolean isAttend) throws Exception {
 		// リストを初期化
 		List<Student> list = new ArrayList<>();
@@ -294,10 +294,13 @@ public class StudentDao extends DAO {
 			// データベースから学生を取得
 			Student old = get(student.getNo());
 			if(old == null) {
+				System.out.println("こっちには入ってる");
 				// 学生が存在しなかった場合
 				// プリペアードステートメントにINSERT分をセット
 				st = con.prepareStatement(
-						"INSERT INTO STUDENT(NO , NAME , ENT_YERA , CLASS_NUM , IS_ATTEND , SCHOOL_CD) VALUES(? , ? , ? , ? , ? , ?)"
+						"INSERT INTO STUDENT"
+						+ "(NO , NAME , ENT_YEAR , CLASS_NUM , IS_ATTEND , SCHOOL_CD)"
+						+ " VALUES(? , ? , ? , ? , ? , ?)"
 						);
 				// プリペアードステートメントに値をバインド
 				st.setString(1 ,  student.getNo());
@@ -305,9 +308,10 @@ public class StudentDao extends DAO {
 				st.setInt(3 ,  student.getEntYear());
 				st.setString(4 , student.getClassNum());
 				st.setBoolean(5 , student.getIsAttend());
+				System.out.println("ここまでは来ている");
 				st.setString(6 ,  student.getSchool().getCd());
 			}else {
-				System.out.println("存在している");
+
 				// 学生が存在した場合
 				// プリペアードステートメントにUPDATE分をセット
 				st = con.prepareStatement(

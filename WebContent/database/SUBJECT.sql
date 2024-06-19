@@ -7,4 +7,4 @@ PRIMARY KEY(SCHOOL_CD , CD));
 
 --サンプルデータの挿入
 INSERT INTO SUBJECT VALUES
-('OOM' , 'A02' , '国語');
+('oom' , 'A02' , '国語');

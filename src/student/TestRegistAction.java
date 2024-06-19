@@ -11,8 +11,10 @@ import bean.School;
 import bean.Student;
 import bean.Subject;
 import bean.Teacher;
+import bean.Test;
 import dao.StudentDao;
 import dao.SubjectDAO;
+import dao.TestDao;
 import tool.Action;
 import util.Util;
 
@@ -32,6 +34,7 @@ public class TestRegistAction extends Action {
     		// TeacherオブジェクトからSchoolオブジェクトを取得
     		School school = teacher.getSchool();
 
+
     		boolean isAttend = true;//在学フラグ
 
     	;	SubjectDAO sdao = new SubjectDAO();
@@ -42,12 +45,35 @@ public class TestRegistAction extends Action {
     		session.setAttribute("subject", subjectList);
 
 
+    		   String paramF1 = request.getParameter("f1");
+               String paramF2 = request.getParameter("f2");
+               String paramF3 = request.getParameter("f3");
+               String paramF4 = request.getParameter("f4");
+
+               if (paramF1 != null && !paramF1.trim().isEmpty() &&
+                   paramF2 != null && !paramF2.trim().isEmpty() &&
+                   paramF3 != null && !paramF3.trim().isEmpty() &&
+                   paramF4 != null && !paramF4.trim().isEmpty()) {
+
+                   int entYear = Integer.parseInt(paramF1);
+                   String classNum = paramF2;
+                   String name = paramF3;
+                   int num = Integer.parseInt(paramF4);
+
+                   session.setAttribute("year", entYear);
+
+
+                   setTestListStudent(request, response);
+               } else {
+
+               }
+
 
             return "/student/test_regist.jsp"; // ログイン成功時のリダイレクト先
     	}catch(Exception e){
     		 // エラーメッセージを設定してエラーページに遷移
             request.setAttribute("message", "エラーが発生しました。");
-            return "/student/subject/test_error.jsp";
+            return "/student/subject/subject_error.jsp";
 
 
     	}
@@ -55,45 +81,40 @@ public class TestRegistAction extends Action {
     }
 
 
-}
-/*
-private void setTestListStudent(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+
+private void setTestListStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // リクエストパラメータの取得
-        String cd = req.getParameter("cd");
-        String subject = req.getParameter("subject");
+		Teacher teacher = Util.getUser(request);
+	// TeacherオブジェクトからSchoolオブジェクトを取得
+		School school = teacher.getSchool();
+        int entYear = Integer.parseInt(request.getParameter("f1"));
+        String classNum = request.getParameter("f2");
+        String name = request.getParameter("f3");
+        int num = Integer.parseInt(request.getParameter("f4"));
+        Test test = new Test();
+        test.setNo(num);
+        Subject subject = new Subject();
+        subject.setName(name);
+        Student student = new Student();
+
+
 
         // 学生情報の取得
-        TestListStudent filterStudent = new TestListStudent();
-        filterStudent.setSubjectCd(cd);
-        filterStudent.setSubjectName(subject);
+        TestDao dao = new TestDao();
+        List<Test> list = dao.filter(test, entYear, classNum, subject, num, student);
 
 
+     // テストリストをリクエストに設定
+        request.setAttribute("testList", list);
 
+/*
         // 結果をリクエスト属性に設定して、JSPに転送
         req.setAttribute("studentList", filterStudent);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/test_list.jsp");
         dispatcher.forward(req, res);
     }
-
-public void setTestListSubject(HttpServletRequest req, HttpServletResponse res) throws Exception {
-        // リクエストパラメータの取得
-        int entYear = Integer.parseInt(req.getParameter("entYear"));
-        String classNum = req.getParameter("classNum");
-        String subjectCd = req.getParameter("subjectCd");
-        String schoolCd = req.getParameter("schoolCd");
-
-        // 科目情報の取得
-        Subject subject = new Subject();
-        subject.setCd(subjectCd);
-        School school = new School();
-        school.setCd(schoolCd);
-
-        List<TestListSubject> subjectList = subjectDao.filter(entYear, classNum, subjectCd, school);
-
-        // 結果をリクエスト属性に設定して、JSPに転送
-        req.setAttribute("subjectList", subjectList);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/test_list.jsp");
-        dispatcher.forward(req, res);
-    }
-}*/
+*/
+}
+}
 

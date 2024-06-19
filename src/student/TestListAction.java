@@ -2,16 +2,22 @@ package student;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.School;
+import bean.Student;
 import bean.Subject;
 import bean.Teacher;
+import bean.TestListSubject;
 import dao.ClassNumDao;
+import dao.StudentDao;
 import dao.SubjectDAO;
+import dao.TestListSubjectDAO;
 import tool.Action;
 import util.Util;
 
@@ -38,14 +44,30 @@ public class TestListAction extends Action {
 
 
 
+        	boolean isAttend = true;  // 在籍中の学生だけを取得
+        	StudentDao studao = new StudentDao();
+        	List<Student>studentList = studao.filter(school, isAttend);
+        	 // 重複を排除した学生の入学年度リストを取得
+            List<Integer> uniqueEnrollYears = studentList.stream()
+                                                         .map(Student::getEntYear)
+                                                         .distinct()
+                                                         .collect(Collectors.toList());
+
+
+
+        	session.setAttribute("student", uniqueEnrollYears);
+
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
         }
-        return "testListstudent_sample.jsp";
+        return "test_list.jsp";
 
     }
-}
+
 /*
 private void setTestListStudent(HttpServletRequest req, HttpServletResponse res) throws Exception {
         // リクエストパラメータの取得
@@ -64,7 +86,7 @@ private void setTestListStudent(HttpServletRequest req, HttpServletResponse res)
         RequestDispatcher dispatcher = req.getRequestDispatcher("/test_list.jsp");
         dispatcher.forward(req, res);
     }
-
+*/
 public void setTestListSubject(HttpServletRequest req, HttpServletResponse res) throws Exception {
         // リクエストパラメータの取得
         int entYear = Integer.parseInt(req.getParameter("entYear"));
@@ -78,11 +100,13 @@ public void setTestListSubject(HttpServletRequest req, HttpServletResponse res) 
         School school = new School();
         school.setCd(schoolCd);
 
-        List<TestListSubject> subjectList = subjectDao.filter(entYear, classNum, subjectCd, school);
+        TestListSubjectDAO SubjectDao = new TestListSubjectDAO();
+
+        List<TestListSubject> subjectList = SubjectDao.filter(entYear, classNum, subjectCd, school);
 
         // 結果をリクエスト属性に設定して、JSPに転送
         req.setAttribute("subjectList", subjectList);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/test_list.jsp");
         dispatcher.forward(req, res);
     }
-}*/
+}

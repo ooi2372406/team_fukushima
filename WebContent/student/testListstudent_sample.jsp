@@ -8,7 +8,7 @@
 
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestListSubjectExecute.action" method="post">
             <div class="form-group-create">
-                <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">科目情報登録</h2>
+                <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">成績参照</h2>
                 <div style="border:1px solid whitesmoke; height:120px;">
                 <div  style="display:flex;  display: -webkit-flex; align-items: center; height:90px; margin-top:10px;">
 
@@ -23,9 +23,9 @@
                 	<td>
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
                 	<option selected>--------</option>
-					<c:forEach var="seireki" begin="2010" end="2024">
+					<c:forEach var="seireki" items="${student}">
 
-                	<option>${seireki }</option>
+                	<option>${seireki}</option>
                 	</c:forEach>
                 	</select>
                 	</td>
@@ -33,18 +33,20 @@
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
 
                 	<option selected>--------</option>
-					<c:forEach var="i" items="${ classnum}">
-						<option>${i}</option>
-					</c:forEach>
+					<option value="---">--------</option>
+                            <option value="131">131</option>
+                            <option value="132">132</option>
+                            <option value="133">133</option>
                 	</select>
                 	</td>
                 	<td>
                 	<select style="width:70%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f3">
 
                 	<option selected>--------</option>
-					<c:forEach var="i" items="${subject}">
-						<option>${i.name}</option>
-					</c:forEach>
+					<option value="----">--------</option>
+                            <option value="国語">国語</option>
+                            <option value="数学">数学</option>
+                            <option value="英語">英語</option>
                 	</select>
                 	<input type="hidden" name="f" value="sj">
                 	</td>

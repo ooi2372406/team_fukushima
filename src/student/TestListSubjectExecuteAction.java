@@ -1,6 +1,5 @@
 package student;
 
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,13 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import bean.School;
+import bean.Teacher;
+import bean.TestListSubject;
 import tool.Action;
+import util.Util;
 
 public class TestListSubjectExecuteAction extends Action {
 	public String execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
+				Teacher teacher=Util.getUser(request);
+				School school=teacher.getSchool();
 				//getParameterメソッドでデータを受け取る
+				TestListSubject testListSubject=null;
 				String Ent_year=request.getParameter("f1");
 				String class_number=request.getParameter("f2");
 				String subject=request.getParameter("f3");
@@ -44,15 +50,12 @@ public class TestListSubjectExecuteAction extends Action {
 					st.setString(3, "%"+subject+"%");
 
 					ResultSet rs=st.executeQuery();
-					PrintWriter out = response.getWriter();
 
 					while (rs.next()) {
-						out.println(rs.getInt("ent_year"));
-						out.println("：");
-						out.println(rs.getInt("class_num"));
-						out.println("：");
-						out.println(rs.getString("subject_name"));
-						out.println("<br>");
+						testListSubject=new TestListSubject();
+						testListSubject.setEntYear(rs.getInt("ent_year"));
+						testListSubject.setClassNum(rs.getString("class_num"));
+						testListSubject.setStudentName(rs.getString("subject_name"));
 					}
 
 					st.close();

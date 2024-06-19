@@ -6,7 +6,7 @@
     <div class="kamokucontainer-create">
         <%@ include file="base.jsp" %>
 
-        <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestListSubjectExecute.action" method="post">
+        <form id="subjectForm" style="width:100%; margin-left:20px;" action="StudentList.action" method="post">
             <div class="form-group-create">
                 <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">学生管理</h2>
                 <div style="text-align:right; padding-right:20px;"><a  href="StudentCreate.action">新規登録</a></div>
@@ -41,11 +41,19 @@
                 	</td>
                 	</tr>
                 	</table>
-					<div><input type="checkbox"  name="f3"  style="margin-right:10px;"><label>在学中</label></div>
+					<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label>在学中</label></div>
                 	<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" value="検索">絞込み</button></div>
 					</div>
                 </div>
                 </form>
+
+				<c:choose>
+					<c:when test="${not empty message }">
+						<div>${message}</div>
+					</c:when>
+					<c:when test="${empty message }">
+
+
 
 
 				<div style="width:100%;">
@@ -85,7 +93,8 @@
                 </div>
 
 
-
+					</c:when>
+				</c:choose>
 
 
     </div>
