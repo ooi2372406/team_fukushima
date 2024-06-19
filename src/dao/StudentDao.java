@@ -12,7 +12,7 @@ import bean.Student;
 
 public class StudentDao extends DAO {
 
-	private String baseSql = "SELECT DISTINCT * FROM STUDENT WHERE SCHOOL_CD=?";
+	private String baseSql = "SELECT * FROM STUDENT WHERE SCHOOL_CD=?";
 
 	public Student get(String no) throws Exception {
 
@@ -255,6 +255,8 @@ public class StudentDao extends DAO {
 
 				// リストへの格納処理を実行
 				list = postFilter(rs , school);
+
+				
 
 			}catch (Exception e){
 				throw e;

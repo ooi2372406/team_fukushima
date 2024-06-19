@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../../head.jsp" %>
 <%@ include file="../../header.jsp" %>
 <main>
@@ -15,6 +16,7 @@
 
 
                 	<table class="responsive-table-kamoku" style="width:60%;">
+
                 	<tr>
                 	<th><label>入学年度</label></th>
                 	<th><label>クラス</label></th>
@@ -58,6 +60,9 @@
 
 				<div style="width:100%;">
                 <table style="width:100%;">
+                	<tr>
+                		<td><p>検索結果 : ${fn:length(studentList)}件</p></td>
+                	</tr>
                 	<tr style="border-bottom:1px solid #cecfca;">
                 		<th>入学年度</th>
                 		<th>学生番号</th>
