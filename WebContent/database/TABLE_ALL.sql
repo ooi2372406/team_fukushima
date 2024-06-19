@@ -24,6 +24,7 @@ CREATE TABLE STUDENT (
 
 -- サンプルデータの挿入
 INSERT INTO STUDENT (NO, NAME, ENT_YEAR, CLASS_NUM, IS_ATTEND, SCHOOL_CD) VALUES
+('2125001','大原 一郎',2021,'201','TRUE','oom'),
 ('2231111', '大原太郎', 2023, '131', TRUE, 'oom'),
 ('2231112', '大原次郎', 2023, '131', FALSE, 'oom');
 
@@ -58,7 +59,7 @@ SCHOOL_CD CHAR(3) DEFAULT NULL);
 
 --サンプルデータの挿入
 INSERT INTO TEACHER VALUES
-('admin' , 'password' , '大原花子' , 'oom');
+('admin' , 'password' , '大原 太郎' , 'oom');
 
 --テーブルの作成
 CREATE TABLE TEST
