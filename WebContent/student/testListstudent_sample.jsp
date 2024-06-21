@@ -5,7 +5,7 @@
 <main>
     <div class="kamokucontainer-create">
         <%@ include file="base.jsp" %>
-
+		<% String errorMessage =(String)request.getAttribute("errorMessage"); %>
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestList.action" method="post">
             <div class="form-group-create">
 			<c:choose>
@@ -64,6 +64,9 @@
                 	</table>
                 	<div><button class="btn btn-primary" type="submit" value="検索">検索</button></div>
 					</div>
+					<% if (errorMessage != null){%>
+  						<div style="color:red"> ${ errorMessage } </div>
+  					<% } %>
                 </div>
                 </form>
 

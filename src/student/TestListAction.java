@@ -28,6 +28,11 @@ public class TestListAction extends Action {
 
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
 	    try {
+
+	    	int entYear=0;
+	    	String classNum=null;
+	    	String subjectname=null;
+
 	        HttpSession session = req.getSession();
 	        Teacher teacher = Util.getUser(req);
 	        School school = teacher.getSchool();
@@ -47,9 +52,17 @@ public class TestListAction extends Action {
 	        if (cd != null && !cd.isEmpty() && cd.equals("sj")) {
 	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
 	            setTestListSubject(req, res);
+
 	        } else if (cd != null && !cd.isEmpty() && cd.equals("st")) {
 	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
 	            setTestListStudent(req, res);
+
+				if(entYear==0 || classNum==null || subjectname==null){
+	    			// ログイン失敗時の処理
+	        		// 例: エラーメッセージをセットしてログインページにリダイレクト
+	        		req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
+	        		return "testListstudent_sample.jsp";
+	    		}
 	        } else {
 	            // 上記条件を満たさない場合、通常の処理を実行
 	            boolean isAttend = true;  // 在籍中の学生だけを取得
@@ -91,7 +104,6 @@ private void setTestListStudent(HttpServletRequest req, HttpServletResponse res)
 		//getParameterメソッドでデータを受け取る
 
     	String studentCd = req.getParameter("f4");
-
     	Student student = new Student();
     	StudentDao studao = new StudentDao();
     	student = studao.get(studentCd);
@@ -120,8 +132,14 @@ private void setTestListSubject(HttpServletRequest req, HttpServletResponse res)
          School school = teacher.getSchool();
 
 			//getParameterメソッドでデータを受け取る
+        String entYear_str=req.getParameter("f1");
+        if("--------".equals(entYear_str)){
+        	int entYear= 0;
+        }
+        else{
+        	int entYear= Integer.parseInt(req.getParameter("f1"));
+        }
 
-		int entYear= Integer.parseInt(req.getParameter("f1"));
 		String classNum=req.getParameter("f2");
 		String subjectname=req.getParameter("f3");
 

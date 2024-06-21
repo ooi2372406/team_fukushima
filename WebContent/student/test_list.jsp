@@ -5,7 +5,7 @@
 <main>
     <div class="kamokucontainer-create">
         <%@ include file="base.jsp" %>
-
+		<% String errorMessage =(String)request.getAttribute("errorMessage"); %>
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="TestListSubjectExecute.action" method="post">
             <div class="form-group-create">
                 <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">成績参照</h2>
