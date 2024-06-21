@@ -40,7 +40,7 @@
             </div>
 			<div><label>在学中</label><input type="checkbox"  name="si_attend"  style="margin-right:10px;" value="true"></div>
             <div style="width:100%;">
-                <button type="submit" class="btn btn-primary" style="width:15%;">変更</button>
+                <button type="submit" class="btn btn-primary" style="width:15% padding: 0; margin: 0; text-align: center; display: inline-block; line-height: normal;">変更</button>
             </div>
             <div style="margin:10px 0 0 0px;">
                 <a href="StudentList.action">戻る</a>
