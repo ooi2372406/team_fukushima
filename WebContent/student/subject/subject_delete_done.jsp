@@ -15,7 +15,7 @@
 
 
   <div class="form-group-create" style="width:100%; margin-left:20px;">
-  <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報登録</h2>
+  <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報削除</h2>
   <div style="width: 100%;text-align: center; background-color:seagreen; padding:10px 20px 10px 20px; margin-bottom:100px;">削除が完了しました</div>
 
 	<div class="d-flex flex-row bd-highlight mb-3">

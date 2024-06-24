@@ -20,14 +20,14 @@
 
             </div>
             <div class="form-group-create">
-                <label for="subjectName" style="margin:20px 0 0 5px;">科目名</label>
-                <input type="text" class="form-control" name="name" placeholder="${subject.name }" style="margin-left:20px; width:95%;" required>
+                <label for="subjectName" style="margin:20px 0 10 5px;">科目名</label>
+                <input type="text" class="form-control" name="name" placeholder="${subject.name }" style="width:95%;" required>
             </div>
 
             <div style="width:100%;">
-                <button type="submit" class="btn btn-primary" style="margin-left:20px; width:15%;">変更</button>
+                <button type="submit" class="btn btn-primary" style=" width:15%;">変更</button>
             </div>
-            <div style="margin:10px 0 0 20px;">
+            <div style="margin:10px 0 0 ;">
                 <a href="SubjectList.action">戻る</a>
             </div>
         </form>
