@@ -5,6 +5,7 @@
 <!-- Required meta tags -->
 
     <body>
+    <div class="wrapper">
     <header>
 
   		<div class="headerstyle" style="background-color:lightskyblue;">

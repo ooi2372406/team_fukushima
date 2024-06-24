@@ -43,7 +43,7 @@ public class SubjectUpdateExecuteAction extends Action {
 	            subject.setCd(cd);
 	            subject.setName(name); // 入力された科目名を保持する
 	            request.setAttribute("subject", subject);
-	            request.setAttribute("message", "科目が存在しません");
+	            request.setAttribute("message", "科目が存在していません");
 	            return "/student/subject/subject_update.jsp"; // エラーメッセージを表示するためのJSP
 	        }
 
