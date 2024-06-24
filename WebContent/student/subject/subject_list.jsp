@@ -17,8 +17,16 @@
 <tr>
 <td colspan="4"  style="text-align:right; padding-right:20px;"><a href="SubjectCreate.action">新規登録</a></td>
 </tr>
+<c:choose>
+	<c:when test="${empty subject}">
+<tr style="border-bottom: solid 1px gainsboro;">
+<td style="width:49%;">科目コード</td>
+</c:when>
+<c:when test="${not empty subject }">
 <tr style="border-bottom: solid 1px gainsboro;">
 <td style="width:20%;">科目コード</td>
+</c:when>
+</c:choose>
 <td style="width:60%;">科目名</td>
 <td></td>
 <td></td>

@@ -9,14 +9,14 @@
 
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="SubjectDeleteExecute.action" method="post">
             <div class="form-group-create">
-                <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報登録</h2>
+                <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報削除</h2>
 
-                <div style="margin:30px 0 0 20px;">「${subject.name }」を削除してよろしいですか</div>
+                <div style="margin:30px 0 0 20px;">「${subject.name }」を削除してもよろしいですか</div>
                 <input type="hidden" name="cd" value="${subject.cd }">
             </div>
 
             <div style="width:100%;">
-                <button type="submit" class="btn2 btn-primary-red" style="margin:0 0 60px 20px; width:15%;">削除</button>
+                <button type="submit" class="btn2 btn-primary-red" style="margin:0 0 60px 20px; width:80px;">削除</button>
             </div>
             <div style="margin:10px 0 5px 20px;">
                 <a href="SubjectList.action">戻る</a>
