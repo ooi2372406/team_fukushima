@@ -33,7 +33,7 @@
                 	</tr>
                 	<tr>
                 	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
+                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" class="form-control" name="f1">
                 	<option selected>--------</option>
 					<c:forEach var="seireki" items="${student}">
 
@@ -42,7 +42,7 @@
                 	</select>
                 	</td>
                 	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
+                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" class="form-control" name="f2" >
 
                 	<option selected>--------</option>
 					<c:forEach var="classnum" items="${classnum}">
@@ -51,7 +51,7 @@
                 	</select>
                 	</td>
                 	<td>
-                	<select style="width:70%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f3">
+                	<select style="width:70%; border-radius:5%;  padding-top:5px; padding-bottom:5px;"class="form-control" name="f3">
 
                 	<option selected>--------</option>
 					<c:forEach var="i" items="${subject }">
@@ -62,10 +62,10 @@
                 	</td>
                 	</tr>
                 	</table>
-                	<div><button class="btn btn-primary" type="submit" value="検索">検索</button></div>
+                	<div><button style="border: none; background-color: #666666;"class="btn btn-primary" type="submit" value="検索">検索</button></div>
 					</div>
 					<% if (errorMessage != null){%>
-  						<div style="color:red"> ${ errorMessage } </div>
+  						<div style="color:#FFD700"> ${ errorMessage } </div>
   					<% } %>
                 </div>
                 </form>
@@ -88,7 +88,7 @@
                 	<input style="width:100%  border-radius:5%;  padding-top:5px; padding-bottom:5px; " type="text" name="f4" value="${ f4 }">
                 	</c:when>
                 	<c:when test="${empty f4 }">
-                	<input style="width:100%;  border-radius:5%;  padding-top:5px; padding-bottom:5px;" type="text" name="f4" placeholder="学生番号を入力してください">
+                	<input style="width:100%;  border-radius:5%;  padding-top:5px; padding-bottom:5px;" type="text" name="f4" class="form-control" placeholder="学生番号を入力してください">
                 	</c:when>
                 	</c:choose>
                 	<input type="hidden" name="f" value="st">
@@ -97,7 +97,7 @@
 					<td></td>
                 	</tr>
                 	</table>
-                	<div><button style="margin-left:50px;" class="btn btn-primary" type="submit" value="検索">検索</button></div>
+                	<div><button style="margin-left:50px; border: none; background-color: #666666" class="btn btn-primary" type="submit" value="検索">検索</button></div>
 				</div>
                 </div>
 

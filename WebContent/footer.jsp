@@ -7,7 +7,8 @@
 
 <footer>
 
-		<div style="background-color:lightgray; padding:5px 0;">
+		<div style="background-color:lightgray; padding:5px 0;position: sticky;
+  			top: 100vh;width: 100%;">
 			<div class="footerstyle"><p>© 2023 TIC</p></div>
 			<div class="footerstyle"><p>大原学園</p></div>
 		</div>

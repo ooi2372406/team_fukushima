@@ -79,7 +79,7 @@
                 	<input style="width:100%  border-radius:5%;  padding-top:5px; padding-bottom:5px; " type="text" name="f4" value="${ f4 }">
                 	</c:when>
                 	<c:when test="${empty f4 }">
-                	<input style="width:100%;  border-radius:5%;  padding-top:5px; padding-bottom:5px;" type="text" name="f4" placeholder="学生番号を入力してください">
+                	<input style="width:100%;  border-radius:5%;  padding-top:5px; padding-bottom:5px;padding-left:5px;" type="text" name="f4" placeholder="学生番号を入力してください">
                 	</c:when>
                 	</c:choose>
                 	<input type="hidden" name="f" value="st">

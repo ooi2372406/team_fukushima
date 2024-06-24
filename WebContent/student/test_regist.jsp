@@ -23,13 +23,13 @@
                 	<th><label>クラス</label></th>
                 	<th><label>科目</label></th>
                 	<th><label>回数</label>
-                	<td rowspan="2" style="text-align:center;"><button class="btn btn-primary" type="submit" value="検索" style="padding:10px 25px;">検索</button></td>
+                	<td rowspan="2" style="text-align:center;"><button class="btn btn-primary" type="submit" value="検索" style="padding:10px 25px;background-color: #666666">検索</button></td>
 
 
                 	</tr>
                 	<tr>
                 	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
+                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px; padding-left:5px;" name="f1">
                 	<option selected>--------</option>
 					<c:forEach var="i" items="${student}">
 						<option>${i.entYear}</option>
@@ -39,7 +39,7 @@
 
 
                 	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
+                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px; padding-left:5px;" name="f2" >
                 	<option selected>--------</option>
 					<c:forEach var="i" items="${student}">
 						<option>${i.classNum}</option>
@@ -47,7 +47,7 @@
                 	</select>
                 	</td>
                 	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f3">
+                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px; padding-left:5px;" name="f3">
                 	<option selected>--------</option>
 					<c:forEach var="i" items="${subject}">
 						<option>${i.name}</option>
@@ -56,7 +56,7 @@
                 	</td>
 
                 	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f4">
+                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px; padding-left:5px;" name="f4">
                 	<option selected>--------</option>
 					<c:forEach var="i" begin="1" end="3">
 						<option>${i}</option>
@@ -104,7 +104,7 @@
                         		</c:forEach>
 
 							<tr>
-							<td><button type="submit" value="登録して終了" style="padding:10px 35px; border-radius:15px; margin-top:20px;">登録して終了</button>
+							<td><button type="submit" value="登録して終了" style="padding:10px 35px; margin-top:20px;">登録して終了</button>
 
 		                </c:when>
         	        </c:choose>

@@ -52,17 +52,18 @@ public class TestListAction extends Action {
 	        if (cd != null && !cd.isEmpty() && cd.equals("sj")) {
 	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
 	            setTestListSubject(req, res);
-
-	        } else if (cd != null && !cd.isEmpty() && cd.equals("st")) {
-	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
-	            setTestListStudent(req, res);
-
-				if(entYear==0 || classNum==null || subjectname==null){
+	           
+	            if(entYear==0 || classNum==null || subjectname==null){
 	    			// ログイン失敗時の処理
 	        		// 例: エラーメッセージをセットしてログインページにリダイレクト
 	        		req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
 	        		return "testListstudent_sample.jsp";
 	    		}
+	            
+	        } else if (cd != null && !cd.isEmpty() && cd.equals("st")) {
+	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
+	            setTestListStudent(req, res);
+
 	        } else {
 	            // 上記条件を満たさない場合、通常の処理を実行
 	            boolean isAttend = true;  // 在籍中の学生だけを取得
@@ -135,24 +136,42 @@ private void setTestListSubject(HttpServletRequest req, HttpServletResponse res)
         String entYear_str=req.getParameter("f1");
         if("--------".equals(entYear_str)){
         	int entYear= 0;
+
+        	String classNum=req.getParameter("f2");
+    		String subjectname=req.getParameter("f3");
+
+    		Subject subject = new Subject();
+    		subject.setName(subjectname);
+
+    		TestListSubjectDAO testdao = new TestListSubjectDAO();
+    		System.out.println("ここまではきている");
+    		List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
+    		System.out.println(testList);
+
+    		req.setAttribute("testList", testList);
+    		req.setAttribute("subjectname", subjectname);
+
+
         }
         else{
         	int entYear= Integer.parseInt(req.getParameter("f1"));
+
+        	String classNum=req.getParameter("f2");
+    		String subjectname=req.getParameter("f3");
+
+    		Subject subject = new Subject();
+    		subject.setName(subjectname);
+
+    		TestListSubjectDAO testdao = new TestListSubjectDAO();
+    		System.out.println("ここまではきている");
+    		List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
+    		System.out.println(testList);
+
+    		req.setAttribute("testList", testList);
+    		req.setAttribute("subjectname", subjectname);
+
+
         }
-
-		String classNum=req.getParameter("f2");
-		String subjectname=req.getParameter("f3");
-
-		Subject subject = new Subject();
-		subject.setName(subjectname);
-
-		TestListSubjectDAO testdao = new TestListSubjectDAO();
-		System.out.println("ここまではきている");
-		List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
-		System.out.println(testList);
-
-		req.setAttribute("testList", testList);
-		req.setAttribute("subjectname", subjectname);
 
 
     }
