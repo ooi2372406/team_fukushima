@@ -91,6 +91,14 @@
 						</form>
 						</td>
 
+						<td>
+						<form action="StudentAnalysis.action" method="post">
+						<input type="hidden" name="f2" value="${student.no}">
+        				<button type="submit" class="btn btn-link" >詳細</button>
+
+						</form>
+						</td>
+
                 		</tr>
                 	</c:forEach>
 
