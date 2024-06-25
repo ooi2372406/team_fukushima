@@ -1,135 +1,129 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- 共通のヘッダーとヘッドファイルをインクルード -->
 <%@ include file="../../head.jsp" %>
-
 <%@ include file="../../header.jsp" %>
 <main>
     <div class="kamokucontainer-create">
+        <!-- ベースファイルをインクルード -->
         <%@ include file="base.jsp" %>
 
+        <!-- 成績管理用のフォーム -->
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="${not empty testList ? 'TestRegistExecute.action' : 'TestRegist.action'}" method="post">
             <div class="form-group-create">
 
-                <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">学生管理</h2>
+                <!-- 見出し -->
+                <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">成績管理</h2>
 
                 <div style="border:1px solid #cecfca; height:120px;">
-                <div  style="display:flex;  display: -webkit-flex; align-items: center; height:90px; margin-top:10px;">
+                    <div style="display:flex; display: -webkit-flex; align-items: center; height:90px; margin-top:10px;">
 
+                        <!-- 条件選択用のテーブル -->
+                        <table class="responsive-table-seiseki" style="width:100%; margin-top:auto;">
+                            <tr>
+                                <th><label>入学年度</label></th>
+                                <th><label>クラス</label></th>
+                                <th><label>科目</label></th>
+                                <th><label>回数</label></th>
+                                <td rowspan="2" style="text-align:center;"><button class="btn btn-primary" type="submit" value="検索" style="padding:10px 25px;">検索</button></td>
+                            </tr>
+                            <tr>
+                                <!-- 入学年度の選択 -->
+                                <td>
+                                    <select style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" name="f1">
+                                        <option value="--------">--------</option>
+                                        <c:forEach var="i" items="${student}">
+                                            <option value="${i.entYear}" <c:if test="${param.f1 == i.entYear}">selected</c:if>>${i.entYear}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
 
-                	<table class="responsive-table-seiseki" style="width:100%; margin-top:auto;">
-                	<tr>
-                	<th><label>入学年度</label></th>
-                	<th><label>クラス</label></th>
-                	<th><label>科目</label></th>
-                	<th><label>回数</label>
-                	<td rowspan="2" style="text-align:center;"><button class="btn btn-primary" type="submit" value="検索" style="padding:10px 25px;">検索</button></td>
+                                <!-- クラスの選択 -->
+                                <td>
+                                    <select style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" name="f2">
+                                        <option value="--------">--------</option>
+                                        <c:forEach var="i" items="${student}">
+                                            <option value="${i.classNum}" <c:if test="${param.f2 == i.classNum}">selected</c:if>>${i.classNum}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
 
+                                <!-- 科目の選択 -->
+                                <td>
+                                    <select style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" name="f3">
+                                        <option value="--------">--------</option>
+                                        <c:forEach var="i" items="${subject}">
+                                            <option value="${i.name}" <c:if test="${param.f3 == i.name}">selected</c:if>>${i.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
 
-                	</tr>
-                	<tr>
-                	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
-                	<option selected>--------</option>
-					<c:forEach var="i" items="${student}">
-						<option>${i.entYear}</option>
-					</c:forEach>
-                	</select>
-                	</td>
+                                <!-- 回数の選択 -->
+                                <td>
+                                    <select style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" name="f4">
+                                        <option value="--------">--------</option>
+                                        <c:forEach var="i" begin="1" end="3">
+                                            <option value="${i}" <c:if test="${param.f4 == i}">selected</c:if>>${i}</option>
+                                        </c:forEach>
+                                    </select>
+                                </td>
+                            </tr>
 
+                            <!-- 検索結果の表示 -->
+                            <c:choose>
+                                <c:when test="${not empty testList}">
+                                    <tr>
+                                        <td colspan="5"><div style="display:block"><p class="mt-3">科目:　${testList.get(0).subject.name } (${testList.get(0).no}回目)</p></div></td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #cecfca;">
+                                        <th>入学年度</th>
+                                        <th>クラス</th>
+                                        <th>学生番号</th>
+                                        <th>氏名</th>
+                                        <th>点数</th>
+                                    </tr>
 
-                	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
-                	<option selected>--------</option>
-					<c:forEach var="i" items="${student}">
-						<option>${i.classNum}</option>
-					</c:forEach>
-                	</select>
-                	</td>
-                	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f3">
-                	<option selected>--------</option>
-					<c:forEach var="i" items="${subject}">
-						<option>${i.name}</option>
-					</c:forEach>
-                	</select>
-                	</td>
+                                    <!-- テストの結果をループで表示 -->
+                                    <c:forEach var="test" items="${testList}">
+                                        <tr style="border-bottom: 1px solid #cecfca;">
+                                            <td>${test.student.entYear}</td>
+                                            <td>${test.classNum}</td>
+                                            <td>${test.student.no}</td>
+                                            <td>${test.student.name}</td>
+                                            <!-- 点数入力欄に class="pointInput" を追加 -->
+                                            <td><input type="text" class="pointInput" name="point_${test.student.no}" value="${test.point}"></td>
+                                            <c:if test="${not empty message}">
+                                                <div id="pointError" style="color: gold;">${message}</div>
+                                            </c:if>
+                                        </tr>
+                                        <!-- 隠しフィールド -->
+                                        <input type="hidden" name="gakuban" value="${test.student.no}">
+                                        <input type="hidden" name="kamokucd" value="${test.subject.cd}">
+                                        <input type="hidden" name="num" value="${test.no}">
+                                    </c:forEach>
 
-                	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f4">
-                	<option selected>--------</option>
-					<c:forEach var="i" begin="1" end="3">
-						<option>${i}</option>
-					</c:forEach>
-
-
-                	</select>
-                	</td>
-
-
-                	</tr>
-                	<c:choose>
-                		<c:when test="${not empty testList}">
-
-                			<tr>
-               					 <td><div style="display:block"><p class="mt-3">科目:　${testList.get(0).subject.name } (${testList.get(0).no}回目)</p></div></td>
-                			</tr>
-
-                			<tr style="border-bottom: 1px solid  #cecfca;">
-                    			<th>入学年度</th>
-                    			<th>クラス</th>
-                    			<th>学生番号</th>
-                    			<th>氏名</th>
-                    			<th>点数</th>
-                			</tr>
-
-
-                     			<c:forEach var="test" items="${testList }">
-                     			<tr style="border-bottom: 1px solid  #cecfca;">
-                     				<td>${test.student.entYear }</td>
-                        			<td>${test.classNum}</td>
-                        			<td>${test.student.no}</td>
-                        			<td>${test.student.name}</td>
-
-
-                        			<td><input type="text" name="point_${test.student.no}" value="${test.point}"></td>
-                					<c:if test="${not empty message}">
-                    				<div id="pointError" style="color: gold;">${message}</div>
-                					</c:if>
-
-                        			</tr>
-                        			<input type="hidden" name="gakuban" value="${test.student.no }">
-                        			<input type="hidden" name="kamokucd" value="${test.subject.cd }">
-                        			<input type="hidden" name="num" value="${test.no }">
-                        		</c:forEach>
-
-							<tr>
-							<td><button type="submit" value="登録して終了" style="padding:10px 35px; border-radius:15px; margin-top:20px;">登録して終了</button>
-
-		                </c:when>
-        	        </c:choose>
-
-				</table>
-				 </div>
+                                    <!-- 登録ボタン -->
+                                    <tr>
+                                        <td colspan="5" style="text-align:center;"><button type="submit" value="登録して終了" style="padding:10px 35px; border-radius:15px; margin-top:20px;">登録して終了</button></td>
+                                    </tr>
+                                </c:when>
+                            </c:choose>
+                        </table>
+                    </div>
                 </div>
-                </div>
-                </form>
-
-
-
-
+            </div>
+        </form>
     </div>
-
-
-
-
-
-
 </main>
 
+<!-- フッターファイルをインクルード -->
 <%@ include file="../../footer.jsp" %>
+
+<!-- 点数のバリデーション用JavaScript -->
 <script>
 document.getElementById('subjectForm').addEventListener('submit', function(event) {
+    // 点数入力欄を取得
     let pointInputs = document.querySelectorAll('.pointInput');
     let isValid = true;
 
@@ -144,9 +138,11 @@ document.getElementById('subjectForm').addEventListener('submit', function(event
             pointError.textContent = '';
         }
 
+        // 数値と範囲のチェック
         let isPointNumeric = /^[0-9]+$/.test(pointValue);
-        let isPointValid = isPointNumeric && pointValue >= 1 && pointValue <= 100;
+        let isPointValid = isPointNumeric && pointValue >= 0 && pointValue <= 100;
 
+        // 条件を満たさない場合、エラーメッセージを表示
         if (!isPointValid) {
             if (!pointError) {
                 pointError = document.createElement('div');
@@ -154,23 +150,20 @@ document.getElementById('subjectForm').addEventListener('submit', function(event
                 pointError.style.color = 'gold';
                 input.parentNode.appendChild(pointError);
             }
-            pointError.textContent = 'ポイントは1から100の範囲で入力してください。';
+            pointError.textContent = '0～100の範囲で入力してください';
             pointError.style.display = 'block';
             isValid = false;
         }
     });
 
+    // フォームの送信を停止
     if (!isValid) {
         event.preventDefault();
     }
 });
 </script>
 
+<!-- 他のJavaScriptファイルの読み込み -->
 <script src="../javascript/testregist.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
-
-</body>
-</html>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft
