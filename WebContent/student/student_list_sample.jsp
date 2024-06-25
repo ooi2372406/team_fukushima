@@ -44,7 +44,7 @@
                 	</tr>
                 	</table>
 					<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label>在学中</label></div>
-                	<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" value="検索">絞込み</button></div>
+                	<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
 					</div>
                 </div>
                 </form>
