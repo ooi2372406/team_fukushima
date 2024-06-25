@@ -26,69 +26,72 @@ public class TestListAction extends Action {
 
 
 
-	public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
-	    try {
-	    	// 前ページから送られてきたデータを受け取る
-	    	String selectclass = req.getParameter("");
-	    	String selectsubject = req.getParameter("");
+    public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        try {
+            // 前ページから送られてきたデータを受け取る
+            String selectclass = req.getParameter("");
+            String selectsubject = req.getParameter("");
 
-	    	// selected判定のためにセット
-	    	req.setAttribute("selectclass", selectclass);
-	    	req.setAttribute("selectsubject", selectsubject);
+            // selected判定のためにセット
+            req.setAttribute("selectclass", selectclass);
+            req.setAttribute("selectsubject", selectsubject);
 
-	    	// ログインユーザー情報を取得
-	        HttpSession session = req.getSession();
-	        Teacher teacher = Util.getUser(req);
-	        School school = teacher.getSchool();
+            int entYear=0;
+            String classNum=null;
+            String subjectname=null;
 
-	        // SELECTボックスで科目一覧を出力するためにSubjectDAOを生成
-	        SubjectDAO subject_dao = new SubjectDAO();
-	        List<Subject> subject = subject_dao.filter(school);
+            HttpSession session = req.getSession();
+            Teacher teacher = Util.getUser(req);
+            School school = teacher.getSchool();
 
-	     // SELECTボックスでクラス一覧を出力するためにClassNumDAOを生成
-	        ClassNumDao class_dao = new ClassNumDao();
-	        List<String> classnum = class_dao.filter(school);
-	        // session.setAttribute("subject", subject);
-	        // session.setAttribute("classnum", classnum);
+            SubjectDAO subject_dao = new SubjectDAO();
+            List<Subject> subject = subject_dao.filter(school);
 
-	     // jspにクラス一覧と科目一覧を渡すためにセット
-		    req.setAttribute("subject", subject);
-		    req.setAttribute("classnum", classnum);
+            ClassNumDao class_dao = new ClassNumDao();
+            List<String> classnum = class_dao.filter(school);
+            session.setAttribute("subject", subject);
+            session.setAttribute("classnum", classnum);
 
-	        // リクエストパラメータ 科目コードと学生コードの値を取得する
-	        String cd = req.getParameter("f");
+            // リクエストパラメータ 科目コードと学生コードの値を取得する
 
-	        if (cd != null && !cd.isEmpty() && cd.equals("sj")) {
-	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
-	            setTestListSubject(req, res);
-	        } else if (cd != null && !cd.isEmpty() && cd.equals("st")) {
-	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
-	            setTestListStudent(req, res);
-	        } else {
-	            // 上記条件を満たさない場合、通常の処理を実行
-	            boolean isAttend = true;  // 在籍中の学生だけを取得
-	            StudentDao studao = new StudentDao();
-	            List<Student> studentList = studao.filter(school, isAttend);
+            String cd = req.getParameter("f");
 
-	            // 重複を排除した学生の入学年度リストを取得
-	            List<Integer> uniqueEnrollYears = studentList.stream()
-	                                                         .map(Student::getEntYear)
-	                                                         .distinct()
-	                                                         .collect(Collectors.toList());
+            if (cd != null && !cd.isEmpty() && cd.equals("sj")) {
+                // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
+                setTestListSubject(req, res);
 
-	            session.setAttribute("student", uniqueEnrollYears);
-	        }
+                if(entYear==0 || classNum==null || subjectname==null){
+                    // ログイン失敗時の処理
+                    // 例: エラーメッセージをセットしてログインページにリダイレクト
+                    req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
+                    return "testListstudent_sample.jsp";
+                }
 
+            } else if (cd != null && !cd.isEmpty() && cd.equals("st")) {
+                // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
+                setTestListStudent(req, res);
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
-	    }
+            } else {
+                // 上記条件を満たさない場合、通常の処理を実行
+                boolean isAttend = true;  // 在籍中の学生だけを取得
+                StudentDao studao = new StudentDao();
+                List<Student> studentList = studao.filter(school, isAttend);
 
+                // 重複を排除した学生の入学年度リストを取得
+                List<Integer> uniqueEnrollYears = studentList.stream()
+                                                             .map(Student::getEntYear)
+                                                             .distinct()
+                                                             .collect(Collectors.toList());
 
+                session.setAttribute("student", uniqueEnrollYears);
+            }
 
-	    return "testListstudent_sample.jsp";
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
+        }
+        return "testListstudent_sample.jsp";
+    }
 
 
 
@@ -101,22 +104,21 @@ public class TestListAction extends Action {
 
 
 private void setTestListStudent(HttpServletRequest req, HttpServletResponse res) throws Exception {
-	 	// ユーザー情報を取得
+        // ユーザー情報を取得
 
-    	Teacher teacher = Util.getUser(req);
-    	School school = teacher.getSchool();
+        Teacher teacher = Util.getUser(req);
+        School school = teacher.getSchool();
 
-		//getParameterメソッドでデータを受け取る
+        //getParameterメソッドでデータを受け取る
 
-    	String studentCd = req.getParameter("f4");
+        String studentCd = req.getParameter("f4");
+        Student student = new Student();
+        StudentDao studao = new StudentDao();
+        student = studao.get(studentCd);
 
-    	Student student = new Student();
-    	StudentDao studao = new StudentDao();
-    	student = studao.get(studentCd);
 
-
-    	TestListStudentDAO dao = new TestListStudentDAO();
-    	List<TestListStudent> studentList = dao.filter(student);
+        TestListStudentDAO dao = new TestListStudentDAO();
+        List<TestListStudent> studentList = dao.filter(student);
 
 
 
@@ -137,22 +139,42 @@ private void setTestListSubject(HttpServletRequest req, HttpServletResponse res)
          Teacher teacher = Util.getUser(req);
          School school = teacher.getSchool();
 
-			//getParameterメソッドでデータを受け取る
+            //getParameterメソッドでデータを受け取る
+        String entYear_str=req.getParameter("f1");
+        if("--------".equals(entYear_str)){
+            int entYear= 0;
+            String classNum=req.getParameter("f2");
+            String subjectname=req.getParameter("f3");
 
-		int entYear= Integer.parseInt(req.getParameter("f1"));
-		String classNum=req.getParameter("f2");
-		String subjectname=req.getParameter("f3");
+            Subject subject = new Subject();
+            subject.setName(subjectname);
 
-		Subject subject = new Subject();
-		subject.setName(subjectname);
+            TestListSubjectDAO testdao = new TestListSubjectDAO();
+            System.out.println("ここまではきている");
+            List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
+            System.out.println(testList);
 
-		TestListSubjectDAO testdao = new TestListSubjectDAO();
-		System.out.println("ここまではきている");
-		List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
-		System.out.println(testList);
+            req.setAttribute("testList", testList);
+            req.setAttribute("subjectname", subjectname);
 
-		req.setAttribute("testList", testList);
-		req.setAttribute("subjectname", subjectname);
+        }
+        else{
+            int entYear= Integer.parseInt(req.getParameter("f1"));
+            String classNum=req.getParameter("f2");
+            String subjectname=req.getParameter("f3");
+
+            Subject subject = new Subject();
+            subject.setName(subjectname);
+
+            TestListSubjectDAO testdao = new TestListSubjectDAO();
+            System.out.println("ここまではきている");
+            List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
+            System.out.println(testList);
+
+            req.setAttribute("testList", testList);
+            req.setAttribute("subjectname", subjectname);
+
+        }
 
 
     }
