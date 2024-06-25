@@ -33,31 +33,101 @@
                 	</tr>
                 	<tr>
                 	<td>
+                	<!-- 入学年度 -->
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
-                	<option selected>--------</option>
+                	<c:choose>
+					     <c:when test="${empty testList }">
+					    <option>--------</option>
 					<c:forEach var="seireki" items="${student}">
-
-                	<option>${seireki}</option>
-                	</c:forEach>
-                	</select>
+					 <c:choose>
+					           <c:when test="${seireki eq selectstudent}">
+					                <option selected>${seireki}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${seireki}</option>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:forEach>
+					    </c:when>
+					    <c:when test="${not empty testList }">
+					    <c:forEach var="seireki" items="${student}">
+					        <c:choose>
+					            <c:when test="${seireki eq selectstudent}">
+					                <option selected>${seireki}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${seireki}</option>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:forEach>
+					    </c:when>
+					    </c:choose>
+					</select>
                 	</td>
                 	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
-
-                	<option selected>--------</option>
-					<c:forEach var="classnum" items="${classnum}">
-						<option>${classnum }</option>
-                     </c:forEach>
-                	</select>
+                	<!-- クラス -->
+					<select style="width: 80%; border-radius: 5%; padding-top: 5px; padding-bottom: 5px;" name="f2">
+					    <c:choose>
+					     <c:when test="${empty testList }">
+					    <option>--------</option>
+					    <c:forEach var="classnum" items="${classnum}">
+					        <c:choose>
+					           <c:when test="${classnum eq selectclass}">
+					                <option selected>${classnum}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${classnum}</option>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:forEach>
+					    </c:when>
+					    <c:when test="${not empty testList }">
+					    <c:forEach var="classnum" items="${classnum}">
+					        <c:choose>
+					            <c:when test="${classnum eq selectclass}">
+					                <option selected>${classnum}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${classnum}</option>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:forEach>
+					    </c:when>
+					    </c:choose>
+					</select>
                 	</td>
                 	<td>
-                	<select style="width:70%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f3">
+                	<!-- 科目 -->
+					<select style="width: 70%; border-radius: 5%; padding-top: 5px; padding-bottom: 5px;" name="f3">
+					   <c:choose>
+					   	<c:when test="${empty testList }">
+					   	<option>--------</option>
+					    <c:forEach var="i" items="${subject}">
+					        <c:choose>
+					            <c:when test="${i.name eq selectsubject}">
+					                <option selected>${i.name}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${i.name}</option>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:forEach>
+					    </c:when>
+					    <c:when test="${not empty testList }">
+					    <c:forEach var="i" items="${subject}">
+					        <c:choose>
+					            <c:when test="${i.name eq selectsubject}">
+					                <option selected>${i.name}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${i.name}</option>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:forEach>
+					    </c:when>
+					    </c:choose>
+					</select>
 
-                	<option selected>--------</option>
-					<c:forEach var="i" items="${subject }">
-					<option>${i.name}</option>
-					</c:forEach>
-                	</select>
                 	<input type="hidden" name="f" value="sj">
                 	</td>
                 	</tr>
@@ -141,7 +211,7 @@
         					<c:when test="${not empty studentList }">
         					<table style="width:100%; margin-top:auto;">
         						<tr>
-               					 <td><div style="display:block"><p class="mt-3">学生氏名 : ${studentname.name}(${ studentname.no })</p></div></td>
+               					 <td><div style="display:block"><p class="mt-3">氏名 : ${studentname.name}(${ studentname.no })</p></div></td>
                 				</tr>
 
                 				<tr style="border-bottom: 1px solid  #cecfca;">

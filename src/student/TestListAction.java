@@ -28,20 +28,34 @@ public class TestListAction extends Action {
 
 	public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
 	    try {
+	    	// 前ページから送られてきたデータを受け取る
+	    	String selectclass = req.getParameter("");
+	    	String selectsubject = req.getParameter("");
+
+	    	// selected判定のためにセット
+	    	req.setAttribute("selectclass", selectclass);
+	    	req.setAttribute("selectsubject", selectsubject);
+
+	    	// ログインユーザー情報を取得
 	        HttpSession session = req.getSession();
 	        Teacher teacher = Util.getUser(req);
 	        School school = teacher.getSchool();
 
+	        // SELECTボックスで科目一覧を出力するためにSubjectDAOを生成
 	        SubjectDAO subject_dao = new SubjectDAO();
 	        List<Subject> subject = subject_dao.filter(school);
 
+	     // SELECTボックスでクラス一覧を出力するためにClassNumDAOを生成
 	        ClassNumDao class_dao = new ClassNumDao();
 	        List<String> classnum = class_dao.filter(school);
-	        session.setAttribute("subject", subject);
-	        session.setAttribute("classnum", classnum);
+	        // session.setAttribute("subject", subject);
+	        // session.setAttribute("classnum", classnum);
+
+	     // jspにクラス一覧と科目一覧を渡すためにセット
+		    req.setAttribute("subject", subject);
+		    req.setAttribute("classnum", classnum);
 
 	        // リクエストパラメータ 科目コードと学生コードの値を取得する
-
 	        String cd = req.getParameter("f");
 
 	        if (cd != null && !cd.isEmpty() && cd.equals("sj")) {
@@ -65,10 +79,14 @@ public class TestListAction extends Action {
 	            session.setAttribute("student", uniqueEnrollYears);
 	        }
 
+
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
 	    }
+
+
+
 	    return "testListstudent_sample.jsp";
 	}
 
