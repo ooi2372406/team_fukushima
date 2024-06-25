@@ -10,7 +10,7 @@
 
 
 
- <table style="flex:0 0 70%; padding-left:20px; margin-left:20px; height:150px;" >
+ <table style="flex:0 0 65%; padding-left:20px; margin-left:20px; height:150px;" >
 <tr>
 <td colspan="4"><h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目管理</h2></td>
 </tr>
