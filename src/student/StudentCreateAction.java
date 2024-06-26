@@ -38,8 +38,8 @@ public class StudentCreateAction extends Action {
 		HashMap<String, String> errors = new HashMap<>();//エラーメッセージ
 
 		List<Integer> entYearSet = new ArrayList<>();
-		//10年前から1年後まで年をリストに追加
-		for (int i = year - 10; i < year + 1; i++) {
+		//10年前から10年後まで年をリストに追加
+		for (int i = year - 10; i < year + 10; i++) {
 			entYearSet.add(i);
 		}
 

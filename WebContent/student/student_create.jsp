@@ -13,10 +13,17 @@
 
                 <label for="subjectCode" style="margin: 20px 0 10px 10px;">入学年度</label>
                 <select id="ent_year" class="form-control" name="ent_year" style="width: 95%; margin-left: 10px;" >
+                    <c:choose>
+                    <c:when test="${not empty setyear}">
+                    <option value="">${setyear}</option>
+                    </c:when>
+                    <c:when test="${empty setyear}">
                     <option value="">--------</option>
                     <c:forEach var="i" items="${year}">
                         <option value="${i}">${i}</option>
                     </c:forEach>
+                    </c:when>
+                    </c:choose>
                 </select><br>
 
                 <div id="lengthError" style="color: gold; display: none; margin-left: 10px;"></div>
@@ -26,7 +33,15 @@
             </div>
 
             <label for="subjectName" style="margin: 0px 0 10px 10px;">学生番号</label>
+            <c:choose>
+            <c:when test="${empty studentNo}">
             <input type="text" class="form-control" name="no" value="${no}" placeholder="学生番号を入力してください" style="width: 95%; margin-left: 10px;" required>
+				</c:when>
+				<c:when test="${not empty studentNo}">
+            <input type="text" class="form-control" name="no" value="${no}" placeholder=${studentNo} style="width: 95%; margin-left: 10px;" required>
+				</c:when>
+				</c:choose>
+
 				<c:if test="${not empty messageNo}">
                     <div id="serverError" style="color: gold; margin-left: 10px;">${messageNo}</div>
                 </c:if>

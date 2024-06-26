@@ -1,5 +1,9 @@
 package student;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +19,25 @@ public class StudentCreateExecuteAction extends Action {
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 		try{
+			LocalDate todaysDate = LocalDate.now();//LcalDateインスタンスを取得
+			int year = todaysDate.getYear();//現在の年を取得
+			List<Integer> entYearSet = new ArrayList<>();
+			//10年前から10年後まで年をリストに追加
+			for (int i = year - 10; i < year + 10; i++) {
+				entYearSet.add(i);
+			}
+			// 学生番号
+			String no =request.getParameter("no");
+			// 学生名
+			String name = request.getParameter("name");
+			// クラス番号
+			String classNum = request.getParameter("class_num");
+
+			// getUserメソッドを呼び出してユーザー情報を取得
+			Teacher teacher = Util.getUser(request);
+			// TeacherオブジェクトからSchoolオブジェクトを取得
+			School school = teacher.getSchool();
+
 
     		// 意図的に例外を発生させる処理（普段はつかわない）
     		 //if (true) {
@@ -28,6 +51,8 @@ public class StudentCreateExecuteAction extends Action {
 			if (entYear.equals("--------") || entYear.equals("")){
 				System.out.println("入学年度ここまではきている");
 				request.setAttribute("messageYear", "入学年度を選択してください");
+				request.setAttribute("studentNo", no);
+				request.setAttribute("year", entYearSet);
 				return "/student/student_create.jsp"; // エラーメッセージを表示するためのJSP
 			}
 
@@ -37,17 +62,6 @@ public class StudentCreateExecuteAction extends Action {
 			System.out.println("ここまで");
 			System.out.println(entYear2);
 
-			// 学生番号
-			String no =request.getParameter("no");
-			// 学生名
-			String name = request.getParameter("name");
-			// クラス番号
-			String classNum = request.getParameter("class_num");
-
-			// getUserメソッドを呼び出してユーザー情報を取得
-			Teacher teacher = Util.getUser(request);
-			// TeacherオブジェクトからSchoolオブジェクトを取得
-			School school = teacher.getSchool();
 
 			// Subjectビーンに設定
 			Student student = new Student();
@@ -69,6 +83,7 @@ public class StudentCreateExecuteAction extends Action {
 			if (dao.get(no) != null) {
 				System.out.println("学生番号ここまではきている");
 				request.setAttribute("messageNo", "学生番号が重複しています");
+				request.setAttribute("setyear", entYear2);
 				return "/student/student_create.jsp"; // エラーメッセージを表示するためのJSP
 			}
 
