@@ -12,7 +12,7 @@
                 <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;">学生情報登録</h2>
 
                 <label for="subjectCode" style="margin: 20px 0 10px 10px;">入学年度</label>
-                <select id="ent_year" class="form-control" name="ent_year" style="width: 95%; margin-left: 10px;" required>
+                <select id="ent_year" class="form-control" name="ent_year" style="width: 95%; margin-left: 10px;" >
                     <option value="">--------</option>
                     <c:forEach var="i" items="${year}">
                         <option value="${i}">${i}</option>
@@ -20,14 +20,16 @@
                 </select><br>
 
                 <div id="lengthError" style="color: gold; display: none; margin-left: 10px;"></div>
-                <c:if test="${not empty message}">
-                    <div id="serverError" style="color: gold; margin-left: 10px;">${message}</div>
+                <c:if test="${not empty messageYear}">
+                    <div id="serverError" style="color: gold; margin-left: 10px;">${messageYear}</div>
                 </c:if>
             </div>
 
             <label for="subjectName" style="margin: 0px 0 10px 10px;">学生番号</label>
             <input type="text" class="form-control" name="no" value="${no}" placeholder="学生番号を入力してください" style="width: 95%; margin-left: 10px;" required>
-
+				<c:if test="${not empty messageNo}">
+                    <div id="serverError" style="color: gold; margin-left: 10px;">${messageNo}</div>
+                </c:if>
             <label for="subjectName" style="margin: 20px 0 10px 10px;">氏名</label>
             <input type="text" class="form-control" name="name" value="${name}" placeholder="氏名を入力してください" style="width: 95%; margin-left: 10px;" required>
 

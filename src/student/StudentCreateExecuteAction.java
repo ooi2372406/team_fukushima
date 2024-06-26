@@ -24,7 +24,19 @@ public class StudentCreateExecuteAction extends Action {
 			// ユーザーからの入力値を受け取る
 
 			// 入学年度
-			int entYear = Integer.parseInt(request.getParameter("ent_year"));
+			String entYear =request.getParameter("ent_year");
+			if (entYear.equals("--------") || entYear.equals("")){
+				System.out.println("入学年度ここまではきている");
+				request.setAttribute("messageYear", "入学年度を選択してください");
+				return "/student/student_create.jsp"; // エラーメッセージを表示するためのJSP
+			}
+
+			System.out.println(entYear);
+			int entYear2 = Integer.parseInt(entYear);
+
+			System.out.println("ここまで");
+			System.out.println(entYear2);
+
 			// 学生番号
 			String no =request.getParameter("no");
 			// 学生名
@@ -39,22 +51,25 @@ public class StudentCreateExecuteAction extends Action {
 
 			// Subjectビーンに設定
 			Student student = new Student();
-			student.setEntYear(entYear);
+			student.setEntYear(entYear2);
 			student.setNo(no);
 			student.setName(name);
 			student.setClassNum(classNum);
 			student.setSchool(school);
-			
-			
+
+
 
 			// SubjectDAOインスタンスを生成
 			StudentDao dao= new StudentDao();
+			System.out.println("ダオここまではきている");
 
+			// 入学年度チェック
 
 			// 重複チェック
 			if (dao.get(no) != null) {
-				request.setAttribute("message", "学生番号が重複しています");
-				return "/student//student_create.jsp"; // エラーメッセージを表示するためのJSP
+				System.out.println("学生番号ここまではきている");
+				request.setAttribute("messageNo", "学生番号が重複しています");
+				return "/student/student_create.jsp"; // エラーメッセージを表示するためのJSP
 			}
 
 			// SubjectDAOのsavaメソッドを実行してデータベースに登録
@@ -71,6 +86,7 @@ public class StudentCreateExecuteAction extends Action {
 			return "/student/student_create_done.jsp";
 		}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移
+			System.out.println(e);
            request.setAttribute("message", "エラーが発生しました。");
            return "/student/subject/subject_error.jsp";
 
