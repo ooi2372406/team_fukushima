@@ -31,10 +31,12 @@ public class TestListAction extends Action {
             // 前ページから送られてきたデータを受け取る
             String selectclass = req.getParameter("");
             String selectsubject = req.getParameter("");
+            //String selectstsudentNo = req.getParameter("");
 
             // selected判定のためにセット
             req.setAttribute("selectclass", selectclass);
             req.setAttribute("selectsubject", selectsubject);
+            //req.setAttribute("selectstudent", selectstsudentNo);
 
             int entYear=0;
             String classNum=null;
@@ -125,6 +127,8 @@ private void setTestListStudent(HttpServletRequest req, HttpServletResponse res)
         // 結果をリクエスト属性に設定して、JSPに転送
         req.setAttribute("studentList", studentList);
         req.setAttribute("studentname", student);
+      //学籍番号保持したまま表示させるための情報入力
+        req.setAttribute("f4", studentCd);
 
     }
 
@@ -145,6 +149,8 @@ private void setTestListSubject(HttpServletRequest req, HttpServletResponse res)
             int entYear= 0;
             String classNum=req.getParameter("f2");
             String subjectname=req.getParameter("f3");
+          //学籍番号保持したまま表示させるための情報入力
+            String studentCd=req.getParameter("f4");
 
             Subject subject = new Subject();
             subject.setName(subjectname);
@@ -156,12 +162,16 @@ private void setTestListSubject(HttpServletRequest req, HttpServletResponse res)
 
             req.setAttribute("testList", testList);
             req.setAttribute("subjectname", subjectname);
+          //学籍番号保持したまま表示させるための情報入力
+            req.setAttribute("f4", studentCd);
 
         }
         else{
             int entYear= Integer.parseInt(req.getParameter("f1"));
             String classNum=req.getParameter("f2");
             String subjectname=req.getParameter("f3");
+            //学籍番号保持したまま表示させるための情報入力
+            String studentCd=req.getParameter("f4");
 
             Subject subject = new Subject();
             subject.setName(subjectname);
@@ -173,6 +183,8 @@ private void setTestListSubject(HttpServletRequest req, HttpServletResponse res)
 
             req.setAttribute("testList", testList);
             req.setAttribute("subjectname", subjectname);
+          //学籍番号保持したまま表示させるための情報入力
+            req.setAttribute("f4", studentCd);
 
         }
 
