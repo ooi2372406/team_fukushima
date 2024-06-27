@@ -53,6 +53,8 @@ public class StudentCreateExecuteAction extends Action {
 				request.setAttribute("messageYear", "入学年度を選択してください");
 				request.setAttribute("setno", no);
 				request.setAttribute("year", entYearSet);
+				request.setAttribute("setname", name);
+				request.setAttribute("setclass", classNum);
 				return "/student/student_create.jsp"; // エラーメッセージを表示するためのJSP
 			}
 
