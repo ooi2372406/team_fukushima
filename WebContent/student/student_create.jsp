@@ -25,7 +25,6 @@
                     </c:when>
                     </c:choose>
                 </select><br>
-
                 <div id="lengthError" style="color: gold; display: none; margin-left: 10px;"></div>
                 <c:if test="${not empty messageYear}">
                     <div id="serverError" style="color: gold; margin-left: 10px;">${messageYear}</div>
@@ -34,26 +33,40 @@
 
             <label for="subjectName" style="margin: 0px 0 10px 10px;">学生番号</label>
             <c:choose>
-            <c:when test="${empty studentNo}">
+            <c:when test="${empty setno}">
             <input type="text" class="form-control" name="no" value="${no}" placeholder="学生番号を入力してください" style="width: 95%; margin-left: 10px;" required>
-				</c:when>
-				<c:when test="${not empty studentNo}">
-            <input type="text" class="form-control" name="no" value="${no}" placeholder=${studentNo} style="width: 95%; margin-left: 10px;" required>
+			</c:when>
+			<c:when test="${not empty setno}">
+            <input type="text" class="form-control" name="no" value="${setno}" style="width: 95%; margin-left: 10px;" required>
 				</c:when>
 				</c:choose>
-
 				<c:if test="${not empty messageNo}">
                     <div id="serverError" style="color: gold; margin-left: 10px;">${messageNo}</div>
                 </c:if>
+
             <label for="subjectName" style="margin: 20px 0 10px 10px;">氏名</label>
+            <c:choose>
+            <c:when test="${empty setname}">
             <input type="text" class="form-control" name="name" value="${name}" placeholder="氏名を入力してください" style="width: 95%; margin-left: 10px;" required>
+			</c:when>
+			<c:when test="${not empty setname}">
+			<input type="text" class="form-control" name="name" value="${setname}" style="width: 95%; margin-left: 10px;" required>
+			</c:when>
+			</c:choose>
 
             <label for="class_num" style="margin: 20px 0 10px 10px;">クラス</label><br>
             <select id="class_num" name="class_num" style="width: 95%; margin-left: 10px;"class = "form-control">
+                <c:choose>
+                    <c:when test="${not empty setclass}">
+                    <option value="">${setclass}</option>
+                    </c:when>
+                    <c:when test="${empty setclass}">
                 <option value="">--------</option>
                 <c:forEach var="i" items="${classList}">
                     <option value="${i}">${i}</option>
                 </c:forEach>
+                </c:when>
+                    </c:choose>
             </select><br>
 
             <input type="hidden" name="schoolcd" value="${user.school}">

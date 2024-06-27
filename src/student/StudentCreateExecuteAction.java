@@ -51,7 +51,7 @@ public class StudentCreateExecuteAction extends Action {
 			if (entYear.equals("--------") || entYear.equals("")){
 				System.out.println("入学年度ここまではきている");
 				request.setAttribute("messageYear", "入学年度を選択してください");
-				request.setAttribute("studentNo", no);
+				request.setAttribute("setno", no);
 				request.setAttribute("year", entYearSet);
 				return "/student/student_create.jsp"; // エラーメッセージを表示するためのJSP
 			}
@@ -77,13 +77,15 @@ public class StudentCreateExecuteAction extends Action {
 			StudentDao dao= new StudentDao();
 			System.out.println("ダオここまではきている");
 
-			// 入学年度チェック
 
 			// 重複チェック
 			if (dao.get(no) != null) {
 				System.out.println("学生番号ここまではきている");
 				request.setAttribute("messageNo", "学生番号が重複しています");
 				request.setAttribute("setyear", entYear2);
+				request.setAttribute("setno", no);
+				request.setAttribute("setname", name);
+				request.setAttribute("setclass", classNum);
 				return "/student/student_create.jsp"; // エラーメッセージを表示するためのJSP
 			}
 
