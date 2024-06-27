@@ -241,6 +241,12 @@
                         		</c:forEach>
 							</table>
         					</c:when>
+        					<c:when test="${empty testList && not empty errorMessege2}">
+        					 	<div style="margin: 10px 0 0 20px;">
+               						<label>${errorMessege2}</label>
+            					</div>
+        					</c:when>
+
         					<c:when test="${empty testList}">
         					 	<div style="margin: 10px 0 0 20px;">
                						<label><p style="color:#03fcf8">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</label>

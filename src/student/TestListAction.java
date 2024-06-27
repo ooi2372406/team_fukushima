@@ -26,28 +26,15 @@ public class TestListAction extends Action {
 
 
 
-	public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
-	    try {
-
-	    	int entYear=0;
-	    	String classNum=null;
-	    	String subjectname=null;
-
+    public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        try {
             // 前ページから送られてきたデータを受け取る
             String selectclass = req.getParameter("");
             String selectsubject = req.getParameter("");
 
-	        HttpSession session = req.getSession();
-	        Teacher teacher = Util.getUser(req);
-	        School school = teacher.getSchool();
-
             // selected判定のためにセット
             req.setAttribute("selectclass", selectclass);
             req.setAttribute("selectsubject", selectsubject);
-
-            int entYear=0;
-            String classNum=null;
-            String subjectname=null;
 
             HttpSession session = req.getSession();
             Teacher teacher = Util.getUser(req);
@@ -56,32 +43,10 @@ public class TestListAction extends Action {
             SubjectDAO subject_dao = new SubjectDAO();
             List<Subject> subject = subject_dao.filter(school);
 
-<<<<<<< HEAD
-	        if (cd != null && !cd.isEmpty() && cd.equals("sj")) {
-	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
-	            setTestListSubject(req, res);
-
-	        } else if (cd != null && !cd.isEmpty() && cd.equals("st")) {
-	            // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
-	            setTestListStudent(req, res);
-
-				if(entYear==0 || classNum==null || subjectname==null){
-	    			// ログイン失敗時の処理
-	        		// 例: エラーメッセージをセットしてログインページにリダイレクト
-	        		req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
-	        		return "testListstudent_sample.jsp";
-	    		}
-	        } else {
-	            // 上記条件を満たさない場合、通常の処理を実行
-	            boolean isAttend = true;  // 在籍中の学生だけを取得
-	            StudentDao studao = new StudentDao();
-	            List<Student> studentList = studao.filter(school, isAttend);
-=======
             ClassNumDao class_dao = new ClassNumDao();
             List<String> classnum = class_dao.filter(school);
             session.setAttribute("subject", subject);
             session.setAttribute("classnum", classnum);
->>>>>>> 662cff91e5d84ddc2586c255d0997eb87129b8d0
 
             // リクエストパラメータ 科目コードと学生コードの値を取得する
 
@@ -90,13 +55,6 @@ public class TestListAction extends Action {
             if (cd != null && !cd.isEmpty() && cd.equals("sj")) {
                 // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
                 setTestListSubject(req, res);
-
-                if(entYear==0 || classNum==null || subjectname==null){
-                    // ログイン失敗時の処理
-                    // 例: エラーメッセージをセットしてログインページにリダイレクト
-                    req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
-                    return "testListstudent_sample.jsp";
-                }
 
             } else if (cd != null && !cd.isEmpty() && cd.equals("st")) {
                 // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
@@ -121,6 +79,8 @@ public class TestListAction extends Action {
             e.printStackTrace();
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
         }
+        //req.setAttribute("errorMessage",null);
+        System.out.println("ここまではきている3");
         return "testListstudent_sample.jsp";
     }
 
@@ -142,27 +102,25 @@ private void setTestListStudent(HttpServletRequest req, HttpServletResponse res)
 
         //getParameterメソッドでデータを受け取る
 
-<<<<<<< HEAD
-    	String studentCd = req.getParameter("f4");
-    	Student student = new Student();
-    	StudentDao studao = new StudentDao();
-    	student = studao.get(studentCd);
-=======
         String studentCd = req.getParameter("f4");
         Student student = new Student();
         StudentDao studao = new StudentDao();
         student = studao.get(studentCd);
->>>>>>> 662cff91e5d84ddc2586c255d0997eb87129b8d0
 
 
         TestListStudentDAO dao = new TestListStudentDAO();
         List<TestListStudent> studentList = dao.filter(student);
 
+        if (studentList != null && studentList.size() > 0) {
 
+        	req.setAttribute("studentList", studentList);
+            req.setAttribute("studentname", student);
 
+		}
+
+        req.setAttribute("errorMessege2", "学生情報が存在しませんでした");
         // 結果をリクエスト属性に設定して、JSPに転送
-        req.setAttribute("studentList", studentList);
-        req.setAttribute("studentname", student);
+
 
     }
 
@@ -177,52 +135,32 @@ private void setTestListSubject(HttpServletRequest req, HttpServletResponse res)
          Teacher teacher = Util.getUser(req);
          School school = teacher.getSchool();
 
-<<<<<<< HEAD
-			//getParameterメソッドでデータを受け取る
-        String entYear_str=req.getParameter("f1");
-        if("--------".equals(entYear_str)){
-        	int entYear= 0;
-        }
-        else{
-        	int entYear= Integer.parseInt(req.getParameter("f1"));
-        }
-
-		String classNum=req.getParameter("f2");
-		String subjectname=req.getParameter("f3");
-=======
             //getParameterメソッドでデータを受け取る
         String entYear_str=req.getParameter("f1");
-        if("--------".equals(entYear_str)){
-            int entYear= 0;
-            String classNum=req.getParameter("f2");
-            String subjectname=req.getParameter("f3");
-
-            Subject subject = new Subject();
-            subject.setName(subjectname);
->>>>>>> 662cff91e5d84ddc2586c255d0997eb87129b8d0
-
-            TestListSubjectDAO testdao = new TestListSubjectDAO();
-            System.out.println("ここまではきている");
-            List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
-            System.out.println(testList);
-
-            req.setAttribute("testList", testList);
-            req.setAttribute("subjectname", subjectname);
-
+        String classNum=req.getParameter("f2");
+        String subjectname=req.getParameter("f3");
+        if("--------".equals(entYear_str) || classNum==null || subjectname==null){
+        	// 例: エラーメッセージをセットしてページにリダイレクト
+        	req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
         }
         else{
             int entYear= Integer.parseInt(req.getParameter("f1"));
-            String classNum=req.getParameter("f2");
-            String subjectname=req.getParameter("f3");
 
             Subject subject = new Subject();
             subject.setName(subjectname);
 
             TestListSubjectDAO testdao = new TestListSubjectDAO();
-            System.out.println("ここまではきている");
+            System.out.println("ここまではきている1");
             List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
-            System.out.println(testList);
+            System.out.println(testList.size());
 
+            if (testList.size() == 0) {
+            	System.out.println("ここまではきている2");
+            	req.setAttribute("errorMessege2", "学生情報が存在しませんでした");
+
+    		}
+
+            // 結果をリクエスト属性に設定して、JSPに転送
             req.setAttribute("testList", testList);
             req.setAttribute("subjectname", subjectname);
 
