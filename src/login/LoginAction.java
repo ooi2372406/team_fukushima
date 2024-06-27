@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 // このURLパターンはhttp://localhost:8080/kouka2で実行される
 @WebServlet(urlPatterns={"/login/loginaction"})
@@ -17,6 +18,13 @@ public class LoginAction extends HttpServlet {
 
 
 		try {
+
+			 // セッションを取得
+            HttpSession session = request.getSession(false); // 現在のセッションを取得、存在しない場合はnullを返す
+    		if (session != null) {
+    	            // セッションを無効にする
+    	            session.invalidate();
+    	        }
 
     		// 意図的に例外を発生させる処理（普段はつかわない）
     		 //if (true) {
