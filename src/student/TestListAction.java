@@ -83,7 +83,7 @@ public class TestListAction extends Action {
         }
         //req.setAttribute("errorMessage",null);
         System.out.println("ここまではきている3");
-        return "testListstudent_sample.jsp";
+        return "test_list.jsp";
     }
 
 
@@ -113,16 +113,18 @@ private void setTestListStudent(HttpServletRequest req, HttpServletResponse res)
         TestListStudentDAO dao = new TestListStudentDAO();
         List<TestListStudent> studentList = dao.filter(student);
 
-        if (studentList != null && studentList.size() > 0) {
-
+        if (studentList.size() != 0) {
+        	System.out.println(studentList);
+        	System.out.println("ここまではきている2");
         	req.setAttribute("studentList", studentList);
             req.setAttribute("studentname", student);
 
 		}
 
-        req.setAttribute("errorMessege2", "学生情報が存在しませんでした");
-        // 結果をリクエスト属性に設定して、JSPに転送
 
+        // 結果をリクエスト属性に設定して、JSPに転送
+      //学籍番号保持したまま表示させるための情報入力
+        req.setAttribute("f4", studentCd);
     }
 
 
@@ -140,6 +142,8 @@ private void setTestListSubject(HttpServletRequest req, HttpServletResponse res)
         String entYear_str=req.getParameter("f1");
         String classNum=req.getParameter("f2");
         String subjectname=req.getParameter("f3");
+      //学籍番号保持したまま表示させるための情報入力
+        String studentCd=req.getParameter("f4");
         if("--------".equals(entYear_str) || classNum==null || subjectname==null){
         	// 例: エラーメッセージをセットしてページにリダイレクト
         	req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");

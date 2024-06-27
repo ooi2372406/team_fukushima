@@ -146,22 +146,19 @@
 
                 	<p style="width:20%; padding-left:60px;">学生情報</p>
                 	<table style="width:30%;"  class="responsive-table-gakusei">
-
                 	<tr>
                 	<th>学生番号</th>
 					<th></th>
 					<th></th>
                 	</tr>
                 	<tr>
-                	 <!-- 学生番号入力 -->
                 	<td>
                 	<c:choose>
                 	<c:when test="${not empty f4 }">
-
                 	<input style="width:100%  border-radius:5%;  padding-top:5px; padding-bottom:5px; " type="text" name="f4" value="${ f4 }">
                 	</c:when>
                 	<c:when test="${empty f4 }">
-                	<input style="width:100%;  border-radius:5%;  padding-top:5px; padding-bottom:5px;" type="text" name="f4" class="form-control"placeholder="学生番号を入力してください">
+                	<input style="width:100%;  border-radius:5%;  padding-top:5px; padding-bottom:5px;" type="text" name="f4" class="form-control"placeholder="学生番号を入力してください" required>
                 	</c:when>
                 	</c:choose>
                 	<input type="hidden" name="f" value="st">
@@ -175,86 +172,88 @@
                 </div>
 
         </form>
-<c:choose>
-    <c:when test="${not empty testList}">
-        <table style="width:100%; margin-top:auto;">
-            <tr>
-                <td>
-                    <div style="display:block">
-                        <p class="mt-3">科目 : ${subjectname}</p>
-                    </div>
-                </td>
-            </tr>
-            <tr style="border-bottom: 1px solid #cecfca;">
-                <th>入学年度</th>
-                <th>クラス</th>
-                <th>学生番号</th>
-                <th>氏名</th>
-                <th>1回目</th>
-                <th>2回目</th>
-            </tr>
-            <c:forEach var="test" items="${testList}">
-                <tr style="border-bottom: 1px solid #cecfca;">
-                    <td>${test.entYear}</td>
-                    <td>${test.classNum}</td>
-                    <td>${test.studentNo}</td>
-                    <td>${test.studentName}</td>
-                    <c:forEach var="i" items="${test.points}">
-                        <td>${i.value != -1 ? i.value : '-'}</td>
-                    </c:forEach>
-                    <c:if test="${not empty message}">
-                        <td colspan="6">
-                            <div id="pointError" style="color: gold;">${message}</div>
-                        </td>
-                    </c:if>
-                </tr>
-            </c:forEach>
-        </table>
-    </c:when>
+        <c:choose>
+        	<c:when test="${not empty testList}">
+        	<table style="width:100%; margin-top:auto;">
+        			<tr>
+               					 <td><div style="display:block"><p class="mt-3">科目 : ${subjectname}</p></div></td>
+                			</tr>
 
-    <c:when test="${not empty studentList}">
-        <table style="width:100%; margin-top:auto;">
-            <tr>
-                <td>
-                    <div style="display:block">
-                        <p class="mt-3">氏名 : ${studentname.name}(${studentname.no})</p>
-                    </div>
-                </td>
-            </tr>
-            <tr style="border-bottom: 1px solid #cecfca;">
-                <th>科目名</th>
-                <th>科目コード</th>
-                <th>回数</th>
-                <th>点数</th>
-            </tr>
-            <c:forEach var="student" items="${studentList}">
-                <tr style="border-bottom: 1px solid #cecfca;">
-                    <td>${student.subjectName}</td>
-                    <td>${student.subjectCd}</td>
-                    <td>${student.num}</td>
-                    <td>${student.point}</td>
-                    <c:if test="${not empty message}">
-                        <td colspan="4">
-                            <div id="pointError" style="color: gold;">${message}</div>
-                        </td>
-                    </c:if>
-                </tr>
-            </c:forEach>
-        </table>
-    </c:when>
-</c:choose>
+                			<tr style="border-bottom: 1px solid  #cecfca;">
+                    			<th>入学年度</th>
+                    			<th>クラス</th>
+                    			<th>学生番号</th>
+                    			<th>氏名</th>
+                    			<th>1回目</th>
+                    			<th>2回目</th>
+                			</tr>
 
-				        	<c:choose>
-							    <c:when test="${empty testList}">
-							        <div style="margin: 10px 0 0 20px;">
-							            <!--  <p style="color:#03fcf8">成績情報が存在しませんでした。</p>-->
-							            <label>科目情報を選択または学生情報を入力して検索ボタンをクリックしてください。</label>
-							        </div>
-							    </c:when>
-							</c:choose>
+
+                     			<c:forEach var="test" items="${testList }">
+                     			<tr style="border-bottom: 1px solid  #cecfca;">
+                     				<td>${test.entYear }</td>
+                        			<td>${test.classNum}</td>
+                        			<td>${test.studentNo}</td>
+                        			<td>${test.studentName}</td>
+									<c:forEach var="i" items="${test.points}">
+        							<td>${i.value != -1 ? i.value : '-'}</td>
+
+        							</c:forEach>
 
 
 
+                					<c:if test="${not empty message}">
+                    				<div id="pointError" style="color: gold;">${message}</div>
+                					</c:if>
+
+                        			</tr>
+
+                        		</c:forEach>
+							</table>
+        					</c:when>
+        					
+        					<c:when test="${not empty studentList }">
+        					<table style="width:100%; margin-top:auto;">
+        						<tr>
+               					 <td><div style="display:block"><p class="mt-3">氏名 : ${studentname.name}(${ studentname.no })</p></div></td>
+                				</tr>
+
+                				<tr style="border-bottom: 1px solid  #cecfca;">
+                    				<th>科目名</th>
+                    				<th>科目コード</th>
+                    				<th>回数</th>
+                    				<th>点数</th>
+                				</tr>
+
+
+                     			<c:forEach var="student" items="${studentList}">
+                     			<tr style="border-bottom: 1px solid  #cecfca;">
+                     				<td>${student.subjectName}</td>
+                        			<td>${student.subjectCd}</td>
+                        			<td>${student.num}</td>
+                        			<td>${student.point}</td>
+
+                					<c:if test="${not empty message}">
+                    				<div id="pointError" style="color: gold;">${message}</div>
+                					</c:if>
+
+                        			</tr>
+
+                        		</c:forEach>
+							</table>
+        					</c:when>
+        					<c:when test="${empty testList && not empty errorMessege2}">
+        					 	<div style="margin: 10px 0 0 20px;">
+               						<label>${errorMessege2}</label>
+            					</div>
+        					</c:when>
+
+        					<c:when test="${empty testList}">
+        					 	<div style="margin: 10px 0 0 20px;">
+               						<label><p style="color:#03fcf8">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</label>
+            					</div>
+        					</c:when>
+        				</c:choose>
 
     </div>
 </main>
