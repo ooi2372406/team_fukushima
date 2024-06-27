@@ -1,125 +1,128 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>学生管理システム</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <style>
-        .filter-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .filter-container label {
-            margin-right: 5px;
-        }
-        .filter-container select, .filter-container input[type="checkbox"], .filter-container button {
-            margin-right: 10px;
-        }
-        .error-message {
-            color: red;
-        }
-    </style>
-</head>
-<body>
-    <h1>学生管理システム</h1>
-    <nav>
-        <ul>
-            <li><a href="index.jsp">ホーム</a></li>
-            <li><a href="students.jsp">学生管理</a></li>
-            <!-- 必要に応じて他のナビゲーション項目を追加 -->
-        </ul>
-    </nav>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ include file="../../head.jsp" %>
+<%@ include file="../../header.jsp" %>
+<main>
+    <div class="kamokucontainer-create">
+        <%@ include file="base.jsp" %>
 
-    <div class="filter-container">
-        <form method="get" action="students.jsp">
-            <label for="year">入学年度:</label>
-            <select id="year" name="year">
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <!-- 必要に応じて他の年度を追加 -->
-            </select>
+        <form id="subjectForm" style="width:100%; margin-left:20px;" action="StudentList.action" method="post">
+            <div class="form-group-create">
+                <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">学生管理</h2>
+                <div style="text-align:right; padding-right:20px;"><a  href="StudentCreate.action">新規登録</a></div>
+                <div style="border:1px solid whitesmoke; height:120px;">
+                <div  style="display:flex;  display: -webkit-flex; align-items: center; height:90px; margin-top:10px;">
 
-            <label for="studentClass">クラス:</label>
-            <select id="studentClass" name="studentClass">
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <!-- 必要に応じて他のクラスを追加 -->
-            </select>
 
-            <label for="enrolled">在学中:</label>
-            <input type="checkbox" id="enrolled" name="enrolled">
+                	<table class="responsive-table-kamoku" style="width:60%;">
 
-            <button type="submit">絞込み</button>
-        </form>
-    </div>
+                	<tr>
+                	<th><label>入学年度</label></th>
+                	<th><label>クラス</label></th>
 
-    <div>
-        <c:choose>
-            <c:when test="${not empty param.year and not empty param.studentClass}">
-                <sql:query var="students" dataSource="${dataSource}">
-                    SELECT * FROM students
-                    WHERE year = ?
-                    AND class = ?
-                    <c:if test="${param.enrolled == 'on'}">
-                        AND enrolled = true
-                    </c:if>
-                </sql:query>
+                	</tr>
+                	<tr>
+                	<td>
+                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
 
-                <c:if test="${empty students.rows}">
-                    <p class="error-message">学生情報が存在しませんでした</p>
-                </c:if>
+                	<option selected>--------</option>
+					<c:forEach var="seireki" items="${ent_year_set}">
+                	<option value="${seireki }" <c:if test="${seireki == f1}">selected</c:if>>${seireki }</option>
 
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>学籍番号</th>
-                            <th>学生名</th>
-                            <th>性別</th>
-                            <th>生年月日</th>
-                            <th>学部</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="student" items="${students.rows}">
-                            <tr>
-                                <td><c:out value="${student.id}"/></td>
-                                <td><c:out value="${student.name}"/></td>
-                                <td><c:out value="${student.gender}"/></td>
-                                <td><c:out value="${student.birth_date}"/></td>
-                                <td><c:out value="${student.department}"/></td>
-                                <td>
-                                    <button onclick="editStudent(${student.id})">編集</button>
-                                    <button onclick="deleteStudent(${student.id})">削除</button>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
+                	</c:forEach>
+
+                	</select>
+                	</td>
+
+
+                	<td>
+                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
+                	<option selected>--------</option>
+					<c:forEach var="i" items="${class_num_set}">
+					<option>${i}</option>
+					</c:forEach>
+                	</select>
+                	</td>
+                	</tr>
+                	</table>
+					<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label>在学中</label></div>
+                	<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
+					</div>
+                </div>
+                </form>
+
+				<c:choose>
+					<c:when test="${not empty message }">
+						<div>${message}</div>
+					</c:when>
+					<c:when test="${empty message }">
+
+
+
+
+				<div style="width:100%;">
+                <table style="width:100%;">
+                	<tr>
+                		<td><p>検索結果 : ${fn:length(studentList)}件</p></td>
+                	</tr>
+                	<tr style="border-bottom:1px solid #cecfca;">
+                		<th>入学年度</th>
+                		<th>学生番号</th>
+                		<th>氏名</th>
+                		<th>クラス</th>
+                		<th>在学中</th>
+                		<th></th>
+                	</tr>
+
+                	<c:forEach var="student" items="${studentList}">
+                	<tr style="border-bottom:1px solid #cecfca;">
+                		<td>${student.entYear }</td>
+						<td>${student.no}</td>
+
+                		<td>${student.name }</td>
+                		<td>${student.classNum }</td>
+                		<c:choose>
+                		<c:when test="${student.isAttend == true}"><td>〇</td></c:when>
+                		<c:when test="${student.isAttend == false}"><td>×</td></c:when>
+                		</c:choose>
+
+                		<td>
+						<form action="StudentUpdate.action" method="post">
+        				<button type="submit" class="btn btn-link" >変更</button>
+        				<input type="hidden" name="f1" value="${student.no}">
+						</form>
+						</td>
+
+						<td>
+						<form action="StudentAnalysis.action" method="post">
+						<input type="hidden" name="f2" value="${student.no}">
+        				<button type="submit" class="btn btn-link" >詳細</button>
+
+						</form>
+						</td>
+
+                		</tr>
+                	</c:forEach>
+
                 </table>
-            </c:when>
-            <c:otherwise>
-                <p>学生情報を検索してください。</p>
-            </c:otherwise>
-        </c:choose>
+                </div>
+
+
+					</c:when>
+				</c:choose>
+
+
     </div>
+</main>
 
-    <script type="text/javascript">
-        function editStudent(studentId) {
-            // 編集処理を行うJavaScriptコード
-            alert("編集: " + studentId);
-        }
+<%@ include file="../../footer.jsp" %>
 
-        function deleteStudent(studentId) {
-            // 削除処理を行うJavaScriptコード
-            alert("削除: " + studentId);
-        }
-    </script>
+<script src="../javascript/subject.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</div>
 </body>
 </html>

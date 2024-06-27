@@ -79,7 +79,7 @@ public class StudentListAction extends Action {
 			if (students == null || students.isEmpty()){
 				req.setAttribute("message" , "学生情報が存在しませんでした。");
 			}else{
-			return "student_list_sample.jsp";
+			return "student_list.jsp";
 			}
 
 		} else if (entYear != 0 && classNum.equals("0")) {
@@ -92,7 +92,7 @@ public class StudentListAction extends Action {
 			if (students == null || students.isEmpty()){
 				req.setAttribute("message" , "学生情報が存在しませんでした。");
 			}else{
-			return "student_list_sample.jsp";
+			return "student_list.jsp";
 			}
 
 		}else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
@@ -133,7 +133,7 @@ public class StudentListAction extends Action {
 		req.setAttribute("ent_year_set", entYearSet); // 入学年度リスト
 
 		//JSPへフォワード7
-		return "student_list_sample.jsp";
+		return "student_list.jsp";
 
 
 	}
