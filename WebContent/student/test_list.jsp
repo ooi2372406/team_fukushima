@@ -155,7 +155,7 @@
                 	<td>
                 	<c:choose>
                 	<c:when test="${not empty f4 }">
-                	<input style="width:100%  border-radius:5%;  padding-top:5px; padding-bottom:5px; " type="text" name="f4" value="${ f4 }">
+                	<input style="width:100%  border-radius:5%;  padding-top:5px; padding-bottom:5px; " type="text" name="f4" class="form-control"value="${ f4 }">
                 	</c:when>
                 	<c:when test="${empty f4 }">
                 	<input style="width:100%;  border-radius:5%;  padding-top:5px; padding-bottom:5px;" type="text" name="f4" class="form-control"placeholder="学生番号を入力してください" required>
@@ -211,7 +211,7 @@
                         		</c:forEach>
 							</table>
         					</c:when>
-        					
+
         					<c:when test="${not empty studentList }">
         					<table style="width:100%; margin-top:auto;">
         						<tr>
