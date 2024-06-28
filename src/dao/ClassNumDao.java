@@ -14,7 +14,7 @@ public class ClassNumDao  extends DAO {
 		Connection con=getConnection();
 
 		PreparedStatement st=con.prepareStatement(
-			"SELECT DISTINCT CLASS_NUM FROM STUDENT WHERE SCHOOL_CD = ? ");
+			"SELECT DISTINCT CLASS_NUM FROM STUDENT WHERE SCHOOL_CD = ? ORDER BY CLASS_NUM ");
 		st.setString(1,school.getCd());
 		ResultSet rs=st.executeQuery();
 
