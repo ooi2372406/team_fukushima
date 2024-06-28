@@ -155,7 +155,7 @@
                 	<td>
                 	<c:choose>
                 	<c:when test="${not empty f4 }">
-                	<input style="width:100%  border-radius:5%;  padding-top:5px; padding-bottom:5px; " type="text" name="f4" class="form-control"value="${ f4 }">
+                	<input style="width:100%  border-radius:5%;  padding-top:5px; padding-bottom:5px; " type="text" name="f4" value="${ f4 }">
                 	</c:when>
                 	<c:when test="${empty f4 }">
                 	<input style="width:100%;  border-radius:5%;  padding-top:5px; padding-bottom:5px;" type="text" name="f4" class="form-control"placeholder="学生番号を入力してください" required>
@@ -176,8 +176,8 @@
         	<c:when test="${not empty testList}">
         	<table style="width:100%; margin-top:auto;">
         			<tr>
-               					 <td><div style="display:block"><p class="mt-3">科目 : ${subjectname}</p></div></td>
-                			</tr>
+               			<td><div style="display:block"><p class="mt-3">科目 : ${subjectname}</p></div></td>
+                	</tr>
 
                 			<tr style="border-bottom: 1px solid  #cecfca;">
                     			<th>入学年度</th>
@@ -212,7 +212,7 @@
 							</table>
         					</c:when>
 
-        					<c:when test="${not empty studentList }">
+							<c:when test="${not empty studentList }">
         					<table style="width:100%; margin-top:auto;">
         						<tr>
                					 <td><div style="display:block"><p class="mt-3">氏名 : ${studentname.name}(${ studentname.no })</p></div></td>
@@ -240,25 +240,30 @@
                         			</tr>
 
                         		</c:forEach>
+
 							</table>
-        					</c:when>
 
-        					<c:when test="${empty studentList && not empty studentmessage}">
-        						<td><div style="display:block"><p class="mt-3">氏名 : ${studentname.name}(${ studentname.no })</p></div></td>
-        						<td><div style="display:block"><p class="mt-3">${studentmessage}</p></div></td>
-        					</c:when>
+							</c:when>
 
-        					<c:when test="${empty studentname.name && not empty studentempty}">
-        					 	<div style="margin: 10px 0 0 20px;">
+
+
+        					<c:when test="${empty studentname.name && not empty studentempty }">
+        					<div style="margin: 10px 0 0 20px;">
                						<label>${studentempty}</label>
             					</div>
         					</c:when>
-
         					<c:when test="${empty testList && not empty errorMessege2}">
         					 	<div style="margin: 10px 0 0 20px;">
                						<label>${errorMessege2}</label>
             					</div>
         					</c:when>
+
+        					<c:when test="${ empty studentList && not empty studentmessage}">
+								<tr>
+               					 <td><div style="display:block"><p class="mt-3">氏名 : ${studentname.name}(${ studentname.no })</p></div></td>
+                				 <td><div style="display:block"><p class="mt-3">${ studentmessage}</p></div></td>
+                				</tr>
+							</c:when>
 
         					<c:when test="${empty testList}">
         					 	<div style="margin: 10px 0 0 20px;">

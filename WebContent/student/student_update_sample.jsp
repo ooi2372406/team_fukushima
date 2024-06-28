@@ -27,7 +27,7 @@
 
             <div class="form-group-create">
                 <label for="subjectName" style="margin:20px 0 0 5px;">氏名</label>
-                <input type="text" class="form-control" name="name" style="width:95%;"required maxlength="30" placeholder="氏名を入力してください">
+                <input type="text" class="form-control" name="name" style="width:95%;"required maxlength="30"  value="${student.name }">
             </div>
 
             <div class="form-group-create">
