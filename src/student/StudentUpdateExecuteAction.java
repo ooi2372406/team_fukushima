@@ -39,7 +39,7 @@ public class StudentUpdateExecuteAction extends Action {
 
 
 			boolean attend = dao.save(student);
-			System.out.println(attend);
+
 
 
 

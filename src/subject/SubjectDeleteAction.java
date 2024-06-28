@@ -32,7 +32,7 @@ public class SubjectDeleteAction extends Action {
 			// 対象の学生を取得
 
 			Subject subject = dao.get(cd , school);
-			System.out.println(subject);
+			
 
 			// studentとcourseListを設定してjspにフォワード
 			request.setAttribute("subject", subject);

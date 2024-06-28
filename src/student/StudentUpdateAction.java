@@ -28,13 +28,13 @@ public class StudentUpdateAction extends Action {
         	School school=teacher.getSchool();
 
         	String no = req.getParameter("f1");
-        	System.out.println(no);
+
         	StudentDao student_dao=new StudentDao();
         	Student student = student_dao.get(no);
 
         	ClassNumDao class_dao = new ClassNumDao();
         	List<String>classnum=class_dao.filter(school);
-        	System.out.println(classnum);
+
         	session.setAttribute("student", student);
         	session.setAttribute("classnum", classnum);
 

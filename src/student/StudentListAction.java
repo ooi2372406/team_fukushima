@@ -126,7 +126,7 @@ public class StudentListAction extends Action {
 		}
 		//リクエストに学生リストをセット
 		req.setAttribute("f3",isAttendStr);
-		System.out.println(isAttendStr);
+		
 		//リクエストにデータをセット
 		req.setAttribute("class_num_set", list);  //クラス
 

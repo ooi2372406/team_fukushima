@@ -33,9 +33,7 @@ public class SubjectListAction extends Action {
 
     		SubjectDAO dao = new SubjectDAO();
     		List<Subject> subjects = dao.filter(school);
-    		for (Subject subject : subjects) {
-                System.out.println("Subject CD: " + subject.getCd() + ", Name: " + subject.getName());
-            }
+    		
     		// HttpSessionオブジェクトを取得し、そこにユーザー情報を設定する
     		HttpSession session = request.getSession();
     		// Teacherオブジェクトをセッションに保存する

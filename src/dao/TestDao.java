@@ -200,19 +200,19 @@ public class TestDao extends DAO {
             "UPDATE TEST SET POINT = ? WHERE STUDENT_NO = ? AND SUBJECT_CD = ? AND SCHOOL_CD = ? AND NO = ?"
         );
         st.setInt(1, test.getPoint());
-        System.out.println(test.getPoint());
+
 
         st.setString(2, test.getStudent().getNo());
-        System.out.println(test.getStudent().getNo());
+
 
         st.setString(3, test.getSubject().getCd());
-        System.out.println(test.getSubject().getCd());
+
 
         st.setString(4, test.getStudent().getSchool().getCd());
-        System.out.println(test.getStudent().getSchool().getCd());
+
 
         st.setInt(5, test.getNo());
-        System.out.println(test.getNo());
+
 
         int line = st.executeUpdate();
 

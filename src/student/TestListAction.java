@@ -82,7 +82,7 @@ public class TestListAction extends Action {
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
         }
         //req.setAttribute("errorMessage",null);
-        System.out.println("ここまではきている3");
+
         return "test_list.jsp";
     }
 

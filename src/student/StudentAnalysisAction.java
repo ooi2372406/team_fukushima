@@ -25,7 +25,7 @@ public class StudentAnalysisAction extends Action {
             Teacher teacher = Util.getUser(req);
             School school = teacher.getSchool();
             String no = req.getParameter("f2");
-            System.out.println(no);
+            
 
             // 科目コードをリストに格納
             List<String> subjects = new ArrayList<>();

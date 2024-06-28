@@ -32,7 +32,7 @@ public class SubjectUpdateAction extends Action {
 		 		// 対象の学生を取得
 
 		 		Subject subjects = dao.get(cd , school);
-		 		System.out.println(subjects);
+		 		
 		 		// studentとcourseListを設定してjspにフォワード
 		 		request.setAttribute("subject", subjects);
 
