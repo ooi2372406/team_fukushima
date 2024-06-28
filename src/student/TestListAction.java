@@ -119,8 +119,14 @@ private void setTestListStudent(HttpServletRequest req, HttpServletResponse res)
         	req.setAttribute("studentList", studentList);
             req.setAttribute("studentname", student);
 
+		}else{
+			req.setAttribute("studentname",student);
+			req.setAttribute("studentmessage","成績情報が存在しませんでした");
 		}
 
+        if (student == null){
+        	req.setAttribute("studentempty", "学生情報が存在しませんでした");
+        }
 
         // 結果をリクエスト属性に設定して、JSPに転送
       //学籍番号保持したまま表示させるための情報入力

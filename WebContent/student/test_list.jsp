@@ -211,7 +211,7 @@
                         		</c:forEach>
 							</table>
         					</c:when>
-        					
+
         					<c:when test="${not empty studentList }">
         					<table style="width:100%; margin-top:auto;">
         						<tr>
@@ -242,6 +242,18 @@
                         		</c:forEach>
 							</table>
         					</c:when>
+
+        					<c:when test="${empty studentList && not empty studentmessage}">
+        						<td><div style="display:block"><p class="mt-3">氏名 : ${studentname.name}(${ studentname.no })</p></div></td>
+        						<td><div style="display:block"><p class="mt-3">${studentmessage}</p></div></td>
+        					</c:when>
+
+        					<c:when test="${empty studentname.name && not empty studentempty}">
+        					 	<div style="margin: 10px 0 0 20px;">
+               						<label>${studentempty}</label>
+            					</div>
+        					</c:when>
+
         					<c:when test="${empty testList && not empty errorMessege2}">
         					 	<div style="margin: 10px 0 0 20px;">
                						<label>${errorMessege2}</label>
