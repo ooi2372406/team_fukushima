@@ -2,6 +2,7 @@ package student;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +42,18 @@ public class TestRegistAction extends Action {
     		List<Subject> subjectList = sdao.filter(school);
     		StudentDao studao = new StudentDao();
     		List<Student> studentList = studao.filter(school, isAttend);
+    		List<Integer> uniqueEnrollYears = studentList.stream()
+                     .map(Student::getEntYear)
+                     .distinct()
+                     .collect(Collectors.toList());
+    		
+    		
+    		List<String> uniqueEnrollClassNum = studentList.stream()
+                    .map(Student::getClassNum)
+                    .distinct()
+                    .collect(Collectors.toList());
+    		session.setAttribute("studentclassnum", uniqueEnrollClassNum);
+    		session.setAttribute("studentYear", uniqueEnrollYears);
     		session.setAttribute("student", studentList);
     		session.setAttribute("subject", subjectList);
 

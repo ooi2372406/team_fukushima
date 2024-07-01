@@ -32,20 +32,66 @@
                                 <!-- 入学年度の選択 -->
                                 <td>
                                     <select style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" name="f1">
-                                        <option value="--------">--------</option>
-                                        <c:forEach var="i" items="${student}">
-                                            <option value="${i.entYear}" <c:if test="${param.f1 == i.entYear}">selected</c:if>>${i.entYear}</option>
-                                        </c:forEach>
+                                        <c:choose>
+					     					<c:when test="${empty testList }">
+					    						<option>--------</option>
+												<c:forEach var="seireki" items="${studentYear}">
+					 								<c:choose>
+					           							<c:when test="${seireki eq selectstudent}">
+					                					<option selected>${seireki}</option>
+					            						</c:when>
+					            				<c:otherwise>
+					                			<option>${seireki}</option>
+					            				</c:otherwise>
+					        			</c:choose>
+					    				</c:forEach>
+					    				</c:when>
+					    				<c:when test="${not empty testList }">
+					    					<c:forEach var="seireki" items="${studentYear}">
+					        					<c:choose>
+					            					<c:when test="${seireki eq selectstudent}">
+					                				<option selected>${seireki}</option>
+					            					</c:when>
+					            				<c:otherwise>
+					                				<option>${seireki}</option>
+					            				</c:otherwise>
+					        					</c:choose>
+					    					</c:forEach>
+					    				</c:when>
+					    				</c:choose>
                                     </select>
                                 </td>
 
                                 <!-- クラスの選択 -->
                                 <td>
                                     <select style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" name="f2">
-                                        <option value="--------">--------</option>
-                                        <c:forEach var="i" items="${student}">
-                                            <option value="${i.classNum}" <c:if test="${param.f2 == i.classNum}">selected</c:if>>${i.classNum}</option>
-                                        </c:forEach>
+                                       <c:choose>
+					     					<c:when test="${empty testList }">
+					    						<option>--------</option>
+												<c:forEach var="seireki" items="${studentclassnum}">
+					 								<c:choose>
+					           							<c:when test="${seireki eq selectstudent}">
+					                					<option selected>${seireki}</option>
+					            						</c:when>
+					            				<c:otherwise>
+					                			<option>${seireki}</option>
+					            				</c:otherwise>
+					        			</c:choose>
+					    				</c:forEach>
+					    				</c:when>
+					    				<c:when test="${not empty testList }">
+					    					<c:forEach var="seireki" items="${studentclassnum}">
+					        					<c:choose>
+					            					<c:when test="${seireki eq selectstudent}">
+					                				<option selected>${seireki}</option>
+					            					</c:when>
+					            				<c:otherwise>
+					                				<option>${seireki}</option>
+					            				</c:otherwise>
+					        					</c:choose>
+					    					</c:forEach>
+					    				</c:when>
+					    				</c:choose>
                                     </select>
                                 </td>
 
@@ -63,7 +109,7 @@
                                 <td>
                                     <select style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" name="f4">
                                         <option value="--------">--------</option>
-                                        <c:forEach var="i" begin="1" end="3">
+                                        <c:forEach var="i" begin="1" end="2">
                                             <option value="${i}" <c:if test="${param.f4 == i}">selected</c:if>>${i}</option>
                                         </c:forEach>
                                     </select>

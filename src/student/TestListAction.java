@@ -24,10 +24,22 @@ import util.Util;
 
 public class TestListAction extends Action {
 
-
-
     public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
         try {
+            // セッションが存在しない場合はログインページにリダイレクト
+            HttpSession session = req.getSession(false);
+            if (session == null) {
+
+                return "/student/login/login.jsp";
+            }
+
+            Teacher teacher = Util.getUser(req);
+            if (teacher == null) {
+               session.invalidate();
+               res.sendRedirect(req.getContextPath() + "/student/login/login.jsp");
+                return null;
+           }
+
             // 前ページから送られてきたデータを受け取る
             String selectclass = req.getParameter("");
             String selectsubject = req.getParameter("");
@@ -38,8 +50,6 @@ public class TestListAction extends Action {
             req.setAttribute("selectsubject", selectsubject);
             //req.setAttribute("selectstudent", selectstsudentNo);
 
-            HttpSession session = req.getSession();
-            Teacher teacher = Util.getUser(req);
             School school = teacher.getSchool();
 
             SubjectDAO subject_dao = new SubjectDAO();
@@ -51,17 +61,14 @@ public class TestListAction extends Action {
             session.setAttribute("classnum", classnum);
 
             // リクエストパラメータ 科目コードと学生コードの値を取得する
-
             String cd = req.getParameter("f");
 
             if (cd != null && !cd.isEmpty() && cd.equals("sj")) {
                 // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
                 setTestListSubject(req, res);
-
             } else if (cd != null && !cd.isEmpty() && cd.equals("st")) {
-                // 科目識別コード"sj"が送られてきたときはsetTestListSubject を実行
+                // 科目識別コード"sj"が送られてきたときはsetTestListStudent を実行
                 setTestListStudent(req, res);
-
             } else {
                 // 上記条件を満たさない場合、通常の処理を実行
                 boolean isAttend = true;  // 在籍中の学生だけを取得
@@ -81,106 +88,65 @@ public class TestListAction extends Action {
             e.printStackTrace();
             res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing request");
         }
-        //req.setAttribute("errorMessage",null);
 
         return "test_list.jsp";
     }
 
-
-
-
-
-
-
-
-
-
-
-private void setTestListStudent(HttpServletRequest req, HttpServletResponse res) throws Exception {
-        // ユーザー情報を取得
-
+    private void setTestListStudent(HttpServletRequest req, HttpServletResponse res) throws Exception {
         Teacher teacher = Util.getUser(req);
         School school = teacher.getSchool();
 
-        //getParameterメソッドでデータを受け取る
-
         String studentCd = req.getParameter("f4");
-        Student student = new Student();
         StudentDao studao = new StudentDao();
-        student = studao.get(studentCd);
-
+        Student student = studao.get(studentCd);
 
         TestListStudentDAO dao = new TestListStudentDAO();
         List<TestListStudent> studentList = dao.filter(student);
 
         if (studentList.size() != 0) {
-        	System.out.println(studentList);
-        	System.out.println("ここまではきている2");
-        	req.setAttribute("studentList", studentList);
+            req.setAttribute("studentList", studentList);
             req.setAttribute("studentname", student);
-
-		}else{
-			req.setAttribute("studentname",student);
-			req.setAttribute("studentmessage","成績情報が存在しませんでした");
-		}
-
-        if (student == null){
-        	req.setAttribute("studentempty", "学生情報が存在しませんでした");
+        } else {
+            req.setAttribute("studentname", student);
+            req.setAttribute("studentmessage", "成績情報が存在しませんでした");
         }
 
-        // 結果をリクエスト属性に設定して、JSPに転送
-      //学籍番号保持したまま表示させるための情報入力
+        if (student == null) {
+            req.setAttribute("studentempty", "学生情報が存在しませんでした");
+        }
+
         req.setAttribute("f4", studentCd);
     }
 
+    private void setTestListSubject(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        HttpSession session = req.getSession();
 
+        Teacher teacher = Util.getUser(req);
+        School school = teacher.getSchool();
 
-private void setTestListSubject(HttpServletRequest req, HttpServletResponse res) throws Exception {
+        String entYear_str = req.getParameter("f1");
+        String classNum = req.getParameter("f2");
+        String subjectname = req.getParameter("f3");
+        String studentCd = req.getParameter("f4");
 
-         HttpSession session = req.getSession();
-
-         // ユーザー情報を取得
-
-         Teacher teacher = Util.getUser(req);
-         School school = teacher.getSchool();
-
-            //getParameterメソッドでデータを受け取る
-        String entYear_str=req.getParameter("f1");
-        String classNum=req.getParameter("f2");
-        String subjectname=req.getParameter("f3");
-      //学籍番号保持したまま表示させるための情報入力
-        String studentCd=req.getParameter("f4");
-        if("--------".equals(entYear_str) || classNum==null || subjectname==null){
-        	// 例: エラーメッセージをセットしてページにリダイレクト
-        	req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
-        }
-        else{
-            int entYear= Integer.parseInt(req.getParameter("f1"));
+        if ("--------".equals(entYear_str) || classNum == null || subjectname == null) {
+            req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
+        } else {
+            int entYear = Integer.parseInt(entYear_str);
 
             Subject subject = new Subject();
             subject.setName(subjectname);
 
             TestListSubjectDAO testdao = new TestListSubjectDAO();
-            System.out.println("ここまではきている1");
             List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
-            System.out.println(testList.size());
 
             if (testList.size() == 0) {
-            	System.out.println("ここまではきている2");
-            	req.setAttribute("errorMessege2", "学生情報が存在しませんでした");
+                req.setAttribute("errorMessege2", "学生情報が存在しませんでした");
+            }
 
-    		}
-
-            // 結果をリクエスト属性に設定して、JSPに転送
             req.setAttribute("testList", testList);
             req.setAttribute("subjectname", subjectname);
-          //学籍番号保持したまま表示させるための情報入力
             req.setAttribute("f4", studentCd);
-
         }
-
-
     }
-
-
 }
