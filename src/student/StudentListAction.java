@@ -19,6 +19,7 @@ import bean.Teacher;
 import dao.ClassNumDao;
 import dao.StudentDao;
 import tool.Action;
+import util.Util;
 
 public class StudentListAction extends Action {
 
@@ -26,8 +27,20 @@ public class StudentListAction extends Action {
 	@Override
     public String execute(HttpServletRequest req , HttpServletResponse res) throws Exception {
 		try{
-			HttpSession session = req.getSession();//セッション
-			Teacher teacher = (Teacher)session.getAttribute("user");
+			 // セッションが存在しない場合はログインページにリダイレクト
+            HttpSession session = req.getSession(false);
+            if (session == null) {
+
+                return "/student/login/login.jsp";
+            }
+
+            Teacher teacher = Util.getUser(req);
+            if (teacher == null) {
+               session.invalidate();
+               res.sendRedirect(req.getContextPath() + "/student/login/login.jsp");
+                return null;
+           }
+
 			int entYear = 0;
 			String entYearStr=req.getParameter("f1");//入力された入学年度
 			String classNum =req.getParameter("f2");//入力されたクラス番号

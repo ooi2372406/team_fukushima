@@ -13,7 +13,7 @@
   	<% } %>
   		<div class="mx-auto my-auto" >
     		<h3 class="mb-auto text-center" style="background-color:whitesmoke;">ログイン</h3>
-    		<form action="LoginExecute.action" class="login-form">
+    		<form action="/student_management/login/LoginExecute.action" class="login-form">
 
   				<div class="form-group formGroup1">
     				<label for="exampleInputEmail1" style="margin-bottom:0;">　ID</label>

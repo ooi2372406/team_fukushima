@@ -18,14 +18,25 @@ public class SubjectListAction extends Action {
         HttpServletRequest request, HttpServletResponse response
     ) throws Exception {
     	try{
+    		 HttpSession session = request.getSession(false);
+             if (session == null) {
 
+                 return "/student/login/login.jsp";
+             }
+
+             Teacher teacher = Util.getUser(request);
+             if (teacher == null) {
+                session.invalidate();
+                response.sendRedirect(request.getContextPath() + "/student/login/login.jsp");
+                 return null;
+            }
     		// 意図的に例外を発生させる処理（普段はつかわない）
     		 //if (true) {
     	     //       throw new RuntimeException("テスト用の予期せぬエラー");
     	     // }
 
     		// getUserメソッドを呼び出してユーザー情報を取得
-    		Teacher teacher = Util.getUser(request);
+
     		// TeacherオブジェクトからSchoolオブジェクトを取得
     		School school = teacher.getSchool();
 
@@ -33,9 +44,9 @@ public class SubjectListAction extends Action {
 
     		SubjectDAO dao = new SubjectDAO();
     		List<Subject> subjects = dao.filter(school);
-    		
-    		// HttpSessionオブジェクトを取得し、そこにユーザー情報を設定する
-    		HttpSession session = request.getSession();
+
+
+
     		// Teacherオブジェクトをセッションに保存する
     		session.setAttribute("subject", subjects);
 

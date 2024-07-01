@@ -25,13 +25,19 @@ public class TestRegistAction extends Action {
     public String execute(
         HttpServletRequest request, HttpServletResponse response) throws Exception {
     	try{
-    		HttpSession session = request.getSession();
-    		// 意図的に例外を発生させる処理（普段はつかわない）
-    		 //if (true) {
-    	     //       throw new RuntimeException("テスト用の予期せぬエラー");
-    	     // }
-    		// getUserメソッドを呼び出してユーザー情報を取得
-    		Teacher teacher = Util.getUser(request);
+    		 // セッションが存在しない場合はログインページにリダイレクト
+            HttpSession session = request.getSession(false);
+            if (session == null) {
+
+                return "/student/login/login.jsp";
+            }
+
+            Teacher teacher = Util.getUser(request);
+            if (teacher == null) {
+               session.invalidate();
+               response.sendRedirect(request.getContextPath() + "/student/login/login.jsp");
+                return null;
+           }
     		// TeacherオブジェクトからSchoolオブジェクトを取得
     		School school = teacher.getSchool();
 
@@ -46,8 +52,8 @@ public class TestRegistAction extends Action {
                      .map(Student::getEntYear)
                      .distinct()
                      .collect(Collectors.toList());
-    		
-    		
+
+
     		List<String> uniqueEnrollClassNum = studentList.stream()
                     .map(Student::getClassNum)
                     .distinct()
@@ -56,6 +62,15 @@ public class TestRegistAction extends Action {
     		session.setAttribute("studentYear", uniqueEnrollYears);
     		session.setAttribute("student", studentList);
     		session.setAttribute("subject", subjectList);
+    		 // 前ページから送られてきたデータを受け取る
+            String selectclass = request.getParameter("");
+            String selectsubject = request.getParameter("");
+            //String selectstsudentNo = req.getParameter("");
+
+            // selected判定のためにセット
+            request.setAttribute("selectclass", selectclass);
+            request.setAttribute("selectsubject", selectsubject);
+            //req.setAttribute("selectstudent", selectstsudentNo);
 
 
     		   String paramF1 = request.getParameter("f1");
