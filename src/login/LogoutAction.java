@@ -20,7 +20,8 @@ public class LogoutAction extends Action {
     		HttpSession session=request.getSession();
 
 
-			session.removeAttribute("user");
+    		session.invalidate();
+
 			return "/student/login/logout.jsp";
     	}catch(Exception e){
    		 // エラーメッセージを設定してエラーページに遷移

@@ -20,14 +20,24 @@ public class StudentUpdateExecuteAction extends Action {
    		 //if (true) {
    	     //       throw new RuntimeException("テスト用の予期せぬエラー");
    	     // }
-			HttpSession session = request.getSession();//セッション
-			// ユーザーからの入力値を受け取る
 
+			 // セッションが存在しない場合はログインページにリダイレクト
+            HttpSession session = request.getSession(false);
+            if (session == null) {
+
+                return "/student/login/login.jsp";
+            }
+
+            Teacher teacher = Util.getUser(request);
+            if (teacher == null) {
+               session.invalidate();
+               response.sendRedirect(request.getContextPath() + "/student/login/login.jsp");
+                return null;
+           }
 			String attendance = request.getParameter("si_attend");
 			boolean isAttend = "true".equals(attendance);
 			// getUserメソッドを呼び出してユーザー情報を取得
-			Teacher teacher = Util.getUser(request);
-			// TeacherオブジェクトからSchoolオブジェクトを取得
+
 			School school = teacher.getSchool();
 
 
@@ -39,7 +49,7 @@ public class StudentUpdateExecuteAction extends Action {
 
 
 			boolean attend = dao.save(student);
-			System.out.println(attend);
+
 
 
 

@@ -39,6 +39,9 @@ public class TestListStudentDAO extends DAO {
             stmt.setString(1, student.getNo());
             ResultSet rs = stmt.executeQuery();
             studentList = postFilter(rs);
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

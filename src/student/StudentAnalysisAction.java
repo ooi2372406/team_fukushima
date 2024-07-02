@@ -21,11 +21,22 @@ public class StudentAnalysisAction extends Action {
 
     public String execute(HttpServletRequest req, HttpServletResponse res) throws IOException {
         try {
-            HttpSession session = req.getSession();
+        	 // セッションが存在しない場合はログインページにリダイレクト
+            HttpSession session = req.getSession(false);
+            if (session == null) {
+
+                return "/student/login/login.jsp";
+            }
+
             Teacher teacher = Util.getUser(req);
+            if (teacher == null) {
+               session.invalidate();
+               res.sendRedirect(req.getContextPath() + "/student/login/login.jsp");
+                return null;
+           }
             School school = teacher.getSchool();
             String no = req.getParameter("f2");
-            System.out.println(no);
+            
 
             // 科目コードをリストに格納
             List<String> subjects = new ArrayList<>();

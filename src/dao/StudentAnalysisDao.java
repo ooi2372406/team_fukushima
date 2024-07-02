@@ -16,7 +16,7 @@ public class StudentAnalysisDao extends DAO {
         List<StudentAnalysis> studentList = new ArrayList<>();
         try {
             if (!set.isBeforeFirst()) {
-                System.out.println("ResultSet is empty.");
+
                 return studentList;
             }
 
@@ -79,20 +79,18 @@ public class StudentAnalysisDao extends DAO {
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setString(1, no);
-            System.out.println("ここまではきている②");
+
             ResultSet rs = stmt.executeQuery();
 
-            System.out.println("SQL executed");
+
             studentList = postFilter(rs);
 
             // デバッグ用に取得したリストを出力
             for (StudentAnalysis students : studentList) {
-                System.out.println("生徒氏名: " + students.getName());
-                System.out.println("生徒コード: " + students.getNo());
-                System.out.println("科目名: " + students.getSubjectName());
-                System.out.println("科目コード: " + students.getSubjectCd());
-                System.out.println("点数: " + students.getPoints());
+
             }
+            stmt.close();
+            con.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,10 +130,11 @@ public class StudentAnalysisDao extends DAO {
 
             // デバッグ用の出力
             for (StudentAnalysis students : subjectPointList) {
-                System.out.println("科目名: " + students.getSubjectName());
-                System.out.println("科目コード: " + students.getSubjectCd());
-                System.out.println("点数: " + students.getPoints());
+
             }
+
+            stmt.close();
+            con.close();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,8 +167,11 @@ public class StudentAnalysisDao extends DAO {
 
             if (rs.next()) {  // 必ず有効な行にいることを確認
                 rank = rs.getInt("RANK");
-                System.out.println(rank);
+
             }
+
+            stmt.close();
+            con.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -202,9 +204,10 @@ public class StudentAnalysisDao extends DAO {
 
             if (rs.next()) {  // 必ず有効な行にいることを確認
                 rank = rs.getInt("RANK");
-                System.out.println(rank);
-            }
 
+            }
+            stmt.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -223,6 +226,9 @@ public class StudentAnalysisDao extends DAO {
             if (rs.next()) {
                 count = rs.getInt("COUNT");
             }
+
+            stmt.close();
+            con.close();
         }
         return count;
     }

@@ -23,11 +23,18 @@ public class TestRegistExecuteAction extends Action {
     public String execute(
         HttpServletRequest request, HttpServletResponse response) throws Exception {
         try {
-            HttpSession session = request.getSession();
+        	 HttpSession session = request.getSession(false);
+             if (session == null) {
 
-            // ユーザー情報を取得
+                 return "/student/login/login.jsp";
+             }
 
-            Teacher teacher = Util.getUser(request);
+             Teacher teacher = Util.getUser(request);
+             if (teacher == null) {
+                session.invalidate();
+                response.sendRedirect(request.getContextPath() + "/student/login/login.jsp");
+                 return null;
+            }
             School school = teacher.getSchool();
 
             // リクエストからパラメータを取得

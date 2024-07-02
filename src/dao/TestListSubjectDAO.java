@@ -83,12 +83,11 @@ public class TestListSubjectDAO extends DAO {
 
             // デバッグ用に取得したリストを出力
             for (TestListSubject subjects : subjectList) {
-                System.out.println("EntYear: " + subjects.getEntYear());
-                System.out.println("StudentName: " + subjects.getStudentName());
-                System.out.println("StudentNo: " + subjects.getStudentNo());
-                System.out.println("ClassNum: " + subjects.getClassNum());
-                System.out.println("Points: " + subjects.getPoints());
+
             }
+
+            stmt.close();
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

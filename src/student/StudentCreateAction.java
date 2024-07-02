@@ -24,13 +24,26 @@ public class StudentCreateAction extends Action {
 
 	@Override
     public String execute(HttpServletRequest req , HttpServletResponse res) throws Exception {
-		HttpSession session = req.getSession();//セッション
+		
+		
+		 // セッションが存在しない場合はログインページにリダイレクト
+        HttpSession session = req.getSession(false);
+        if (session == null) {
+
+            return "/student/login/login.jsp";
+        }
+
+        Teacher teacher = Util.getUser(req);
+        if (teacher == null) {
+           session.invalidate();
+           res.sendRedirect(req.getContextPath() + "/student/login/login.jsp");
+            return null;
+       }
 
 		LocalDate todaysDate = LocalDate.now();//LcalDateインスタンスを取得
 		int year = todaysDate.getYear();//現在の年を取得
 		// getUserメソッドを呼び出してユーザー情報を取得
-		Teacher teacher = Util.getUser(req);
-		// TeacherオブジェクトからSchoolオブジェクトを取得
+		
 		School school = teacher.getSchool();
 
 		ClassNumDao cNumDao = new ClassNumDao();//クラス番号Daoを初期化
