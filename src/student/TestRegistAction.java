@@ -117,7 +117,9 @@ private void setTestListStudent(HttpServletRequest request, HttpServletResponse 
 	// TeacherオブジェクトからSchoolオブジェクトを取得
 		School school = teacher.getSchool();
         int entYear = Integer.parseInt(request.getParameter("f1"));
+        System.out.println(entYear);
         String classNum = request.getParameter("f2");
+        System.out.println(classNum);
         String name = request.getParameter("f3");
         int num = Integer.parseInt(request.getParameter("f4"));
         Test test = new Test();
@@ -131,10 +133,17 @@ private void setTestListStudent(HttpServletRequest request, HttpServletResponse 
         // 学生情報の取得
         TestDao dao = new TestDao();
         List<Test> list = dao.filter(test, entYear, classNum, subject, num, student);
+        System.out.println(list);
+
+        if(list.size() == 0){
+        	request.setAttribute("emptymessage", "その試験はまだ受験した人がおりません");
+        }
 
 
      // テストリストをリクエストに設定
         request.setAttribute("testList", list);
+        request.setAttribute("setYear", entYear);
+        request.setAttribute("setClassNum" , classNum);
 
 /*
         // 結果をリクエスト属性に設定して、JSPに転送

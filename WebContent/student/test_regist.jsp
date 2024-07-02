@@ -10,31 +10,29 @@
         <%@ include file="base.jsp" %>
         <div id="subjectForm" class="form-container">
             <!-- 成績管理用のフォーム -->
-            <form id="subjectForm" style="width:100%; margin-left:20px;"  action="TestRegist.action" method="post">
-
+            <form action="TestRegist.action" method="post">
+                <div class="form-group-create">
                     <!-- 見出し -->
-                    <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;  margin-bottom:20px;">成績管理</h2>
+                    <h2>成績管理</h2>
                     <!-- 条件選択用のテーブル -->
-                    <div style="border:1px solid whitesmoke; height:120px;">
                     <table class="responsive-table-seiseki">
                         <tr>
                             <th><label>入学年度</label></th>
                             <th><label>クラス</label></th>
                             <th><label>科目</label></th>
                             <th><label>回数</label></th>
-                            <td rowspan="2"><button class="btn btn-primary" type="submit" value="検索">検索</button></td>
+                            <td rowspan="2"><button class="btn btn-primary" type="submit" value="検索" style="padding:10px 25px; color:white; background-color:#666666;">検索</button></td>
                         </tr>
                         <tr>
                             <!-- 入学年度の選択 -->
                             <td>
-                                <select name="f1">
+                                <select name="f1" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" required>
                                     <c:choose>
-                                        <c:when test="${empty testList}">
-                                            <option>--------</option>
+                                    	<c:when test="${empty testList && not empty emptymessage}">
                                             <c:forEach var="seireki" items="${studentYear}">
                                                 <c:choose>
-                                                    <c:when test="${seireki eq selectstudent}">
-                                                        <option selected>${seireki}</option>
+                                                    <c:when test="${seireki eq setYear}">
+                                                        <option selected>${setYear}</option>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <option>${seireki}</option>
@@ -42,11 +40,19 @@
                                                 </c:choose>
                                             </c:forEach>
                                         </c:when>
+                                        <c:when test="${empty testList}">
+                                            <option value="">--------</option>
+                                            <c:forEach var="seireki" items="${studentYear}">
+                                                        <option>${seireki}</option>
+                                            </c:forEach>
+                                        </c:when>
+
+
                                         <c:when test="${not empty testList}">
                                             <c:forEach var="seireki" items="${studentYear}">
                                                 <c:choose>
-                                                    <c:when test="${seireki eq selectstudent}">
-                                                        <option selected>${seireki}</option>
+                                                    <c:when test="${seireki eq setYear}">
+                                                        <option selected>${setYear}</option>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <option>${seireki}</option>
@@ -59,14 +65,14 @@
                             </td>
                             <!-- クラスの選択 -->
                             <td>
-                                <select name="f2">
+                                <select name="f2" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;"required>
                                     <c:choose>
-                                        <c:when test="${empty testList}">
-                                            <option>--------</option>
+
+                                    	 <c:when test="${empty testList && not empty emptymessage}">
                                             <c:forEach var="seireki" items="${studentclassnum}">
                                                 <c:choose>
-                                                    <c:when test="${seireki eq selectclass}">
-                                                        <option selected>${seireki}</option>
+                                                    <c:when test="${seireki eq setClassNum}">
+                                                        <option selected>${setClassNum}</option>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <option>${seireki}</option>
@@ -74,11 +80,18 @@
                                                 </c:choose>
                                             </c:forEach>
                                         </c:when>
+                                        <c:when test="${empty testList}">
+                                            <option value="">--------</option>
+                                            <c:forEach var="seireki" items="${studentclassnum}">
+                                                        <option>${seireki}</option>
+                                            </c:forEach>
+                                        </c:when>
+
                                         <c:when test="${not empty testList}">
                                             <c:forEach var="seireki" items="${studentclassnum}">
                                                 <c:choose>
-                                                    <c:when test="${seireki eq selectclass}">
-                                                        <option selected>${seireki}</option>
+                                                    <c:when test="${seireki eq setClassNum}">
+                                                        <option selected>${setClassNum}</option>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <option>${seireki}</option>
@@ -91,8 +104,8 @@
                             </td>
                             <!-- 科目の選択 -->
                             <td>
-                                <select name="f3">
-                                    <option value="--------">--------</option>
+                                <select name="f3" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;"required>
+                                    <option value="">--------</option>
                                     <c:forEach var="i" items="${subject}">
                                         <option value="${i.name}" <c:if test="${param.f3 == i.name}">selected</c:if>>${i.name}</option>
                                     </c:forEach>
@@ -100,8 +113,8 @@
                             </td>
                             <!-- 回数の選択 -->
                             <td>
-                                <select name="f4">
-                                    <option value="--------">--------</option>
+                                <select name="f4" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;"required>
+                                    <option value="">--------</option>
                                     <c:forEach var="i" begin="1" end="2">
                                         <option value="${i}" <c:if test="${param.f4 == i}">selected</c:if>>${i}</option>
                                     </c:forEach>
@@ -109,15 +122,20 @@
                             </td>
                         </tr>
                     </table>
-
                 </div>
             </form>
-
             <!-- 検索結果の表示 -->
+            <c:choose>
+            	<c:when test="${empty testList && not empty emptymessage }">
+            		<p>${emptymessage }</p>
+            	</c:when>
+
+            </c:choose>
             <c:choose>
                 <c:when test="${not empty testList}">
                     <form action="TestRegistExecute.action" method="post">
-                        <table>
+                    <div style="width:100%;">
+                        <table class="right-half">
                             <tr>
                                 <td colspan="5"><div style="display: block;"><p class="mt-3">科目: ${testList.get(0).subject.name } (${testList.get(0).no}回目)</p></div></td>
                             </tr>
@@ -130,7 +148,7 @@
                             </tr>
                             <!-- テストの結果をループで表示 -->
                             <c:forEach var="test" items="${testList}">
-                                <tr>
+                                <tr style="border-bottom: 1px solid #cecfca">
                                     <td>${test.student.entYear}</td>
                                     <td>${test.classNum}</td>
                                     <td>${test.student.no}</td>
@@ -148,9 +166,10 @@
                             </c:forEach>
                             <!-- 登録ボタン -->
                             <tr>
-                                <td colspan="5" style="text-align: center;"><button type="submit" value="登録して終了" style="padding: 10px 35px; border-radius: 15px; margin-top: 20px;">登録して終了</button></td>
+                                <td colspan="5" ><button type="submit" value="登録して終了" style="padding: 10px 35px; border-radius: 5px; margin-top: 20px; color:white; background-color:#666666;">登録して終了</button></td>
                             </tr>
                         </table>
+                        </div>
                     </form>
                 </c:when>
             </c:choose>
