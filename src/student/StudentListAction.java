@@ -46,7 +46,7 @@ public class StudentListAction extends Action {
 			String classNum =req.getParameter("f2");//入力されたクラス番号
 			if (classNum != null && classNum.equals("--------"))  classNum = "0";
 			String isAttendStr=req.getParameter("f3");//入力された在学フラグ
-
+			System.out.println("isAttendStr:" + isAttendStr);
 
 			if (entYearStr != null) {
 				//数値に変換
@@ -55,10 +55,7 @@ public class StudentListAction extends Action {
 
 
 			boolean isAttend = "true".equals(isAttendStr);
-			if (isAttendStr == null){
-				isAttend = false;
-			}
-			System.out.println(isAttend);
+
 
 
 			List<Student> students = null;//学生リスト
@@ -84,6 +81,20 @@ public class StudentListAction extends Action {
 				entYearSet.add(i);
 			}
 
+            // 萱野テスト 全学生取得してフォワード
+			if (isAttendStr == null) {
+				students = sDao.filter(teacher.getSchool());
+				req.setAttribute("studentList", students);
+				req.setAttribute("class_num_set", list);
+				req.setAttribute("ent_year_set", entYearSet);
+
+				// null だけではなく、空のリストの場合も考える
+				if (students == null || students.isEmpty()){
+					req.setAttribute("message" , "学生情報が存在しませんでした。");
+				}else{
+					return "student_list.jsp";
+				}
+			}
 
 
 			if (entYear != 0 && !classNum.equals("0")) {
