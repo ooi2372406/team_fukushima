@@ -17,13 +17,14 @@
 
   				<div class="form-group formGroup1">
     				<label for="exampleInputEmail1" style="margin-bottom:0;">　ID</label>
-    				<input type="text" class="exampleInputEmail1" name="id"   style="border:none;"required/>
+    				<input type="text" class="exampleInputEmail1" name="id" style="border:none;" pattern="[A-Za-z0-9]*" title="英数字のみ入力してください"  placeholder="半角でご入力ください" maxlength="20" required>
+
 
   				</div>
 
   				<div class="form-group formGroup1">
     				<label for="exampleInputEmail1" style="margin-bottom:0;">　パスワード</label>
-    				<input type="password" class="exampleInputEmail1" name="password" id="password" style="border:none"required>
+    				<input type="text" class="exampleInputEmail1" name="password" id="password" style="border:none; pattern="[A-Za-z0-9]*" title="英数字のみ入力してください"  placeholder="20文字以内の半角英数字でご入力ください" maxlength="20"required>
 
   				</div>
   				<div class="form-check text-center" style="margin:10px 0;">

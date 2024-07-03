@@ -115,7 +115,7 @@ public class TestDao extends DAO {
                  resultTest.setClassNum(rs.getString("CLASS_NUM"));
                  resultTest.setPoint(rs.getInt("POINT"));
 
-                 // Create a new Student object for each test result
+                
                  Student resultStudent = new Student();
                  resultStudent.setNo(rs.getString("STUDENT.NO"));
                  resultStudent.setName(rs.getString("STUDENT.NAME"));
@@ -123,7 +123,7 @@ public class TestDao extends DAO {
 
                  resultTest.setStudent(resultStudent);
 
-                 // Set the subject for the test result
+               
                  Subject resultSubject = new Subject();
                  resultSubject.setName(rs.getString("SUBJECT.NAME"));
                  resultSubject.setCd(rs.getString("SUBJECT.CD"));

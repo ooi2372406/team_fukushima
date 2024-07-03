@@ -26,28 +26,110 @@
                 	<td>
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
 
-                	<option selected>--------</option>
-					<c:forEach var="seireki" items="${ent_year_set}">
-                	<option value="${seireki }" <c:if test="${seireki == f1}">selected</c:if>>${seireki }</option>
+                		<c:choose>
+                             <c:when test="${not empty setYear && not empty message}">
 
-                	</c:forEach>
+                                   <c:forEach var="seireki" items="${ent_year_set}">
+                                        <c:choose>
+                                             <c:when test="${seireki eq setYear}">
+                                                  <option selected>${setYear}</option>
+                                             </c:when>
+                                             <c:otherwise>
+                                                  <option>${seireki}</option>
+                                             </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                             </c:when>
 
-                	</select>
-                	</td>
+                             <c:when test="${ empty setYear}">
+
+                                   <option value="">--------</option>
+                                    <c:forEach var="seireki" items="${ent_year_set}">
+                                          <option>${seireki}</option>
+                                    </c:forEach>
+                             </c:when>
+
+                             <c:when test="${not empty setYear}">
+
+                                    <c:forEach var="seireki" items="${ent_year_set}">
+                                         <c:choose>
+                                               <c:when test="${seireki eq setYear}">
+                                                    <option selected>${setYear}</option>
+                                               </c:when>
+                                              <c:otherwise>
+                                                     <option>${seireki}</option>
+                                              </c:otherwise>
+                                         </c:choose>
+                                    </c:forEach>
+                              </c:when>
+                          </c:choose>
+					  </select>
 
 
                 	<td>
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f2" >
-                	<option selected>--------</option>
-					<c:forEach var="i" items="${class_num_set}">
-					<option>${i}</option>
-					</c:forEach>
+                	<c:choose>
+                             <c:when test="${not empty setClassNum && not empty message}">
+
+                                   <c:forEach var="seireki" items="${class_num_set}">
+                                        <c:choose>
+                                             <c:when test="${seireki eq setClassNum}">
+                                                  <option selected>${setClassNum}</option>
+                                             </c:when>
+                                             <c:otherwise>
+                                                  <option>${seireki}</option>
+                                             </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                             </c:when>
+
+                             <c:when test="${ empty setClassNum}">
+
+                                   <option value="">--------</option>
+                                    <c:forEach var="seireki" items="${class_num_set}">
+                                          <option>${seireki}</option>
+                                    </c:forEach>
+                             </c:when>
+
+                             <c:when test="${not empty setClassNum}">
+
+                                    <c:forEach var="seireki" items="${class_num_set}">
+                                         <c:choose>
+                                               <c:when test="${seireki eq setClassNum}">
+                                                    <option selected>${setClassNum}</option>
+                                               </c:when>
+                                              <c:otherwise>
+                                                     <option>${seireki}</option>
+                                              </c:otherwise>
+                                         </c:choose>
+                                    </c:forEach>
+                              </c:when>
+                          </c:choose>
                 	</select>
                 	</td>
                 	</tr>
                 	</table>
-					<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true" checked><label>在学中</label></div>
-                	<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
+                	<c:choose>
+                		<c:when test="${not empty setYear and not attend}">
+
+                			<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label>在学中</label></div>
+                			<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
+                		</c:when>
+                		<c:when test="${empty setYear && not empty message and not attend}">
+
+                			<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label>在学中</label></div>
+                			<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
+                		</c:when>
+                		<c:otherwise>
+
+                			<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true" checked><label>在学中</label></div>
+                			<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
+                		</c:otherwise>
+                	</c:choose>
+
+
+
+
 					</div>
                 </div>
                 </form>

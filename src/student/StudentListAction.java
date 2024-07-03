@@ -44,9 +44,9 @@ public class StudentListAction extends Action {
 			int entYear = 0;
 			String entYearStr=req.getParameter("f1");//入力された入学年度
 			String classNum =req.getParameter("f2");//入力されたクラス番号
-			if (classNum != null && classNum.equals("--------"))  classNum = "0";
+			if (classNum != null && classNum.equals(""))  classNum = "0";
 			String isAttendStr=req.getParameter("f3");//入力された在学フラグ
-			System.out.println("isAttendStr:" + isAttendStr);
+
 
 			if (entYearStr != null) {
 				//数値に変換
@@ -55,6 +55,8 @@ public class StudentListAction extends Action {
 
 
 			boolean isAttend = "true".equals(isAttendStr);
+
+			System.out.println(isAttend);
 
 
 
@@ -88,6 +90,7 @@ public class StudentListAction extends Action {
 				req.setAttribute("class_num_set", list);
 				req.setAttribute("ent_year_set", entYearSet);
 
+
 				// null だけではなく、空のリストの場合も考える
 				if (students == null || students.isEmpty()){
 					req.setAttribute("message" , "学生情報が存在しませんでした。");
@@ -103,6 +106,9 @@ public class StudentListAction extends Action {
 				req.setAttribute("studentList", students);
 				req.setAttribute("class_num_set", list);
 				req.setAttribute("ent_year_set", entYearSet);
+				req.setAttribute("setYear" , entYear);
+				req.setAttribute("setClassNum", classNum);
+				req.setAttribute("attend", isAttend);
 
 				// null だけではなく、空のリストの場合も考える
 				if (students == null || students.isEmpty()){
@@ -112,14 +118,21 @@ public class StudentListAction extends Action {
 				}
 
 			} else if (entYear != 0 && classNum.equals("0")) {
+
 				//入学年度のみ指定
 				students = sDao.filter(teacher.getSchool(), entYear, isAttend);
 				req.setAttribute("studentList", students);
 				req.setAttribute("class_num_set", list);
 				req.setAttribute("ent_year_set", entYearSet);
+				req.setAttribute("setYear" , entYear);
+				req.setAttribute("setClassNum", classNum);
+				req.setAttribute("attend", isAttend);
 				// null だけではなく、空のリストの場合も考える
 				if (students == null || students.isEmpty()){
 					req.setAttribute("message" , "学生情報が存在しませんでした。");
+					req.setAttribute("setYear" , entYear);
+					req.setAttribute("setClassNum", classNum);
+					req.setAttribute("attend", isAttend);
 				}else{
 					return "student_list.jsp";
 				}

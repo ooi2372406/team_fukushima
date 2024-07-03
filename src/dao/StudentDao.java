@@ -125,14 +125,14 @@ public class StudentDao extends DAO {
 
         String condition = "AND ENT_YEAR=? AND CLASS_NUM = ?";
         String order = "ORDER BY NO ASC";
-        String conditionIsAttend = "";
+        String conditionIsAttend = "AND IS_ATTEND = FALSE";
 
         if (isAttend) {
             conditionIsAttend = "AND IS_ATTEND = TRUE";
         }
 
         try {
-            st = con.prepareStatement("SELECT * FROM STUDENT WHERE SCHOOL_CD=? AND IS_ATTEND = TRUE AND ENT_YEAR=? AND CLASS_NUM = ?  ORDER BY NO ASC");
+            st = con.prepareStatement("SELECT * FROM STUDENT WHERE SCHOOL_CD=? " + conditionIsAttend + " AND ENT_YEAR=? AND CLASS_NUM = ?  ORDER BY NO ASC");
             st.setString(1, school.getCd());
             st.setInt(2, entYear);
             st.setString(3, classNum);
@@ -163,48 +163,24 @@ public class StudentDao extends DAO {
 
     public List<Student> filter(School school, int entYear, boolean isAttend) throws Exception {
         List<Student> list = new ArrayList<>();
-        Connection con = getConnection();
-        PreparedStatement st = null;
-        ResultSet rs = null;
-
-        String condition = "AND ENT_YEAR = ?";
-        String order = " ORDER BY NO ASC ";
-        String conditionIsAttend = "";
-
-        if (isAttend) {
-            conditionIsAttend = " AND IS_ATTEND = TRUE";
-        } else {
-        	conditionIsAttend = "AND IS_ATTEND = FALSE";
-        }
-
-        try {
-            st = con.prepareStatement(baseSql + condition + conditionIsAttend + order);
+        String baseSql = "SELECT * FROM STUDENT WHERE SCHOOL_CD = ? ";
+        String condition = "AND ENT_YEAR = ? ";
+        String order = "ORDER BY NO ASC";
+        String conditionIsAttend = isAttend ? "AND IS_ATTEND = TRUE " : "AND IS_ATTEND = FALSE ";
+        
+        try (Connection con = getConnection();
+             PreparedStatement st = con.prepareStatement(baseSql + condition + conditionIsAttend + order)) {
             st.setString(1, school.getCd());
             st.setInt(2, entYear);
-            rs = st.executeQuery();
-
-            list = postFilter(rs, school);
+            try (ResultSet rs = st.executeQuery()) {
+                list = postFilter(rs, school);
+            }
         } catch (Exception e) {
             throw e;
-        } finally {
-            if (st != null) {
-                try {
-                    st.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
-
-            if (con != null) {
-                try {
-                    con.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
         }
         return list;
     }
+
 
     public List<Student> filter(School school, boolean isAttend) throws Exception {
         List<Student> list = new ArrayList<>();
