@@ -35,3 +35,7 @@ document.getElementById('subjectForm').addEventListener('submit', function(event
         codeError.style.display = 'none'; // エラーメッセージを非表示
     }
 });
+
+
+
+
