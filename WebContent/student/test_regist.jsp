@@ -207,6 +207,7 @@ document.getElementById('subjectForm').addEventListener('submit', function(event
         event.preventDefault();
     }
 });
+//
 </script>
 
 <!-- 他のJavaScriptファイルの読み込み -->
