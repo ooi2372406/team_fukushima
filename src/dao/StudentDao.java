@@ -80,6 +80,43 @@ public class StudentDao extends DAO {
         return list;
     }
 
+    // 萱野追記 学校所属の全学生取得filter()-------------------------------------------
+    public List<Student> filter(School school) throws Exception {
+        List<Student> list = new ArrayList<>();
+        Connection con = getConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        String order = " ORDER BY NO ASC";
+
+        try {
+            st = con.prepareStatement(baseSql + order);
+            st.setString(1, school.getCd());
+            rs = st.executeQuery();
+
+            list = postFilter(rs, school);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
+        return list;
+    }
+    // ---------------------------------------------------------
     public List<Student> filter(School school, int entYear, String classNum, boolean isAttend) throws Exception {
         List<Student> list = new ArrayList<>();
         Connection con = getConnection();
@@ -136,6 +173,8 @@ public class StudentDao extends DAO {
 
         if (isAttend) {
             conditionIsAttend = " AND IS_ATTEND = TRUE";
+        } else {
+        	conditionIsAttend = "AND IS_ATTEND = FALSE";
         }
 
         try {
@@ -178,6 +217,8 @@ public class StudentDao extends DAO {
 
         if (isAttend) {
             conditionIsAttend = " AND IS_ATTEND = TRUE";
+        }else{
+        	conditionIsAttend = "AND IS_ATTEND = FALSE";
         }
 
         try {

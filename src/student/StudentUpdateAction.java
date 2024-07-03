@@ -23,8 +23,19 @@ public class StudentUpdateAction extends Action {
 
         // actionに応じた処理の実行
         try {
-        	HttpSession session = req.getSession();
-        	Teacher teacher=Util.getUser(req);
+        	 // セッションが存在しない場合はログインページにリダイレクト
+            HttpSession session = req.getSession(false);
+            if (session == null) {
+
+                return "/student/login/login.jsp";
+            }
+
+            Teacher teacher = Util.getUser(req);
+            if (teacher == null) {
+               session.invalidate();
+               res.sendRedirect(req.getContextPath() + "/student/login/login.jsp");
+                return null;
+           }
         	School school=teacher.getSchool();
 
         	String no = req.getParameter("f1");

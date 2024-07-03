@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.School;
 import bean.Student;
@@ -19,6 +20,19 @@ public class StudentCreateExecuteAction extends Action {
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 		try{
+			 // セッションが存在しない場合はログインページにリダイレクト
+            HttpSession session = request.getSession(false);
+            if (session == null) {
+
+                return "/student/login/login.jsp";
+            }
+
+            Teacher teacher = Util.getUser(request);
+            if (teacher == null) {
+               session.invalidate();
+               response.sendRedirect(request.getContextPath() + "/student/login/login.jsp");
+                return null;
+           }
 			LocalDate todaysDate = LocalDate.now();//LcalDateインスタンスを取得
 			int year = todaysDate.getYear();//現在の年を取得
 			List<Integer> entYearSet = new ArrayList<>();
@@ -33,8 +47,7 @@ public class StudentCreateExecuteAction extends Action {
 			// クラス番号
 			String classNum = request.getParameter("class_num");
 			boolean isAttend = true;
-			// getUserメソッドを呼び出してユーザー情報を取得
-			Teacher teacher = Util.getUser(request);
+			
 			// TeacherオブジェクトからSchoolオブジェクトを取得
 			School school = teacher.getSchool();
 
