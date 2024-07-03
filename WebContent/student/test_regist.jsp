@@ -21,7 +21,7 @@
                             <th><label>クラス</label></th>
                             <th><label>科目</label></th>
                             <th><label>回数</label></th>
-                            <td rowspan="2"><button class="btn btn-primary" type="submit" value="検索" style="padding:10px 25px; color:white; background-color:#666666;">検索</button></td>
+                            <td rowspan="2"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索" style="padding:10px 25px; color:white; background-color:#666666;">検索</button></td>
                         </tr>
                         <tr>
                             <!-- 入学年度の選択 -->
