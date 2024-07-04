@@ -9,16 +9,33 @@
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="SubjectCreateExecute.action" method="post">
             <div class="form-group-create">
                 <h2 style="width: 100%; text-align: left; background-color: gainsboro; padding: 10px 20px;">科目情報登録</h2>
-                <label for="subjectCode" style="margin: 20px 0 10 0px;">科目コード</label>
-                <input type="text" class="form-control" name="cd" placeholder="科目コードを入力してください" style=" width: 95%;" required>
+                <label for="subjectCode" style="margin: 20px 0 10 0px; font-weight:bold">科目コード</label>
+                <c:choose>
+                	<c:when test="${not empty message}">
+                		<input type="text" maxlength="3" class="form-control" name="cd" value="${cd}" style=" width: 95%;" required>
+                	</c:when>
+                	<c:when test="${empty message}">
+                		<input type="text" maxlength="3" class="form-control" name="cd" placeholder="科目コードを入力してください" style=" width: 95%;" required>
+                	</c:when>
+                </c:choose>
+
+
                 <div id="lengthError" style="color: gold; display: none;">科目コードは3文字で入力してください。</div>
                 <c:if test="${not empty message}">
                     <div id="serverError" style="color: gold;">${message}</div>
                 </c:if>
             </div>
             <div class="form-group-create">
-                <label for="subjectName" style="margin: 20px 0 10 0px;">科目名</label>
-                <input type="text" class="form-control" name="name" placeholder="科目名を入力してください" style=" width: 95%;" required>
+                <label for="subjectName" style="margin: 20px 0 10 0px; font-weight:bold">科目名</label>
+                <c:choose>
+                	<c:when test="${not empty message}">
+                		<input type="text"  maxlength="20" class="form-control" name="name" value="${name}"style=" width: 95%;" required>
+                	</c:when>
+                	<c:when test="${empty message}">
+                		 <input type="text"  maxlength="20" class="form-control" name="name" placeholder="科目名を入力してください" style=" width: 95%;" required>
+                	</c:when>
+                </c:choose>
+
             </div>
             <input type="hidden" name="schoolcd" value="${user.school}">
             <div style="width: 100%;">

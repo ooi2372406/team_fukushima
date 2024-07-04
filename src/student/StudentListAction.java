@@ -42,21 +42,25 @@ public class StudentListAction extends Action {
            }
 
 			int entYear = 0;
+
 			String entYearStr=req.getParameter("f1");//入力された入学年度
 			String classNum =req.getParameter("f2");//入力されたクラス番号
 			if (classNum != null && classNum.equals(""))  classNum = "0";
+			if (entYearStr != null && entYearStr.equals("")) entYearStr = null;
 			String isAttendStr=req.getParameter("f3");//入力された在学フラグ
-
+			System.out.println(entYearStr);
+			System.out.println(classNum);
 
 			if (entYearStr != null) {
 				//数値に変換
 					entYear = Integer.parseInt(entYearStr);
-				}//入学年度
+			}
+
+			//入学年度
 
 
 			boolean isAttend = "true".equals(isAttendStr);
 
-			System.out.println(isAttend);
 
 
 
@@ -81,6 +85,17 @@ public class StudentListAction extends Action {
 			//10年前から1年後まで年をリストに追加
 			for (int i = year - 10; i < year + 1; i++) {
 				entYearSet.add(i);
+			}
+			if (entYearStr == null && classNum != null) {
+				System.out.println("こっちにとんでる");
+			    req.setAttribute("yearerrormessage", "クラスを指定する場合は入学年度も指定してください");
+			    students = sDao.filter(teacher.getSchool());
+				req.setAttribute("studentList", students);
+				req.setAttribute("class_num_set", list);
+				req.setAttribute("ent_year_set", entYearSet);
+				req.setAttribute("setClassNum", classNum);
+
+			    return "student_list.jsp";
 			}
 
             // 萱野テスト 全学生取得してフォワード
@@ -125,7 +140,7 @@ public class StudentListAction extends Action {
 				req.setAttribute("class_num_set", list);
 				req.setAttribute("ent_year_set", entYearSet);
 				req.setAttribute("setYear" , entYear);
-				req.setAttribute("setClassNum", classNum);
+
 				req.setAttribute("attend", isAttend);
 				// null だけではなく、空のリストの場合も考える
 				if (students == null || students.isEmpty()){

@@ -20,16 +20,16 @@
 <c:choose>
 	<c:when test="${empty subject}">
 <tr style="border-bottom: solid 1px gainsboro;">
-<td style="width:49%;">科目コード</td>
+<th style="width:49%;">科目コード</th>
 </c:when>
 <c:when test="${not empty subject }">
 <tr style="border-bottom: solid 1px gainsboro;">
-<td style="width:20%;">科目コード</td>
+<th style="width:20%;">科目コード</th>
 </c:when>
 </c:choose>
-<td style="width:60%;">科目名</td>
-<td></td>
-<td></td>
+<th style="width:60%;">科目名</th>
+<th></th>
+<th></th>
 </tr>
 
 <c:forEach var="subject" items="${subject}">

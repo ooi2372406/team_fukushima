@@ -144,6 +144,15 @@
 
 
 				<div style="width:100%;">
+				<c:choose>
+						<c:when test="${not empty yearerrormessage && not empty setClassNum}">
+							<table>
+								<tr>
+									<td style="color:gold;">${yearerrormessage}</td>
+								</tr>
+							</table>
+						</c:when>
+					</c:choose>
                 <table style="width:100%;">
                 	<tr>
                 		<td><p>検索結果 : ${fn:length(studentList)}件</p></td>
