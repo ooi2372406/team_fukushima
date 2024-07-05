@@ -8,7 +8,7 @@
         <%@ include file="base.jsp" %>
 
 		<div style="width:50%; position:relative; margin-left:30px;">
-
+		<button  onclick="window.print(); return false;">このページを印刷する</button >
         <table border="1" style="width:80%; text-align:center;">
         	<tr>
         		<th colspan="6"><c:forEach var="i" items="${students}"><p>${i.name}さん</p></c:forEach></th>

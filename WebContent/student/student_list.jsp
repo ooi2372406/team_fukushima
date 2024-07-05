@@ -24,7 +24,7 @@
                 	</tr>
                 	<tr>
                 	<td>
-                	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
+                	<select class="select-dropdown" style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;" name="f1">
 
                 		<c:choose>
                              <c:when test="${not empty setYear && not empty message}">

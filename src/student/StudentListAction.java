@@ -83,9 +83,35 @@ public class StudentListAction extends Action {
 			//リストを初期化
 			List<Integer> entYearSet = new ArrayList<>();
 			//10年前から1年後まで年をリストに追加
-			for (int i = year - 10; i < year + 1; i++) {
+			for (int i = year - 10; i < year + 10; i++) {
 				entYearSet.add(i);
 			}
+
+			if (entYearStr == null && classNum == null) {
+				System.out.println("こっちにとんでる");
+
+			    students = sDao.filter(teacher.getSchool());
+				req.setAttribute("studentList", students);
+				req.setAttribute("class_num_set", list);
+				req.setAttribute("ent_year_set", entYearSet);
+				req.setAttribute("setClassNum", classNum);
+
+			    return "student_list.jsp";
+			}
+
+
+			if (entYearStr == null && classNum.equals("0")) {
+				System.out.println("こっちにとんでる2");
+
+			    students = sDao.filter(teacher.getSchool());
+				req.setAttribute("studentList", students);
+				req.setAttribute("class_num_set", list);
+				req.setAttribute("ent_year_set", entYearSet);
+
+
+			    return "student_list.jsp";
+			}
+
 			if (entYearStr == null && classNum != null) {
 				System.out.println("こっちにとんでる");
 			    req.setAttribute("yearerrormessage", "クラスを指定する場合は入学年度も指定してください");
@@ -97,7 +123,9 @@ public class StudentListAction extends Action {
 
 			    return "student_list.jsp";
 			}
+/*
 
+*/
             // 萱野テスト 全学生取得してフォワード
 			if (isAttendStr == null) {
 				students = sDao.filter(teacher.getSchool());
