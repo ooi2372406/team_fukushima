@@ -11,11 +11,11 @@
             <div class="form-group-create">
                 <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報変更</h2>
                 <label for="subjectCode" style="margin:20px 0 0 5px;">科目コード</label>
-                <div style="margin:20px 0 0 20px;">${subject.cd}</div>
+                <div><input type="text"  readonly name="cd" value="${subject.cd }" style="margin:20px 0 0 20px; border:none;"></div>
                 <c:if test="${ not empty message }">
                 	<div id="serverError" style="color: gold;　margin-left:20px;">${message}</div>
                 </c:if>
-                <input type="hidden" name="cd" value="${subject.cd }">
+
 
 
             </div>

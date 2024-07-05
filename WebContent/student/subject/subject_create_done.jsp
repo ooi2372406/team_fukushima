@@ -16,7 +16,7 @@
 
   <div class="form-group-create" style="width:100%; margin-left:20px;">
   <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報登録</h2>
-  <div style="width: 100%;text-align: center; background-color:seagreen; padding:10px 20px 10px 20px; margin-bottom:100px;">登録が完了しました</div>
+  <p style="width: 100%;text-align: center; background-color:seagreen; padding:10px 20px 10px 20px; margin-bottom:100px;">登録が完了しました</p>
 
 	<div class="d-flex flex-row bd-highlight mb-3">
   		<div style="margin-right:5rem"><a href="SubjectCreate.action" >戻る</a></div>
