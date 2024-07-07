@@ -26,10 +26,23 @@
                         <tr>
                             <!-- 入学年度の選択 -->
                             <td>
-                                <select name="f1" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;" required>
-                                    <c:choose>
-                                    	<c:when test="${empty testList && not empty emptymessage}">
-                                            <c:forEach var="seireki" items="${studentYear}">
+                                <select name="f1" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;">
+    								<c:choose>
+        								<c:when test="${empty testList && not empty yearerrormessage && not empty setYear}">
+        								<h1>1</h1>
+            								<c:forEach var="seireki" items="${studentYear}">
+                								<c:choose>
+                    								<c:when test="${seireki eq setYear}">
+                        								<option selected>${setYear}</option>
+                    								</c:when>
+                    								<c:otherwise>
+                        								<option>${seireki}</option>
+                    								</c:otherwise>
+                								</c:choose>
+            								</c:forEach>
+        								</c:when>
+        								 <c:when test="${empty testList && not empty emptymessage }">
+                                         <c:forEach var="seireki" items="${studentYear}">
                                                 <c:choose>
                                                     <c:when test="${seireki eq setYear}">
                                                         <option selected>${setYear}</option>
@@ -39,36 +52,46 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:forEach>
-                                        </c:when>
-                                        <c:when test="${empty testList}">
-                                            <option value="">--------</option>
-                                            <c:forEach var="seireki" items="${studentYear}">
-                                                        <option>${seireki}</option>
-                                            </c:forEach>
+
                                         </c:when>
 
+        								<c:when test="${empty testList && not empty yearerrormessage && empty setYear}">
+        								<h1>2</h1>
+        									<option value="">--------</option>
+            								<c:forEach var="seireki" items="${studentYear}">
+                								<option>${seireki}</option>
+            								</c:forEach>
+        								</c:when>
 
-                                        <c:when test="${not empty testList}">
-                                            <c:forEach var="seireki" items="${studentYear}">
-                                                <c:choose>
-                                                    <c:when test="${seireki eq setYear}">
-                                                        <option selected>${setYear}</option>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <option>${seireki}</option>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-                                        </c:when>
-                                    </c:choose>
-                                </select>
+        								<c:when test="${empty testList}">
+        								<h1>3</h1>
+            								<option value="">--------</option>
+            								<c:forEach var="seireki" items="${studentYear}">
+                								<option>${seireki}</option>
+            								</c:forEach>
+        								</c:when>
+        								<c:when test="${not empty testList}">
+            								<c:forEach var="seireki" items="${studentYear}">
+                								<c:choose>
+                    								<c:when test="${seireki eq setYear}">
+                        								<option selected>${setYear}</option>
+                    								</c:when>
+                    								<c:otherwise>
+                        								<option>${seireki}</option>
+                    								</c:otherwise>
+                								</c:choose>
+            								</c:forEach>
+        								</c:when>
+    								</c:choose>
+								</select>
+
                             </td>
                             <!-- クラスの選択 -->
                             <td>
-                                <select name="f2" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;"required>
+                                <select name="f2" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;">
                                     <c:choose>
 
-                                    	 <c:when test="${empty testList && not empty emptymessage}">
+                                    	 <c:when test="${empty testList && not empty yearerrormessage && not empty setClassNum}">
                                             <c:forEach var="seireki" items="${studentclassnum}">
                                                 <c:choose>
                                                     <c:when test="${seireki eq setClassNum}">
@@ -79,6 +102,27 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:forEach>
+                                        </c:when>
+                                        <c:when test="${empty testList && not empty emptymessage }">
+                                         <c:forEach var="seireki" items="${studentclassnum}">
+                                                <c:choose>
+                                                    <c:when test="${seireki eq setClassNum}">
+                                                        <option selected>${setClassNum}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option>${seireki}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+
+                                            <c:when test="${empty testList && not empty yearerrormessage && empty setClassNum}">
+        								<h1>2</h1>
+        									<option value="">--------</option>
+            								<c:forEach var="seireki" items="${studentclassnum}">
+                								<option>${seireki}</option>
+            								</c:forEach>
+        								</c:when>
+
                                         </c:when>
                                         <c:when test="${empty testList}">
                                             <option value="">--------</option>
@@ -104,7 +148,7 @@
                             </td>
                             <!-- 科目の選択 -->
                             <td>
-                                <select name="f3" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;"required>
+                                <select name="f3" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;">
                                     <option value="">--------</option>
                                     <c:forEach var="i" items="${subject}">
                                         <option value="${i.name}" <c:if test="${param.f3 == i.name}">selected</c:if>>${i.name}</option>
@@ -113,7 +157,7 @@
                             </td>
                             <!-- 回数の選択 -->
                             <td>
-                                <select name="f4" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;"required>
+                                <select name="f4" style="width:80%; border-radius:5%; padding-top:5px; padding-bottom:5px;">
                                     <option value="">--------</option>
                                     <c:forEach var="i" begin="1" end="2">
                                         <option value="${i}" <c:if test="${param.f4 == i}">selected</c:if>>${i}</option>
@@ -125,6 +169,11 @@
                 </div>
             </form>
             <!-- 検索結果の表示 -->
+            <c:choose>
+            	<c:when test="${not empty yearerrormessage}">
+            		<p style="color:gold">${yearerrormessage}</p>
+            	</c:when>
+            </c:choose>
             <c:choose>
             	<c:when test="${empty testList && not empty emptymessage }">
             		<p>${emptymessage }</p>

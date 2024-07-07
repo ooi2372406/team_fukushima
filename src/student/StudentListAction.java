@@ -133,11 +133,12 @@ public class StudentListAction extends Action {
 				req.setAttribute("class_num_set", list);
 				req.setAttribute("ent_year_set", entYearSet);
 
-
 				// null だけではなく、空のリストの場合も考える
 				if (students == null || students.isEmpty()){
+
 					req.setAttribute("message" , "学生情報が存在しませんでした。");
 				}else{
+
 					return "student_list.jsp";
 				}
 			}
@@ -166,17 +167,18 @@ public class StudentListAction extends Action {
 				students = sDao.filter(teacher.getSchool(), entYear, isAttend);
 				req.setAttribute("studentList", students);
 				req.setAttribute("class_num_set", list);
-				req.setAttribute("ent_year_set", entYearSet);
-				req.setAttribute("setYear" , entYear);
 
 				req.setAttribute("attend", isAttend);
 				// null だけではなく、空のリストの場合も考える
 				if (students == null || students.isEmpty()){
 					req.setAttribute("message" , "学生情報が存在しませんでした。");
 					req.setAttribute("setYear" , entYear);
-					req.setAttribute("setClassNum", classNum);
+
 					req.setAttribute("attend", isAttend);
 				}else{
+					req.setAttribute("ent_year_set", entYearSet);
+					req.setAttribute("setYear" , entYear);
+
 					return "student_list.jsp";
 				}
 

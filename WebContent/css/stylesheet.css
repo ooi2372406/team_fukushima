@@ -195,32 +195,34 @@ td{height:50px;}
 }
 
 
+
+
+
 @media print {
     body * {
         visibility: hidden;
     }
-    .printableArea, .printableArea * {
+    .printableArea, .printableArea2 {
         visibility: visible;
+        position: absolute;
+        width: 50%;
+        top: 0;
+        bottom: 0;
+        overflow: auto;
     }
     .printableArea {
-        position: absolute;
         left: 0;
-        top: 0;
-        width: 100%;
+        z-index: 1;
+    }
+    .printableArea2 {
+        right: 0;
+        z-index: 2;
+        height: 100%; /* 高さを全体に調整 */
     }
 }
 
-.select-dropdown {
-    width: 80%;
-    border-radius: 5%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    position: relative; /* 相対位置 */
 }
 
-.select-dropdown option {
-    position: relative; /* 相対位置 */
-}
 
 
 .responsive-table-kamoku th:nth-child(1), .responsive-table td:nth-child(1) {
@@ -263,29 +265,3 @@ td{height:50px;}
 .right-half th:nth-child(4) , .right-half td:nth-child(4){width:30%}
 .right-half th:nth-child(5) , .right-half td:nth-child(5){width:10%}
 
-@page {
-    size: A4 portrait;
-    margin: 0;
-}
-@media print {
-  .buttonBlock{
-    display: none;
-  }
-}
-/* CSSのリセット */
-*{
-    margin: 0;
-    padding: 0;
-}
-.buttonBlock {
-    margin: 15px 0;
-    text-align: center;
-}
-.pageBlock {
-    width: 210mm;
-    height: 297mm;
-    box-sizing: border-box;
-    page-break-after: auto;
-    padding: 5mm;
-    margin:auto;
-}
