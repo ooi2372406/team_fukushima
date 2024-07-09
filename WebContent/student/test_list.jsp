@@ -36,8 +36,22 @@
                 	<!-- 入学年度 -->
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;"class="form-control" name="f1">
                 	<c:choose>
+                		<c:when test="${not empty errorMessage}">
+
+
+                			<c:forEach var="seireki" items="${student}">
+					 		<c:choose>
+					           	<c:when test="${seireki eq entYear2}">
+					                <option selected>${entYear2}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${seireki}</option>
+					            </c:otherwise>
+					        </c:choose>
+					     </c:forEach>
+					    </c:when>
 					     <c:when test="${empty testList }">
-					    <option>--------</option>
+					     <option>--------</option>
 					<c:forEach var="seireki" items="${student}">
 					 <c:choose>
 					           <c:when test="${seireki eq selectstudent}">
@@ -68,6 +82,19 @@
                 	<!-- クラス -->
 					<select style="width: 80%; border-radius: 5%; padding-top: 5px; padding-bottom: 5px;"class="form-control"  name="f2">
 					    <c:choose>
+					    <c:when test="${not empty errorMessage}">
+
+                			<c:forEach var="classnum" items="${classnum}">
+					 		<c:choose>
+					           <c:when test="${classnum eq classNum2}">
+					                <option selected>${classNum2}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${classnum}</option>
+					            </c:otherwise>
+					        </c:choose>
+					     </c:forEach>
+					     </c:when>
 					     <c:when test="${empty testList }">
 					    <option>--------</option>
 					    <c:forEach var="classnum" items="${classnum}">
@@ -100,10 +127,24 @@
                 	<!-- 科目 -->
 					<select style="width: 70%; border-radius: 5%; padding-top: 5px; padding-bottom: 5px;"class="form-control"  name="f3">
 					   <c:choose>
+					   <c:when test="${not empty errorMessage}">
+
+                			<c:forEach var="i" items="${subject}">
+					 		<c:choose>
+					           <c:when test="${i.name eq subjectname2}">
+					                <option selected>${subjectname2}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${i.name}</option>
+					            </c:otherwise>
+					        </c:choose>
+					     </c:forEach>
+					     </c:when>
 					   	<c:when test="${empty testList }">
 					   	<option>--------</option>
 					    <c:forEach var="i" items="${subject}">
 					        <c:choose>
+
 					            <c:when test="${i.name eq selectsubject}">
 					                <option selected>${i.name}</option>
 					            </c:when>

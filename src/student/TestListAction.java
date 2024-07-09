@@ -129,8 +129,11 @@ public class TestListAction extends Action {
         String subjectname = req.getParameter("f3");
         String studentCd = req.getParameter("f4");
 
-        if ("--------".equals(entYear_str) || classNum == null || subjectname == null) {
-            req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
+        if ("--------".equals(entYear_str) || "--------".equals(classNum) || "--------".equals(subjectname)) {
+        	req.setAttribute("entYear2",entYear_str );
+        	req.setAttribute("classNum2",classNum );
+        	req.setAttribute("subjectname2",subjectname );
+        	req.setAttribute("errorMessage", "入学年度とクラスと科目を選択してください");
         } else {
             int entYear = Integer.parseInt(entYear_str);
 
