@@ -15,13 +15,12 @@
 
 
   <div class="form-group-create" style="width:100%; margin-left:20px;">
-  <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">成績登録</h2>
-  <div style="width: 100%;text-align: center; background-color:seagreen; padding:10px 20px 10px 20px; margin-bottom:100px;">登録が完了しました</div>
+  <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">コメント追加</h2>
+  <div style="width: 100%;text-align: center; background-color:seagreen; padding:10px 20px 10px 20px; margin-bottom:100px;">コメントを追加しました。</div>
 
 	<div class="d-flex flex-row bd-highlight mb-3">
 
-		<div style="margin-right: 20px;"><a href="TestRegist.action">戻る</a></div>
-  		<div><a href="TestRegist.action">成績参照</a></div>
+  		<div><a href="StudentList.action">学生一覧</a></div>
   	</div>
   </div>
 

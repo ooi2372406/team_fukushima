@@ -6,7 +6,7 @@
 <%@ include file="../../header.jsp" %>
 
 	<% String errorMessage =(String)request.getAttribute("errorMessage"); %>
-	 <main class="mt-xl-5">
+	 <main class="mt-xl-5" style="height:100%;">
   	<div class="container original-border loginstyle" style="width:40%;padding:0; margin-bottom:30px;">
   	<% if (errorMessage != null){%>
   		<div style="color:red"> ${ errorMessage } </div>

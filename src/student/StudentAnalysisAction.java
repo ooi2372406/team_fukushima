@@ -36,7 +36,7 @@ public class StudentAnalysisAction extends Action {
            }
             School school = teacher.getSchool();
             String no = req.getParameter("f2");
-            
+
 
             // 科目コードをリストに格納
             List<String> subjects = new ArrayList<>();
@@ -72,6 +72,13 @@ public class StudentAnalysisAction extends Action {
             session.setAttribute("subject", subject);
             session.setAttribute("subjectRanks1", subjectRanks1);
             session.setAttribute("subjectRanks2", subjectRanks2);
+            session.setAttribute("studentno", no);
+
+            List<StudentAnalysis> comment = dao.getComment(no);
+            session.setAttribute("comment", comment);
+            if(comment == null){
+            	session.setAttribute("comment", "まだコメントされておりません");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,4 +86,6 @@ public class StudentAnalysisAction extends Action {
         }
         return "student_analysis.jsp";
     }
+
+
 }

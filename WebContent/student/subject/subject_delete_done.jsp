@@ -3,7 +3,7 @@
 <%@ include file="../../head.jsp" %>
 <%@ include file="../../header.jsp" %>
 <%  %>
-<main>
+<main style="height:100vh;">
 	<div class="kamokucontainer-create" >
 
 	<%@ include file="../base.jsp" %>

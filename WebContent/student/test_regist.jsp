@@ -4,7 +4,7 @@
 <!-- 共通のヘッダーとヘッドファイルをインクルード -->
 <%@ include file="../../head.jsp" %>
 <%@ include file="../../header.jsp" %>
-<main>
+<main style="height:100vh;">
     <div class="kamokucontainer-create">
         <!-- ベースファイルをインクルード -->
         <%@ include file="base.jsp" %>

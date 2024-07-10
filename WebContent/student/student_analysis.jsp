@@ -4,88 +4,102 @@
 <%@ include file="../../head.jsp" %>
 <%@ include file="../../header.jsp" %>
 <main>
-    <div  class="kamokucontainer-create">
+    <div class="kamokucontainer-create">
         <%@ include file="base.jsp" %>
 
-		<div style="width:50%; position:relative; margin-left:30px;">
-		<button  onclick="window.print(); return false;">このページを印刷する</button >
-        <table  class="printableArea"  border="1" style="width:80%; text-align:center;">
-        	<tr>
-        		<th colspan="6"><c:forEach var="i" items="${students}"><p>${i.name}さん</p></c:forEach></th>
-            </tr>
-
-            <tr>
-            	<th>科目</th>
-                <c:forEach var="student" items="${students}">
-                    <c:forEach var="point" items="${student.points}">
-                        <th>${point.key}</th>
+        <div style="width:50%; position:relative; margin-left:30px;">
+            <button onclick="window.print(); return false;">このページを印刷する</button>
+            <button onclick="addCommentRow()">コメントを追加</button>
+			<form id="commentForm" action="StudentAnalysisExecute.action"  method="post">
+			<input type="hidden" name="f2" value="${ studentno }">
+            <table id="commentTable" class="printableArea" border="1" style="width:80%; text-align:center;">
+                <tr>
+                    <th colspan="6">
+                        <c:forEach var="i" items="${students}">
+                            <p>${i.name}さん</p>
+                        </c:forEach>
+                    </th>
+                </tr>
+                <tr>
+                    <th>科目</th>
+                    <c:forEach var="student" items="${students}">
+                        <c:forEach var="point" items="${student.points}">
+                            <th>${point.key}</th>
+                        </c:forEach>
                     </c:forEach>
-                </c:forEach>
-            </tr>
-             <tr>
-             	<th>平均点数</th>
-                <c:forEach var="student" items="${students}">
-                    <c:forEach var="point" items="${student.points}">
-                        <th>${point.value}</th>
+                </tr>
+                <tr>
+                    <th>平均点数</th>
+                    <c:forEach var="student" items="${students}">
+                        <c:forEach var="point" items="${student.points}">
+                            <th>${point.value}</th>
+                        </c:forEach>
                     </c:forEach>
-                </c:forEach>
-			</tr>
-			<tr>
-			<th>学年平均</th>
-                <c:forEach var="subject" items="${subject}">
-                    <c:forEach var="point" items="${subject.points}">
-                        <th>${point.value}</th>
+                </tr>
+                <tr>
+                    <th>学年平均</th>
+                    <c:forEach var="subject" items="${subject}">
+                        <c:forEach var="point" items="${subject.points}">
+                            <th>${point.value}</th>
+                        </c:forEach>
                     </c:forEach>
-                </c:forEach>
-            </tr>
-            <tr>
-            <th>判定</th>
-            <c:forEach var="student" items="${students}">
-            	<c:forEach var="i" items="${student.points}">
-            		<c:choose>
-            			<c:when test="${i.value > 89 }">
-            			<th>優</th>
-            			</c:when>
-            			<c:when test="${i.value > 79 }">
-            			<th>秀</th>
-            			</c:when>
-            			<c:when test="${i.value > 69 }">
-            			<th>良</th>
-            			</c:when>
-            			<c:when test="${i.value > 59 }">
-            			<th>可</th>
-            			</c:when>
-            			<c:when test="${i.value <= 59}">
-            			<th style="color:red;">不可</th>
-            			</c:when>
-            		</c:choose>
-            	</c:forEach>
-            </c:forEach>
-            </tr>
-            <tr>
-            <th>一回目順位</th>
-          	<c:forEach var="i" items="${subjectRanks1}">
-            	<th>${i.value }</th>
-            </c:forEach>
-            </tr>
-            <tr>
-            <th>二回目順位</th>
-          	<c:forEach var="i" items="${subjectRanks2}">
-            	<th>${i.value }</th>
-            </c:forEach>
-            </tr>
-            <tr>
-            <th colspan="6" style="height:150px;"><p>教師コメント（仮）</p></th>
-            </tr>
-        </table>
+                </tr>
+                <tr>
+                    <th>判定</th>
+                    <c:forEach var="student" items="${students}">
+                        <c:forEach var="i" items="${student.points}">
+                            <c:choose>
+                                <c:when test="${i.value > 89}">
+                                    <th>優</th>
+                                </c:when>
+                                <c:when test="${i.value > 79}">
+                                    <th>秀</th>
+                                </c:when>
+                                <c:when test="${i.value > 69}">
+                                    <th>良</th>
+                                </c:when>
+                                <c:when test="${i.value > 59}">
+                                    <th>可</th>
+                                </c:when>
+                                <c:when test="${i.value <= 59}">
+                                    <th style="color:red;">不可</th>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <th>一回目順位</th>
+                    <c:forEach var="i" items="${subjectRanks1}">
+                        <th>${i.value}</th>
+                    </c:forEach>
+                </tr>
+                <tr>
+                    <th>二回目順位</th>
+                    <c:forEach var="i" items="${subjectRanks2}">
+                        <th>${i.value}</th>
+                    </c:forEach>
+                </tr>
+                <!-- コメントの部分を追加 -->
+				<c:forEach var="i" items="${comment}">
+    				<tr id="commentRow-${i.index}">
+        				<td class="commenttd" colspan="6">
+            				<p style="text-align:left;">${i.date}</p>
+            				<p>${i.comment}</p>
+            				<form action="StudentAnalysisDelete.action" method="post">
+            				<button class="delete-btn" onclick="deleteCommentRow(${i.index})">削除</button>
+            				</form>
+        				</td>
+    				</tr>
+				</c:forEach>
 
-
-        </div >
-        <div style="position:absolute;right:-250px; width:60%;height:750px;">
-		<canvas id="myRadarChart" style="width:100%;"></canvas>
-		</div>
-		</div>
-
+            </table>
+            </form>
+        </div>
+        <div style="position:absolute; right:-250px; width:60%;">
+            <canvas id="myRadarChart" class="printableArea2" style="width:100%;"></canvas>
+        </div>
+    </div>
 </main>
 
 <%@ include file="../../footer.jsp" %>
@@ -181,12 +195,25 @@ var myRadarChart = new Chart(ctx, {
 //印刷時の設定
 function beforePrint() {
     // グラフの再描画など、印刷に関連する事前の調整を行う
-    // 例えば、グラフのサイズ調整など
+    var canvas = document.getElementById('myRadarChart');
+    if (canvas) {
+        var ctx = canvas.getContext('2d');
+        // ここにグラフの再描画やサイズ調整のコードを追加
+        // 例えば、以下のようにグラフのサイズを調整
+        canvas.style.width = '100%';
+        canvas.style.height = 'auto';
+    }
 }
 
 // 印刷後の設定
 function afterPrint() {
     // 必要に応じて、元の設定に戻す処理など
+    var canvas = document.getElementById('myRadarChart');
+    if (canvas) {
+        // ここに元のサイズに戻すコードを追加
+        canvas.style.width = '';
+        canvas.style.height = '';
+    }
 }
 
 // イベントリスナーの追加
@@ -200,6 +227,73 @@ if (window.matchMedia) {
         }
     });
 }
+
+// windowのbeforeprintとafterprintイベントにも対応
+window.onbeforeprint = beforePrint;
+window.onafterprint = afterPrint;
+
+var rowCounter = ${comment.size()};
+
+function addCommentRow() {
+    rowCounter++;
+
+    // 新しい<tr>要素を作成
+    var newRow = document.createElement("tr");
+    newRow.id = "commentRow-" + rowCounter;
+
+    // 新しい<td>要素を作成し、その中に<input>要素を追加
+    var newCell = document.createElement("td");
+    newCell.setAttribute("colspan", "6"); // colspan="6" を設定
+    newCell.classList.add("commenttd"); // クラスを追加
+
+    var input = document.createElement("textarea");
+    input.rows = 4; // テキストエリアの高さを設定（適宜調整）
+    input.style.width = "100%"; // <textarea>要素の幅を100%に設定
+    input.name = "f3";
+
+    var button = document.createElement("button");
+    button.textContent = "保存"; // ボタンのテキストを設定
+    button.type = "submit"; // ボタンのタイプを設定
+
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "削除";
+    deleteButton.classList.add("delete-btn");
+    deleteButton.onclick = function() {
+        deleteCommentRow(rowCounter);
+    };
+
+    newCell.appendChild(input);
+    newCell.appendChild(button);
+    newCell.appendChild(deleteButton);
+
+    // 新しいセルを行に追加
+    newRow.appendChild(newCell);
+
+    // テーブルに新しい行を追加
+    var table = document.getElementById("commentTable");
+    table.appendChild(newRow);
+}
+
+function deleteCommentRow(rowId) {
+    var row = document.getElementById("commentRow-" + rowId);
+    row.parentNode.removeChild(row);
+}
+
+function saveComment(comment) {
+    // フォームにコメントを設定
+    document.getElementById("commentForm").setAttribute("action", "saveCommentAction?comment=" + encodeURIComponent(comment));
+    // フォームを送信
+    document.getElementById("commentForm").submit();
+}
+
+
+function saveComment(comment) {
+    // フォームにコメントを設定
+    document.getElementById("commentForm").setAttribute("action", "saveCommentAction?comment=" + encodeURIComponent(comment));
+    // フォームを送信
+    document.getElementById("commentForm").submit();
+}
+
 </script>
 </body>
 </html>

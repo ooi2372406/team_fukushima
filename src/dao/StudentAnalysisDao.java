@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -231,6 +232,67 @@ public class StudentAnalysisDao extends DAO {
             con.close();
         }
         return count;
+    }
+
+    public List<StudentAnalysis> getComment(String no) throws Exception{
+    	List<StudentAnalysis> comments = new ArrayList<>();
+    	 try (Connection con = getConnection()) {
+             String sql = "SELECT COMMENTS , COMMENTDATA FROM COMMENTS WHERE STUDENT_NO = ?";
+             PreparedStatement stmt = con.prepareStatement(sql);
+             stmt.setString(1, no);
+
+             ResultSet rs = stmt.executeQuery();
+
+
+             while (rs.next()) {
+            	 StudentAnalysis analysis = new StudentAnalysis();
+                 String setcomment = rs.getString("COMMENTS");
+                 Date setdata = rs.getDate("COMMENTDATA");
+                 analysis.setComment(setcomment);
+                 analysis.setDate(setdata);
+                 comments.add(analysis);
+             }
+
+             stmt.close();
+             con.close();
+         }
+         return comments;
+    }
+
+    // 新規登録するメソッド
+    public boolean save(String no , String comments ,  String cd) throws Exception {
+        Connection con = getConnection();
+        PreparedStatement st = null;
+        String insert = "INSERT INTO COMMENTS VALUES(?, ?, ? , CURRENT_DATE)";
+        int rowCount;
+
+        try {
+            st = con.prepareStatement(insert);
+            st.setString(1, no);
+            st.setString(2, comments);
+            st.setString(3, cd);
+            rowCount = st.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
+
+        return rowCount > 0;
     }
 
 
