@@ -21,7 +21,7 @@
 	<div class="d-flex flex-row bd-highlight mb-3">
 
 		<div style="margin-right: 20px;"><a href="TestRegist.action">戻る</a></div>
-  		<div><a href="TestRegist.action">成績参照</a></div>
+  		<div><a href="TestList.action">成績参照</a></div>
   	</div>
   </div>
 
