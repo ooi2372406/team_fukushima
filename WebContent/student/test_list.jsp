@@ -36,37 +36,54 @@
                 	<!-- 入学年度 -->
                 	<select style="width:80%; border-radius:5%;  padding-top:5px; padding-bottom:5px;"class="form-control" name="f1">
                 	<c:choose>
-                		<c:when test="${not empty errorMessage}">
+                		<c:when test="${not empty errorMessage and entYear2 == '--------'}">
 
-
+							 <option>--------</option>
                 			<c:forEach var="seireki" items="${student}">
-					 		<c:choose>
-					           	<c:when test="${seireki eq entYear2}">
-					                <option selected>${entYear2}</option>
-					            </c:when>
-					            <c:otherwise>
-					                <option>${seireki}</option>
-					            </c:otherwise>
-					        </c:choose>
+								<option>${seireki}</option>
+
 					     </c:forEach>
 					    </c:when>
-					     <c:when test="${empty testList }">
-					     <option>--------</option>
-					<c:forEach var="seireki" items="${student}">
-					 <c:choose>
-					           <c:when test="${seireki eq selectstudent}">
-					                <option selected>${seireki}</option>
-					            </c:when>
-					            <c:otherwise>
+					    <c:when test="${empty testList && not empty errorMessege2}">
+
+							<c:forEach var="seireki" items="${student}">
+					 			<c:choose>
+					           		<c:when test="${seireki eq entYear2}">
+					                	<option selected>${seireki}</option>
+					            	</c:when>
+					            	<c:otherwise>
+					                	<option>${seireki}</option>
+					            	</c:otherwise>
+					        	</c:choose>
+					    	</c:forEach>
+					    </c:when>
+					     <c:when test="${empty testList && not empty errorMessage}">
+
+							<c:forEach var="seireki" items="${student}">
+					 			<c:choose>
+					           		<c:when test="${seireki eq entYear2}">
+					                	<option selected>${seireki}</option>
+					            	</c:when>
+					            	<c:otherwise>
+					                	<option>${seireki}</option>
+					            	</c:otherwise>
+					        	</c:choose>
+					    	</c:forEach>
+					    </c:when>
+					    <c:when test="${empty testList}">
+
+							 <option>--------</option>
+                			<c:forEach var="seireki" items="${student}">
+
+
 					                <option>${seireki}</option>
-					            </c:otherwise>
-					        </c:choose>
-					    </c:forEach>
+
+					     </c:forEach>
 					    </c:when>
 					    <c:when test="${not empty testList }">
 					    <c:forEach var="seireki" items="${student}">
 					        <c:choose>
-					            <c:when test="${seireki eq selectstudent}">
+					            <c:when test="${seireki eq entYear2}">
 					                <option selected>${seireki}</option>
 					            </c:when>
 					            <c:otherwise>
@@ -82,12 +99,12 @@
                 	<!-- クラス -->
 					<select style="width: 80%; border-radius: 5%; padding-top: 5px; padding-bottom: 5px;"class="form-control"  name="f2">
 					    <c:choose>
-					    <c:when test="${not empty errorMessage}">
-
+					    <c:when test="${not empty errorMessage and classNum2 == '--------'}">
+							<option>--------</option>
                 			<c:forEach var="classnum" items="${classnum}">
 					 		<c:choose>
 					           <c:when test="${classnum eq classNum2}">
-					                <option selected>${classNum2}</option>
+					                <option>${classNum2}</option>
 					            </c:when>
 					            <c:otherwise>
 					                <option>${classnum}</option>
@@ -95,11 +112,25 @@
 					        </c:choose>
 					     </c:forEach>
 					     </c:when>
-					     <c:when test="${empty testList }">
-					    <option>--------</option>
+							<c:when test="${empty testList && not empty errorMessege2}">
+
+							<c:forEach var="classnum" items="${classnum}">
+					 			<c:choose>
+					           		<c:when test="${classnum eq classNum2}">
+					                	<option selected>${classnum}</option>
+					            	</c:when>
+					            	<c:otherwise>
+					                	<option>${classnum}</option>
+					            	</c:otherwise>
+					        	</c:choose>
+					    	</c:forEach>
+					    </c:when>
+					     <c:when test="${empty testList && not empty errorMessage}">
+
+
 					    <c:forEach var="classnum" items="${classnum}">
 					        <c:choose>
-					           <c:when test="${classnum eq selectclass}">
+					           <c:when test="${classnum eq classNum2}">
 					                <option selected>${classnum}</option>
 					            </c:when>
 					            <c:otherwise>
@@ -108,10 +139,24 @@
 					        </c:choose>
 					    </c:forEach>
 					    </c:when>
+					    <c:when test="${empty testList}">
+							<option>--------</option>
+                			<c:forEach var="classnum" items="${classnum}">
+					 		<c:choose>
+					           <c:when test="${classnum eq classNum2}">
+					                <option>${classNum2}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option>${classnum}</option>
+					            </c:otherwise>
+					        </c:choose>
+					     </c:forEach>
+					     </c:when>
 					    <c:when test="${not empty testList }">
+					    <h1>3</h1>
 					    <c:forEach var="classnum" items="${classnum}">
 					        <c:choose>
-					            <c:when test="${classnum eq selectclass}">
+					            <c:when test="${classnum eq classNum2}">
 					                <option selected>${classnum}</option>
 					            </c:when>
 					            <c:otherwise>
@@ -127,25 +172,33 @@
                 	<!-- 科目 -->
 					<select style="width: 70%; border-radius: 5%; padding-top: 5px; padding-bottom: 5px;"class="form-control"  name="f3">
 					   <c:choose>
-					   <c:when test="${not empty errorMessage}">
-
+					   <c:when test="${not empty errorMessage and subjectname2 == '--------'}">
+							<option>--------</option>
                 			<c:forEach var="i" items="${subject}">
-					 		<c:choose>
-					           <c:when test="${i.name eq subjectname2}">
-					                <option selected>${subjectname2}</option>
-					            </c:when>
-					            <c:otherwise>
+
 					                <option>${i.name}</option>
-					            </c:otherwise>
-					        </c:choose>
-					     </c:forEach>
+
+					     	</c:forEach>
 					     </c:when>
-					   	<c:when test="${empty testList }">
-					   	<option>--------</option>
+					     <c:when test="${empty testList && not empty errorMessege2}">
+
+							<c:forEach var="i" items="${subject}">
+					 			<c:choose>
+					           		<c:when test="${i.name eq subjectname2}">
+					                	<option selected>${i.name}</option>
+					            	</c:when>
+					            	<c:otherwise>
+					                	<option>${i.name}</option>
+					            	</c:otherwise>
+					        	</c:choose>
+					    	</c:forEach>
+					    </c:when>
+					   	<c:when test="${empty testList && not empty errorMessage}">
+
 					    <c:forEach var="i" items="${subject}">
 					        <c:choose>
 
-					            <c:when test="${i.name eq selectsubject}">
+					            <c:when test="${i.name eq subjectname2}">
 					                <option selected>${i.name}</option>
 					            </c:when>
 					            <c:otherwise>
@@ -154,10 +207,19 @@
 					        </c:choose>
 					    </c:forEach>
 					    </c:when>
+					    <c:when test="${empty testList}">
+							<option>--------</option>
+                			<c:forEach var="i" items="${subject}">
+
+					                <option>${i.name}</option>
+
+					     </c:forEach>
+					     </c:when>
 					    <c:when test="${not empty testList }">
+
 					    <c:forEach var="i" items="${subject}">
 					        <c:choose>
-					            <c:when test="${i.name eq selectsubject}">
+					            <c:when test="${i.name eq subjectname2}">
 					                <option selected>${i.name}</option>
 					            </c:when>
 					            <c:otherwise>

@@ -128,7 +128,9 @@ public class TestListAction extends Action {
         String classNum = req.getParameter("f2");
         String subjectname = req.getParameter("f3");
         String studentCd = req.getParameter("f4");
-
+        System.out.println(entYear_str);
+        System.out.println(classNum);
+        System.out.println(subjectname);
         if ("--------".equals(entYear_str) || "--------".equals(classNum) || "--------".equals(subjectname)) {
         	req.setAttribute("entYear2",entYear_str );
         	req.setAttribute("classNum2",classNum );
@@ -144,9 +146,15 @@ public class TestListAction extends Action {
             List<TestListSubject> testList = testdao.filter(entYear, classNum, subject, school);
 
             if (testList.size() == 0) {
+            	System.out.println("こっちにとんでる");
                 req.setAttribute("errorMessege2", "学生情報が存在しませんでした");
+                req.setAttribute("entYear2",entYear_str );
+            	req.setAttribute("classNum2",classNum );
+            	req.setAttribute("subjectname2",subjectname );
             }
-
+            req.setAttribute("entYear2",entYear_str );
+        	req.setAttribute("classNum2",classNum );
+        	req.setAttribute("subjectname2",subjectname );
             req.setAttribute("testList", testList);
             req.setAttribute("subjectname", subjectname);
             req.setAttribute("f4", studentCd);
