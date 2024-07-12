@@ -23,6 +23,7 @@ public class StudentAnalysisExecuteAction extends Action{
     System.out.println(cd);
 
     String comments = req.getParameter("f3");
+    System.out.println(comments);
     String studentCd = req.getParameter("f2");
     System.out.println(studentCd);
 

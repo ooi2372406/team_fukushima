@@ -38,7 +38,15 @@
                 </c:forEach>
                 </select>
             </div>
-			<div><label>在学中</label><input type="checkbox"  name="si_attend"  style="margin-right:10px;" value="true"></div>
+            <c:choose>
+            	<c:when test="${isAttend  eq 'true'}">
+            	<div><label for="checkupdate">在学中</label><input id="checkupdate" type="checkbox"  name="si_attend"  style="margin-right:10px;" value="true" checked></div>
+            	</c:when>
+            	<c:when test="${isAttend eq 'false' }">
+            	<div><label for="checkupdate">在学中</label><input id="checkupdate" type="checkbox"  name="si_attend"  style="margin-right:10px;" value="true"></div>
+            	</c:when>
+            </c:choose>
+
             <div style="width:100%;">
                 <button type="submit" class="btn btn-primary" style="width:15% padding: 0; margin: 0; text-align: center; display: inline-block; line-height: normal;">変更</button>
             </div>

@@ -39,9 +39,28 @@ public class TestRegistExecuteAction extends Action {
 
             // リクエストからパラメータを取得
             String no = request.getParameter("gakuban");
-            int point = Integer.parseInt(request.getParameter("point_" + no));
+
+
+            // 学生番号を使用して point フィールドの値を取得
+            String pointStr = request.getParameter("point");
+
+            System.out.println(pointStr);
+            int point = 0;
+            if (pointStr != null && !pointStr.trim().isEmpty()) {
+                try {
+                    point = Integer.parseInt(pointStr);
+                } catch (NumberFormatException e) {
+                    // エラーメッセージを設定して、フォームに戻るなどの処理を行う
+                    return "error";
+                }
+            }
+
+            String classnum = request.getParameter("classnum");
             String cd = request.getParameter("kamokucd");
+
+
             int num = Integer.parseInt(request.getParameter("num"));
+
 
 
             // DAOを使って学生、科目、テスト情報を取得
@@ -55,14 +74,32 @@ public class TestRegistExecuteAction extends Action {
 
             // テスト情報を取得して更新
             Test test = dao.get(student, subject, school, num);
+            System.out.println(test);
+
+            System.out.println("学番 : " + no );
+            System.out.println("科目コード" + cd);
+            System.out.println("学校コード" + school.getCd());
+            System.out.println("回数 :" + num);
+            System.out.println("点数 : " + point);
+            System.out.println("クラス番号 : " + classnum);
+
+
+            if (test == null){
+            	boolean createsuccess = dao.save(no , cd , school , num , point , classnum);
+
+            	if (createsuccess){
+            		request.setAttribute("message", "登録しました");
+                    return "/student/test_regist_done.jsp";
+            	}
+            }
+
             if (test != null) {
                 test.setPoint(point);
                 test.setStudent(student);
                 test.setSubject(subject);
 
-            List<Test> testList = new ArrayList<>();
-            testList.add(test);
-
+                List<Test> testList = new ArrayList<>();
+                testList.add(test);
 
                 // テスト情報を保存
                 boolean success = dao.save(testList);

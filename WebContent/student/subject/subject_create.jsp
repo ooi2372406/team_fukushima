@@ -20,7 +20,7 @@
                 </c:choose>
 
 
-                <div id="lengthError" style="color: gold; display: none;">科目コードは3文字で入力してください。</div>
+                <div id="lengthError" style="color: gold; display: none;"></div>
                 <c:if test="${not empty message}">
                     <div id="serverError" style="color: gold;">${message}</div>
                 </c:if>

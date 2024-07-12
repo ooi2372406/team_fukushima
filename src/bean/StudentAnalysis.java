@@ -15,6 +15,7 @@ public class StudentAnalysis implements Serializable {
     private Date date;
     private int index; // フィールドとしてindexを定義する場合
     private School school;
+    private int studentid;
 
     public String getNo() {
         return no;
@@ -102,5 +103,14 @@ public class StudentAnalysis implements Serializable {
 	public void setSchool(School school) {
 		this.school = school;
 	}
+
+	public int getStudentId(){
+		return studentid;
+	}
+
+	public void setStudentId(int studentid){
+		this.studentid = studentid;
+	}
+
 
 }

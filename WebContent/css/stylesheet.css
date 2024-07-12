@@ -84,6 +84,10 @@ h2 {
   width:100%;
 }
 
+.right-half2{
+	width:100%;
+}
+
 
 
 .responsive-table-seiseki {
@@ -239,6 +243,32 @@ button.delete-btn {
     display: block;
 }
 
+/* ページネーションスタイル */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pagination a {
+    color: #333;
+    padding: 10px 15px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination a.active {
+    background-color: #666;
+    color: white;
+    border: 1px solid #666;
+}
 
 
 
@@ -281,4 +311,12 @@ button.delete-btn {
 .right-half th:nth-child(3) , .right-half td:nth-child(3){width:20%}
 .right-half th:nth-child(4) , .right-half td:nth-child(4){width:30%}
 .right-half th:nth-child(5) , .right-half td:nth-child(5){width:10%}
+
+.right-half2 th:nth-child(1) , .right-half2 td:nth-child(1){width:20%}
+.right-half2 th:nth-child(2) , .right-half2 td:nth-child(2){width:20%}
+.right-half2 th:nth-child(3) , .right-half2 td:nth-child(3){width:10%}
+.right-half2 th:nth-child(4) , .right-half2 td:nth-child(4){width:15%}
+.right-half2 th:nth-child(5) , .right-half2 td:nth-child(5){width:15%}
+.right-half2 th:nth-child(6) , .right-half2 td:nth-child(6){width:10%}
+.right-half2 th:nth-child(7) , .right-half2 td:nth-child(7){width:10%}
 

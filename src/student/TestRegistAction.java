@@ -57,6 +57,40 @@ public class TestRegistAction extends Action {
             session.setAttribute("student", studentList);
             session.setAttribute("subject", subjectList);
 
+            TestDao testDao = new TestDao();
+            int page = 1; // 取得したいページ番号
+            String pagestr = request.getParameter("page");
+            if(pagestr != null){
+            	page = Integer.parseInt(pagestr);
+            }
+
+            int pageSize = 8; // 1ページあたりのデータ数
+
+
+            int totalTests = testDao.getTotalTests(); // 総テスト件数を取得
+
+            // ページネーションのための計算
+            int totalPages = (int) Math.ceil((double) totalTests / pageSize);
+
+            // ページ番号のバリデーション
+            if (page < 1) {
+                page = 1;
+            } else if (page > totalPages) {
+                page = totalPages;
+            }
+
+            List<Test> tests = testDao.filter(page, pageSize);
+
+
+            // セッションとリクエストに属性を設定
+
+            session.setAttribute("testLists", tests);
+            request.setAttribute("currentPage", page);
+            request.setAttribute("totalPages", totalPages);
+
+
+
+
             // 前ページから送られてきたデータを受け取る
             String selectclass = request.getParameter("");
             String selectsubject = request.getParameter("");
@@ -71,6 +105,8 @@ public class TestRegistAction extends Action {
             String paramF2 = request.getParameter("f2");
             String paramF3 = request.getParameter("f3");
             String paramF4 = request.getParameter("f4");
+
+
 
             // 最初の遷移時またはJSPから戻った際の両方でパラメータをチェック
             if ((paramF1 == null || paramF1.trim().isEmpty()) ||
@@ -95,6 +131,8 @@ public class TestRegistAction extends Action {
 
             setTestListStudent(request, response);
 
+
+
             return "/student/test_regist.jsp"; // ログイン成功時のリダイレクト先
         } catch (Exception e) {
             // エラーメッセージを設定してエラーページに遷移
@@ -117,16 +155,43 @@ public class TestRegistAction extends Action {
         Subject subject = new Subject();
         subject.setName(name);
         Student student = new Student();
+        String subcd = request.getParameter("subcd");
 
         // 学生情報の取得
         TestDao dao = new TestDao();
-        List<Test> list = dao.filter(test, entYear, classNum, subject, num, student);
+
+        int page = 1; // 取得したいページ番号
+        String pagestr = request.getParameter("page");
+        if(pagestr != null){
+        	page = Integer.parseInt(pagestr);
+        }
+
+        int pageSize = 8; // 1ページあたりのデータ数
+
+
+        int totalTests = dao.getTotalTests(); // 総テスト件数を取得
+
+        // ページネーションのための計算
+        int totalPages = (int) Math.ceil((double) totalTests / pageSize);
+
+        // ページ番号のバリデーション
+        if (page < 1) {
+            page = 1;
+        } else if (page > totalPages) {
+            page = totalPages;
+        }
+
+        List<Test> list = dao.filter(test, subject, entYear, classNum);
 
         if (list.size() == 0) {
             request.setAttribute("emptymessage", "その試験はまだ受験した人がおりません");
         }
 
         // テストリストをリクエストに設定
+        request.setAttribute("name", name);
+        request.setAttribute("no", num);
+        request.setAttribute("num", num);
+        request.setAttribute("subjectcd", subcd);
         request.setAttribute("testList", list);
         request.setAttribute("setYear", entYear);
         request.setAttribute("setClassNum", classNum);

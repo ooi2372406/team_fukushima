@@ -112,17 +112,17 @@
                 	<c:choose>
                 		<c:when test="${not empty setYear and not attend}">
 
-                			<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label>在学中</label></div>
+                			<div><input id="check" type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label for="check">在学中</label></div>
                 			<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
                 		</c:when>
                 		<c:when test="${empty setYear && not empty message and not attend}">
 
-                			<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label>在学中</label></div>
+                			<div><input id="check" type="checkbox"  name="f3"  style="margin-right:10px;" value="true"><label for="check">在学中</label></div>
                 			<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
                 		</c:when>
                 		<c:otherwise>
 
-                			<div><input type="checkbox"  name="f3"  style="margin-right:10px;" value="true" checked><label>在学中</label></div>
+                			<div><input id="check" type="checkbox"  name="f3"  style="margin-right:10px;" value="true" checked><label for="check">在学中</label></div>
                 			<div style="margin-left:15%;"><button class="btn btn-primary" type="submit" style="border : none; background-color : #666666;" value="検索">絞込み</button></div>
                 		</c:otherwise>
                 	</c:choose>

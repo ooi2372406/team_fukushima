@@ -42,12 +42,14 @@ public class StudentUpdateAction extends Action {
 
         	StudentDao student_dao=new StudentDao();
         	Student student = student_dao.get(no);
+        	boolean isattend = student.getIsAttend();
 
         	ClassNumDao class_dao = new ClassNumDao();
         	List<String>classnum=class_dao.filter(school);
 
         	session.setAttribute("student", student);
         	session.setAttribute("classnum", classnum);
+        	session.setAttribute("isAttend", isattend);
 
 
 

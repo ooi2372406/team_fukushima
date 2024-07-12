@@ -237,7 +237,7 @@ public class StudentAnalysisDao extends DAO {
     public List<StudentAnalysis> getComment(String no) throws Exception{
     	List<StudentAnalysis> comments = new ArrayList<>();
     	 try (Connection con = getConnection()) {
-             String sql = "SELECT COMMENTS , COMMENTDATA FROM COMMENTS WHERE STUDENT_NO = ?";
+             String sql = "SELECT STUDENT_ID , COMMENTS , COMMENT_DATE FROM COMMENTS WHERE STUDENT_NO = ?";
              PreparedStatement stmt = con.prepareStatement(sql);
              stmt.setString(1, no);
 
@@ -246,8 +246,11 @@ public class StudentAnalysisDao extends DAO {
 
              while (rs.next()) {
             	 StudentAnalysis analysis = new StudentAnalysis();
+            	 int setid = rs.getInt("STUDENT_ID");
                  String setcomment = rs.getString("COMMENTS");
-                 Date setdata = rs.getDate("COMMENTDATA");
+                 Date setdata = rs.getDate("COMMENT_DATE");
+                 analysis.setStudentId(setid);
+
                  analysis.setComment(setcomment);
                  analysis.setDate(setdata);
                  comments.add(analysis);
@@ -263,7 +266,7 @@ public class StudentAnalysisDao extends DAO {
     public boolean save(String no , String comments ,  String cd) throws Exception {
         Connection con = getConnection();
         PreparedStatement st = null;
-        String insert = "INSERT INTO COMMENTS VALUES(?, ?, ? , CURRENT_DATE)";
+        String insert = "INSERT INTO COMMENTS(STUDENT_NO , COMMENTS , SCHOOL_CE , COMMENT_DATE) VALUES(?, ?, ? , CURRENT_DATE)";
         int rowCount;
 
         try {
@@ -271,6 +274,41 @@ public class StudentAnalysisDao extends DAO {
             st.setString(1, no);
             st.setString(2, comments);
             st.setString(3, cd);
+            rowCount = st.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
+
+        return rowCount > 0;
+    }
+
+
+    // 削除するメソッド
+    public boolean delete(int id) throws Exception {
+        Connection con = getConnection();
+        PreparedStatement st = null;
+        String delete = "DELETE FROM COMMENTS WHERE STUDENT_ID  = ?";
+        int rowCount;
+
+        try {
+            st = con.prepareStatement(delete);
+            st.setInt(1, id);
             rowCount = st.executeUpdate();
         } catch (Exception e) {
             throw e;

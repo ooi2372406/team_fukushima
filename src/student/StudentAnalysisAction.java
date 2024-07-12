@@ -58,6 +58,7 @@ public class StudentAnalysisAction extends Action {
             Map<String, String> subjectRanks1 = new LinkedHashMap<>();
             Map<String, String> subjectRanks2 = new LinkedHashMap<>();
 
+
             for (String subjectCode : subjects) {
                 int rank1 = dao.getRank1(no, subjectCode);
                 int rank2 = dao.getRank2(no, subjectCode);
@@ -75,6 +76,7 @@ public class StudentAnalysisAction extends Action {
             session.setAttribute("studentno", no);
 
             List<StudentAnalysis> comment = dao.getComment(no);
+
             session.setAttribute("comment", comment);
             if(comment == null){
             	session.setAttribute("comment", "まだコメントされておりません");

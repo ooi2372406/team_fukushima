@@ -48,8 +48,7 @@ public class StudentListAction extends Action {
 			if (classNum != null && classNum.equals(""))  classNum = "0";
 			if (entYearStr != null && entYearStr.equals("")) entYearStr = null;
 			String isAttendStr=req.getParameter("f3");//入力された在学フラグ
-			System.out.println(entYearStr);
-			System.out.println(classNum);
+
 
 			if (entYearStr != null) {
 				//数値に変換
@@ -88,7 +87,7 @@ public class StudentListAction extends Action {
 			}
 
 			if (entYearStr == null && classNum == null) {
-				System.out.println("こっちにとんでる");
+
 
 			    students = sDao.filter(teacher.getSchool());
 				req.setAttribute("studentList", students);

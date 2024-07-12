@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.School;
 import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDAO;
@@ -36,9 +37,9 @@ public class SubjectDeleteExecuteAction extends Action {
 			String cd=request.getParameter("cd");
 
 			// getUserメソッドを呼び出してユーザー情報を取得
-		
+
 			// TeacherオブジェクトからSchoolオブジェクトを取得
-			//School school = teacher.getSchool();
+			School school = teacher.getSchool();
 
 			// Subjectビーンに設定
 			Subject subject=new Subject();
@@ -48,6 +49,14 @@ public class SubjectDeleteExecuteAction extends Action {
 
 			// SubjectDAOインスタンスを生成
 			SubjectDAO dao=new SubjectDAO();
+
+			Subject subject2 = dao.get(cd, school);
+
+	        if (subject2 == null) {
+
+	            request.setAttribute("errormessage", "科目が存在していません");
+	            return "/student/subject/subject_delete.jsp"; // エラーメッセージを表示するためのJSP
+	        }
 			// SubjectDAOのsavaメソッドを実行してデータベースに登録
 			boolean line = dao.delete(subject);
 

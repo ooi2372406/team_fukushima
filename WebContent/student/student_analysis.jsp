@@ -86,12 +86,11 @@
         				<td class="commenttd" colspan="6">
             				<p style="text-align:left;">${i.date}</p>
             				<p>${i.comment}</p>
-            				<form action="StudentAnalysisDelete.action" method="post">
-            				<button class="delete-btn" onclick="deleteCommentRow(${i.index})">削除</button>
-            				</form>
+            				<button type="button" class="delete-btn" onclick="deleteComment('${i.studentId}')">削除</button>
         				</td>
     				</tr>
 				</c:forEach>
+
 
             </table>
             </form>
@@ -100,6 +99,8 @@
             <canvas id="myRadarChart" class="printableArea2" style="width:100%;"></canvas>
         </div>
     </div>
+
+
 </main>
 
 <%@ include file="../../footer.jsp" %>
@@ -254,8 +255,12 @@ function addCommentRow() {
     var button = document.createElement("button");
     button.textContent = "保存"; // ボタンのテキストを設定
     button.type = "submit"; // ボタンのタイプを設定
+    button.onclick = function() {
+        saveComment(input.value);
+    };
 
     var deleteButton = document.createElement("button");
+    button.type = "button";
     deleteButton.textContent = "削除";
     deleteButton.classList.add("delete-btn");
     deleteButton.onclick = function() {
@@ -281,18 +286,28 @@ function deleteCommentRow(rowId) {
 
 function saveComment(comment) {
     // フォームにコメントを設定
-    document.getElementById("commentForm").setAttribute("action", "saveCommentAction?comment=" + encodeURIComponent(comment));
+    document.getElementById("commentForm").setAttribute("action", "StudentAnalysisExecute.action?comment=" + encodeURIComponent(comment));
     // フォームを送信
     document.getElementById("commentForm").submit();
 }
 
+function deleteComment(studentid) {
+    if (confirm('このコメントを削除しますか？')) {
+        var form = document.createElement("form");
+        form.action = "StudentAnalysisDelete.action";
+        form.method = "post";
 
-function saveComment(comment) {
-    // フォームにコメントを設定
-    document.getElementById("commentForm").setAttribute("action", "saveCommentAction?comment=" + encodeURIComponent(comment));
-    // フォームを送信
-    document.getElementById("commentForm").submit();
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "id";
+        input.value = studentid;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
 }
+
 
 </script>
 </body>

@@ -7,7 +7,7 @@ public class Test implements java.io.Serializable{
 		private Subject subject;
 		private School school;
 		private int no;
-		private int point;
+		private Integer point;
 
 		public Student getStudent(){
 			return student;
@@ -29,7 +29,7 @@ public class Test implements java.io.Serializable{
 			return no;
 		}
 
-		public int getPoint(){
+		public Integer getPoint(){
 			return point;
 		}
 
@@ -53,7 +53,7 @@ public class Test implements java.io.Serializable{
 			this.no = no;
 		}
 
-		public void setPoint(int point){
+		public void setPoint(Integer point){
 			this.point = point;
 		}
 

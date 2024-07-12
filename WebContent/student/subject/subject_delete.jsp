@@ -10,9 +10,15 @@
         <form id="subjectForm" style="width:100%; margin-left:20px;" action="SubjectDeleteExecute.action" method="post">
             <div class="form-group-create">
                 <h2 style="width: 100%;text-align: left; background-color:gainsboro; padding:10px 20px 10px 20px;">科目情報削除</h2>
-
+				<c:choose>
+					<c:when test="${not empty errormessage }">
+						<p>${errormessage }</p>
+					</c:when>
+					<c:when test="${empty errormessage }">
                 <div style="margin:30px 0 0 20px;">「${subject.name }」を削除してもよろしいですか</div>
                 <input type="hidden" name="cd" value="${subject.cd }">
+                </c:when>
+                </c:choose>
             </div>
 
             <div style="width:100%;">
