@@ -1,6 +1,0 @@
---テーブルの作成
-CREATE TABLE SCHOOL
-(CD CHAR(3) PRIMARY KEY NOT NULL , NAME VARCHAR(20));
-
---サンプルデータの挿入
-INSERT INTO SCHOOL VALUES('oom' , '学校名');
